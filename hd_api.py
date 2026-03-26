@@ -24,6 +24,11 @@ def load_lookup():
     print(f"Loaded {len(GL_LOOKUP)} gate-line-color-tone entries")
 
 app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "HD API работает"
+
 CORS(app)
 
 load_lookup()
@@ -497,12 +502,6 @@ def calculate():
     except Exception as e:
         import traceback
         return jsonify({'success': False, 'error': str(e), 'trace': traceback.format_exc()}), 400
-
-
-@app.route("/")
-def home():
-    return "OK"
-
 if __name__ == '__main__':
     print("Human Design API starting on port 8080...")
     app.run(host='0.0.0.0', port=8080, debug=False)
