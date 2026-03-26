@@ -220,9 +220,6 @@ def find_defined_centers(defined_channels):
     return defined_centers
 
 def get_type(defined_channels, defined_centers, personality_gates, design_gates):
-    """
-    Determine Human Design type:
-    - Reflector: 0 channels
     - Manifestor: Motor center connected to Throat, Sacral NOT defined
     - Generator: Sacral defined, not connected to Throat by motor
     - Manifesting Generator: Sacral defined AND connected to Throat (directly or via motor)
@@ -355,7 +352,7 @@ def jd_to_datestr(jd):
     return f"{int(d):02d}.{int(m):02d}.{int(y)} {hour:02d}:{minute:02d}:{second:02d} UTC"
 
 # ─── Main Calculation Endpoint ────────────────────────────────────────────────
-@app.route('/api/calculate', methods=['POST'])
+@app.route('/api/calc', methods=['POST'])
 def calculate():
     try:
         data = request.json
