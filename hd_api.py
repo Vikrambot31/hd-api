@@ -455,5 +455,5 @@ def api_calc():
         return jsonify({'success': False, 'error': str(e), 'trace': traceback.format_exc()}), 400
 
 if __name__ == '__main__':
-    print("Human Design API starting on port 8080...")
-    app.run(host='0.0.0.0', port=8080, debug=False)
+    print("Human Design API starting on port 10000...")
+    app.run(host='0.0.0.0', port=10000, debug=False)
