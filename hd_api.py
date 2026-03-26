@@ -220,11 +220,7 @@ def find_defined_centers(defined_channels):
     return defined_centers
 
 def get_type(defined_channels, defined_centers, personality_gates, design_gates):
-    - Manifestor: Motor center connected to Throat, Sacral NOT defined
-    - Generator: Sacral defined, not connected to Throat by motor
-    - Manifesting Generator: Sacral defined AND connected to Throat (directly or via motor)
-    - Projector: No Sacral, no Motor->Throat connection
-    """
+    """Determine Human Design type."""
     if len(defined_channels) == 0:
         return 'Рефлектор'
     
