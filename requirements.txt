@@ -1,4 +1,4 @@
 flask
-gunicorn
-pyswisseph
 flask-cors
+pyswisseph
+gunicorn

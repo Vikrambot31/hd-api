@@ -223,7 +223,7 @@ def get_type(defined_channels, defined_centers, personality_gates, design_gates)
     - Manifestor: Motor center connected to Throat, Sacral NOT defined
     - Generator: Sacral defined, not connected to Throat by motor
     - Manifesting Generator: Sacral defined AND connected to Throat (directly or via motor)
-    - Projector: No Sacral, no Motor→Throat connection
+    - Projector: No Sacral, no Motor->Throat connection
     """
     if len(defined_channels) == 0:
         return 'Рефлектор'
@@ -352,130 +352,88 @@ def jd_to_datestr(jd):
     return f"{int(d):02d}.{int(m):02d}.{int(y)} {hour:02d}:{minute:02d}:{second:02d} UTC"
 
 # ─── Main Calculation Endpoint ────────────────────────────────────────────────
-@app.route('/api/calc', methods=['POST'])
-def calculate():
+@app.route("/api/calc", methods=["POST"])
+@app.route("/api/calculate", methods=["POST"])
+def api_calc():
     try:
         data = request.json
-        
-        # Parse input
         year  = int(data['year'])
         month = int(data['month'])
         day   = int(data['day'])
         hour  = int(data['hour'])
         minute = int(data['minute'])
         second = int(data.get('second', 0))
-        tz_offset = float(data.get('tz_offset', 0))  # hours, e.g. +3 for Moscow
-        
-        # Convert local time to UTC
+        tz_offset = float(data.get('tz_offset', 0))
+
         ut_hours = hour + minute/60 + second/3600 - tz_offset
-        
-        # Handle day overflow
         birth_jd = swe.julday(year, month, day, ut_hours)
-        
-        # Calculate Design date (Sun 88° earlier)
         design_jd = calculate_design_jd(birth_jd)
-        
+
         iflag = swe.FLG_MOSEPH | swe.FLG_SPEED
-        
-        # Calculate all planet positions
+
         personality_data = []
         design_data = []
-        
         personality_gates = set()
         design_gates = set()
-        
+
         for pid, name_ru, name_en, symbol in PLANETS:
             try:
-                # Personality (birth)
                 res_p, _ = swe.calc_ut(birth_jd, pid, iflag)
                 lon_p = res_p[0]
                 gate_p, line_p, color_p, tone_p = lookup_gate_data(lon_p)
                 personality_gates.add(gate_p)
-                
-                # Design (88° before)
+
                 res_d, _ = swe.calc_ut(design_jd, pid, iflag)
                 lon_d = res_d[0]
                 gate_d, line_d, color_d, tone_d = lookup_gate_data(lon_d)
                 design_gates.add(gate_d)
-                
-                # Earth = Sun + 180°
+
                 personality_data.append({
-                    'planet': name_ru,
-                    'symbol': symbol,
+                    'planet': name_ru, 'symbol': symbol,
                     'longitude': round(lon_p, 6),
-                    'gate': gate_p,
-                    'line': line_p,
-                    'color': color_p,
-                    'tone': tone_p,
+                    'gate': gate_p, 'line': line_p, 'color': color_p, 'tone': tone_p,
                     'gate_line': f"{gate_p}.{line_p}",
                 })
-                
                 design_data.append({
-                    'planet': name_ru,
-                    'symbol': symbol,
+                    'planet': name_ru, 'symbol': symbol,
                     'longitude': round(lon_d, 6),
-                    'gate': gate_d,
-                    'line': line_d,
-                    'color': color_d,
-                    'tone': tone_d,
+                    'gate': gate_d, 'line': line_d, 'color': color_d, 'tone': tone_d,
                     'gate_line': f"{gate_d}.{line_d}",
                 })
-                
-            except Exception as e:
-                # Skip planet if calculation fails
+            except:
                 continue
-        
-        # Add Earth (opposite of Sun)
-        sun_p = personality_data[0]['longitude']
-        sun_d = design_data[0]['longitude']
-        earth_lon_p = (sun_p + 180) % 360
-        earth_lon_d = (sun_d + 180) % 360
+
+        # Earth
+        earth_lon_p = (personality_data[0]['longitude'] + 180) % 360
+        earth_lon_d = (design_data[0]['longitude'] + 180) % 360
         eg_p, el_p, ec_p, et_p = lookup_gate_data(earth_lon_p)
         eg_d, el_d, ec_d, et_d = lookup_gate_data(earth_lon_d)
-        
         personality_gates.add(eg_p)
         design_gates.add(eg_d)
-        
-        earth_p = {'planet': 'Земля', 'symbol': '⊕', 'longitude': round(earth_lon_p, 6),
-                   'gate': eg_p, 'line': el_p, 'color': ec_p, 'tone': et_p, 'gate_line': f"{eg_p}.{el_p}"}
-        earth_d = {'planet': 'Земля', 'symbol': '⊕', 'longitude': round(earth_lon_d, 6),
-                   'gate': eg_d, 'line': el_d, 'color': ec_d, 'tone': et_d, 'gate_line': f"{eg_d}.{el_d}"}
-        
-        # Insert Earth after Sun (index 1)
-        personality_data.insert(1, earth_p)
-        design_data.insert(1, earth_d)
-        
-        # Combine all gates
+        personality_data.insert(1, {'planet':'Земля','symbol':'⊕','longitude':round(earth_lon_p,6),'gate':eg_p,'line':el_p,'color':ec_p,'tone':et_p,'gate_line':f"{eg_p}.{el_p}"})
+        design_data.insert(1, {'planet':'Земля','symbol':'⊕','longitude':round(earth_lon_d,6),'gate':eg_d,'line':el_d,'color':ec_d,'tone':et_d,'gate_line':f"{eg_d}.{el_d}"})
+
         all_gates = personality_gates | design_gates
-        
-        # Find defined channels and centers
         defined_channels = find_defined_channels(all_gates)
         defined_centers = find_defined_centers(defined_channels)
-        
-        # Profile = Personality Sun line / Design Sun line
-        pers_sun_line = personality_data[0]['line']  # Sun is index 0
+
+        pers_sun_line = personality_data[0]['line']
         design_sun_line = design_data[0]['line']
         profile = get_profile(pers_sun_line, design_sun_line)
-        
-        # Type, authority, definition
         hd_type = get_type(defined_channels, defined_centers, personality_gates, design_gates)
         authority = get_authority(defined_centers, hd_type)
         definition = get_definition(defined_channels, defined_centers)
-        
-        # Centers info
+
         centers_info = {}
         for center_en, name_ru in CENTER_NAMES_RU.items():
-            is_defined = center_en in defined_centers
             gates_in_center = CENTERS[center_en]
-            p_gates = [g for g in gates_in_center if g in personality_gates]
-            d_gates = [g for g in gates_in_center if g in design_gates]
             centers_info[center_en] = {
                 'name_ru': name_ru,
-                'defined': is_defined,
-                'personality_gates': p_gates,
-                'design_gates': d_gates,
+                'defined': center_en in defined_centers,
+                'personality_gates': [g for g in gates_in_center if g in personality_gates],
+                'design_gates': [g for g in gates_in_center if g in design_gates],
             }
-        
+
         return jsonify({
             'success': True,
             'birth_date_utc': jd_to_datestr(birth_jd),
@@ -495,10 +453,11 @@ def calculate():
             'defined_centers': list(defined_centers),
             'centers': centers_info,
         })
-        
+
     except Exception as e:
         import traceback
         return jsonify({'success': False, 'error': str(e), 'trace': traceback.format_exc()}), 400
+
 if __name__ == '__main__':
     print("Human Design API starting on port 8080...")
     app.run(host='0.0.0.0', port=8080, debug=False)
