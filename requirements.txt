@@ -1,6 +1,4 @@
 flask
 gunicorn
 pyswisseph
-
-numpy
-pandas
+flask-cors
