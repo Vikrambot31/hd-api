@@ -1,0 +1,6 @@
+flask
+gunicorn
+pyswisseph
+
+numpy
+pandas

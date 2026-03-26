@@ -5,7 +5,7 @@ Uses pyswisseph (Moshier ephemeris) for accurate planet positions.
 Gate/line lookup uses the FullHD table from !Рассчеты_upd_v.5.xlsx
 """
 
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 import swisseph as swe
 import json
@@ -497,12 +497,9 @@ def calculate():
         return jsonify({'success': False, 'error': str(e), 'trace': traceback.format_exc()}), 400
 
 
-@app.route('/', defaults={'path': 'calculator_web.html'})
-@app.route('/<path:path>')
-def serve_static(path):
-    # Serve files from the same directory as this script
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    return send_from_directory(base_dir, path)
+@app.route("/")
+def home():
+    return "OK"
 
 
 # Загрузка при старте (для Gunicorn)
