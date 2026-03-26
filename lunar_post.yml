@@ -1,0 +1,29 @@
+name: Daily Lunar Post
+
+on:
+  schedule:
+    # 07:00 Kyiv = 04:00 UTC (winter UTC+2) / 04:00 UTC (summer UTC+3)
+    # Using 04:00 UTC — covers both winter and summer Kyiv time
+    - cron: '0 4 * * *'
+
+  # Allow manual run from GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  send-lunar-post:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Send daily lunar post to Telegram
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID:   ${{ secrets.CHAT_ID }}
+        run: python lunar_bot.py

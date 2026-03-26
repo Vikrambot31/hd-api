@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Энергетический психотип по дате рождения</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Philosopher:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-deep: #0a0a12;
+    --bg-card: #12121f;
+    --bg-card-hover: #1a1a2e;
+    --accent-gold: #c9a84c;
+    --accent-gold-dim: #8a7234;
+    --accent-violet: #7b5ea7;
+    --text-main: #e8e4dd;
+    --text-muted: #8a8696;
+    --text-bright: #ffffff;
+    --border-subtle: rgba(201,168,76,0.15);
+    --glow-gold: rgba(201,168,76,0.25);
+    --glow-violet: rgba(123,94,167,0.3);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--bg-deep);
+    color: var(--text-main);
+    font-family: 'Philosopher', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 600px 400px at 20% 10%, rgba(123,94,167,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 500px 500px at 80% 80%, rgba(201,168,76,0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .symbol {
+    font-size: 48px;
+    margin-bottom: 12px;
+    opacity: 0.85;
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { filter: drop-shadow(0 0 8px var(--glow-gold)); }
+    50% { filter: drop-shadow(0 0 20px var(--glow-gold)); }
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: clamp(28px, 5vw, 40px);
+    color: var(--text-bright);
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .subtitle {
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .form-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 36px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .form-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+    opacity: 0.5;
+  }
+
+  .form-label {
+    display: block;
+    color: var(--accent-gold);
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+
+  .date-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .field-group label {
+    display: block;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    letter-spacing: 0.05em;
+  }
+
+  select, input[type="number"] {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    color: var(--text-main);
+    padding: 12px 14px;
+    font-family: 'Philosopher', sans-serif;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+  }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%238a8696' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+  }
+
+  select:focus, input:focus {
+    border-color: var(--accent-gold-dim);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
+  }
+
+  option { background: var(--bg-card); color: var(--text-main); }
+
+  .btn-calc {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--accent-gold-dim), var(--accent-gold));
+    color: var(--bg-deep);
+    font-family: 'Philosopher', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.3s, filter 0.3s;
+  }
+
+  .btn-calc:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(201,168,76,0.25);
+    filter: brightness(1.1);
+  }
+
+  .btn-calc:active { transform: translateY(0); }
+
+  /* ── RESULT ── */
+
+  .result-panel {
+    margin-top: 32px;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    pointer-events: none;
+  }
+
+  .result-panel.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .result-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 36px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .result-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.6s;
+  }
+
+  .result-card.glow::after {
+    opacity: 1;
+    box-shadow: inset 0 0 60px rgba(201,168,76,0.06);
+  }
+
+  .result-icon {
+    font-size: 56px;
+    margin-bottom: 8px;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  .result-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    color: var(--accent-gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .result-type {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: clamp(26px, 4vw, 34px);
+    color: var(--text-bright);
+    margin-bottom: 16px;
+  }
+
+  .result-desc {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--text-muted);
+    max-width: 540px;
+    margin: 0 auto 24px;
+  }
+
+  .calc-steps {
+    background: rgba(255,255,255,0.03);
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    text-align: left;
+    margin-top: 20px;
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .calc-steps strong {
+    color: var(--accent-gold);
+    font-weight: 600;
+  }
+
+  .type-badge {
+    display: inline-block;
+    padding: 5px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .type-vampire { background: rgba(220,50,50,0.15); color: #e06060; border: 1px solid rgba(220,50,50,0.2); }
+  .type-donor { background: rgba(80,180,120,0.15); color: #60c090; border: 1px solid rgba(80,180,120,0.2); }
+  .type-neutral { background: rgba(100,140,200,0.15); color: #7aabdd; border: 1px solid rgba(100,140,200,0.2); }
+  .type-white-mage { background: rgba(201,168,76,0.15); color: var(--accent-gold); border: 1px solid rgba(201,168,76,0.25); }
+  .type-black-mage { background: rgba(160,100,200,0.15); color: #b88adb; border: 1px solid rgba(160,100,200,0.2); }
+
+  .error-msg {
+    color: #e06060;
+    font-size: 13px;
+    margin-top: 10px;
+    text-align: center;
+    min-height: 18px;
+  }
+
+  @media (max-width: 480px) {
+    .container { padding: 28px 16px 48px; }
+    .form-card, .result-card { padding: 28px 20px; }
+    .date-row { grid-template-columns: 1fr; gap: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="symbol">✦</div>
+    <h1>Энергетический психотип</h1>
+    <p class="subtitle">Узнайте свой тип энергетики по дате рождения — вампир, донор, нейтрал или маг</p>
+  </header>
+
+  <div class="form-card">
+    <span class="form-label">Укажите дату рождения</span>
+    <div class="date-row">
+      <div class="field-group">
+        <label>День</label>
+        <select id="day">
+          <option value="">—</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Месяц</label>
+        <select id="month">
+          <option value="">—</option>
+          <option value="1">Январь</option>
+          <option value="2">Февраль</option>
+          <option value="3">Март</option>
+          <option value="4">Апрель</option>
+          <option value="5">Май</option>
+          <option value="6">Июнь</option>
+          <option value="7">Июль</option>
+          <option value="8">Август</option>
+          <option value="9">Сентябрь</option>
+          <option value="10">Октябрь</option>
+          <option value="11">Ноябрь</option>
+          <option value="12">Декабрь</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Год</label>
+        <input type="number" id="year" placeholder="1990" min="1900" max="2026">
+      </div>
+    </div>
+    <div class="error-msg" id="error"></div>
+    <button class="btn-calc" onclick="calculate()">Рассчитать</button>
+  </div>
+
+  <div class="result-panel" id="resultPanel">
+    <div class="result-card" id="resultCard">
+      <div class="result-icon" id="resultIcon"></div>
+      <div class="result-number" id="resultNumber"></div>
+      <div class="type-badge" id="typeBadge"></div>
+      <div class="result-type" id="resultType"></div>
+      <div class="result-desc" id="resultDesc"></div>
+      <div class="calc-steps" id="calcSteps"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Заполнение дней
+const daySelect = document.getElementById('day');
+for (let i = 1; i <= 31; i++) {
+  const opt = document.createElement('option');
+  opt.value = i;
+  opt.textContent = i;
+  daySelect.appendChild(opt);
+}
+
+// База данных психотипов
+const psychotypes = {
+  1: {
+    type: 'Энергетический очиститель',
+    icon: '🌑',
+    badge: 'type-vampire',
+    desc: 'Поздравляем, вы Энергетический очиститель! Это удивительный дар, который позволяет вам преобразовывать негативные эмоции других людей и очищать энергетическое пространство вокруг себя. Вы обладаете природной способностью улавливать тяжелые эмоции и трансформировать их в спокойствие и гармонию. Вы склонны неосознанно подпитываться энергией окружающих. Ваше биополе впитывает чужую энергию, что может проявляться в провоцировании эмоциональных реакций у других. Для гармоничной жизни важно осознать эту особенность и научиться восполнять ресурсы из других источников — природы, творчества, медитации.'
+  },
+  2: {
+    type: 'Энергетический очиститель',
+    icon: '🌑',
+    badge: 'type-vampire',
+    desc: 'Поздравляем, вы Энергетический очиститель! Это удивительный дар, который позволяет вам преобразовывать негативные эмоции других людей и очищать энергетическое пространство вокруг себя. Вы обладаете природной способностью улавливать тяжелые эмоции и трансформировать их в спокойствие и гармонию. Ваше энергетическое поле настроено на поглощение чужой энергии. Вы можете чувствовать себя лучше после эмоционально насыщенного общения, когда другие, наоборот, ощущают усталость. Осознание этой особенности — первый шаг к тому, чтобы научиться заряжаться из нейтральных источников и выстраивать здоровые отношения.'
+  },
+  3: {
+    type: 'Нейтрал',
+    icon: '⚖️',
+    badge: 'type-neutral',
+    desc: 'Поздравляем, вы относитесь к Энергетически нейтральному типу! Это особое состояние внутренней гармонии и баланса. Вы не подвержены влиянию внешних энергетических потоков и умеете сохранять спокойствие в любой ситуации. Вы обладаете сильным и защищённым энергетическим полем. Вы не забираете чужую энергию и не отдаёте свою — ваш баланс стабилен. Это даёт вам внутреннюю устойчивость и независимость от энергетического состояния окружающих. Вы часто находитесь в хорошем тонусе и редко подвержены влиянию эмоциональных манипуляций.'
+  },
+  4: {
+    type: 'Эмоциональный алхимик',
+    icon: '🔮',
+    badge: 'type-black-mage',
+    desc: 'Вау, вы Эмоциональный алхимик! Это невероятно редкая и ценная способность управлять энергетическими потоками и трансформировать эмоции по своему желанию. Подобно искусному алхимику, вы можете превращать негатив в позитив, страх в любовь, а гнев в спокойствие. Вы обладаете редкой способностью переключаться между энергетическими состояниями. В благоприятных условиях вы действуете как нейтрал, но при дефиците жизненных сил можете начать заряжаться энергией окружающих. Вы умеете управлять своим энергетическим полем и приспосабливаться к ситуации, но важно не злоупотреблять этой способностью.'
+  },
+  5: {
+    type: 'Донор',
+    icon: '☀️',
+    badge: 'type-donor',
+    desc: 'Wow, вы Энергетический донор! Это прекрасный дар — способность делиться своей энергией и поддерживать других людей. Вы как неиссякаемый источник силы и вдохновения, к которому тянутся окружающие. Вы — источник жизненных сил для окружающих. Ваше биополе щедро делится энергией, и люди рядом с вами чувствуют прилив сил и вдохновения. Однако вы уязвимы перед энергетическими вампирами, поэтому важно контролировать свои ресурсы и не позволять другим опустошать вас. Найдите свой источник восполнения — природа, вода, медитация.'
+  },
+  6: {
+    type: 'Нейтрал',
+    icon: '⚖️',
+    badge: 'type-neutral',
+    desc: 'Поздравляем, вы относитесь к Энергетически нейтральному типу! Это особое состояние внутренней гармонии и баланса. Вы не подвержены влиянию внешних энергетических потоков и умеете сохранять спокойствие в любой ситуации. Ваше энергетическое поле крепкое и самодостаточное. Вы не нуждаетесь в чужой энергии и редко отдаёте свою. Это делает вас устойчивым к негативным влияниям и позволяет сохранять эмоциональный баланс в любых ситуациях. Вы — надёжный и стабильный партнёр, который не создаёт дисбаланса в отношениях.'
+  },
+  7: {
+    type: 'Донор',
+    icon: '☀️',
+    badge: 'type-donor',
+    desc: 'Wow, вы Энергетический донор! Это прекрасный дар — способность делиться своей энергией и поддерживать других людей. Вы как неиссякаемый источник силы и вдохновения, к которому тянутся окружающие. Вы обладаете мощной энергетикой, которую щедро раздаёте окружающим. Люди тянутся к вам, чувствуя ваш позитивный заряд. При этом вы не способны поглощать чужую энергию, поэтому при частом контакте с вампирами ваши силы могут истощаться. Берегите себя — ищите источники подзарядки и не бойтесь ставить границы.'
+  },
+  8: {
+    type: 'Нейтрал',
+    icon: '⚖️',
+    badge: 'type-neutral',
+    desc: 'Поздравляем, вы относитесь к Энергетически нейтральному типу! Это особое состояние внутренней гармонии и баланса. Вы не подвержены влиянию внешних энергетических потоков и умеете сохранять спокойствие в любой ситуации. Вы наделены стабильным энергетическим полем, которое обеспечивает постоянный тонус и защиту от внешних воздействий. Вы не забираете и не отдаёте энергию — ваш внутренний ресурс самодостаточен. Благодаря этому вы успешны, здоровы и уравновешены. Ваше присутствие не истощает и не перегружает окружающих.'
+  },
+  9: {
+    type: 'Белый маг',
+    icon: '✨',
+    badge: 'type-white-mage',
+    desc: 'Ух ты, вы относитесь к типу Светлых! Ваша энергия подобна солнечному свету — яркая, тёплая и жизнеутверждающая. Вы излучаете позитив и оптимизм, заряжая окружающих своим энтузиазмом и радостью жизни. Вы обладаете мощной позитивной энергетикой и способностью управлять своим полем. В отличие от обычного донора, вы можете осознанно делиться энергией, при этом защищая себя от вампиров. Развивая свои способности, вы можете стать практически неуязвимым для негативных влияний и помогать окружающим восстанавливать баланс.'
+  }
+};
+
+function digitSum(n) {
+  while (n > 9) {
+    let s = 0;
+    while (n > 0) {
+      s += n % 10;
+      n = Math.floor(n / 10);
+    }
+    n = s;
+  }
+  return n;
+}
+
+function calculate() {
+  const day = parseInt(document.getElementById('day').value);
+  const month = parseInt(document.getElementById('month').value);
+  const year = parseInt(document.getElementById('year').value);
+  const errorEl = document.getElementById('error');
+  const panel = document.getElementById('resultPanel');
+
+  panel.classList.remove('visible');
+  errorEl.textContent = '';
+
+  if (!day || !month || !year || year < 1900 || year > 2026) {
+    errorEl.textContent = 'Пожалуйста, заполните все поля корректно';
+    return;
+  }
+
+  // Проверка валидности даты
+  const testDate = new Date(year, month - 1, day);
+  if (testDate.getDate() !== day || testDate.getMonth() !== month - 1) {
+    errorEl.textContent = 'Указана некорректная дата';
+    return;
+  }
+
+  // Сложить все цифры даты рождения
+  const dateStr = `${day}${month}${year}`;
+  let totalSum = 0;
+  for (const ch of dateStr) {
+    totalSum += parseInt(ch);
+  }
+
+  // Привести к однозначному числу
+  const firstSum = totalSum;
+  const energyNumber = digitSum(totalSum);
+  const info = psychotypes[energyNumber];
+
+  window.calculatedResult = energyNumber;
+  if (window.parent) {
+    window.parent.calculatedResult = energyNumber;
+  }
+
+  // Пошаговое отображение расчёта
+  const digits = dateStr.split('').join(' + ');
+  let stepsHtml = `<strong>Расчёт:</strong> ${digits} = ${firstSum}`;
+  if (firstSum > 9) {
+    const firstSumDigits = String(firstSum).split('').join(' + ');
+    stepsHtml += `<br>${firstSumDigits} = ${energyNumber}`;
+  }
+  stepsHtml += `<br><strong>Энергетическое число:</strong> ${energyNumber}`;
+
+  document.getElementById('resultIcon').textContent = info.icon;
+  document.getElementById('resultNumber').textContent = `Число ${energyNumber}`;
+  document.getElementById('resultType').textContent = info.type;
+  document.getElementById('resultDesc').textContent = info.desc;
+  document.getElementById('calcSteps').innerHTML = stepsHtml;
+
+  const badge = document.getElementById('typeBadge');
+  badge.className = 'type-badge ' + info.badge;
+  badge.textContent = info.type;
+
+  const card = document.getElementById('resultCard');
+  card.classList.remove('glow');
+
+  setTimeout(() => {
+    panel.classList.add('visible');
+    setTimeout(() => card.classList.add('glow'), 100);
+  }, 100);
+}
+
+// Enter key support
+document.getElementById('year').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') calculate();
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Human Design — Base Theory</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Jost:wght@300;400;500&display=swap');
+  :root {
+    --gold:#c9a84c; --deep:#0d0e14; --mid:#16182a; --light:#f0ece0;
+    --muted:#7a7060; --green:#50c878; --purple:#c880e0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--deep);color:var(--light);font-family:'Jost',sans-serif;padding:30px 12px 60px}
+  h1{font-family:'Cinzel',serif;color:var(--gold);font-size:1.5rem;letter-spacing:.15em;text-align:center;margin-bottom:4px}
+  .vikram{color:#80b8e8;font-size:.82rem;letter-spacing:.1em;text-align:center;margin-bottom:5px}
+  .vikram a{color:#60a0d8;text-decoration:none;border-bottom:1px solid #40688a}
+  .vikram a:hover{color:#90c8f8}
+  .sub{color:#3a3428;font-size:.7rem;letter-spacing:.18em;text-align:center;margin-bottom:24px}
+  svg{max-width:1100px;width:100%;height:auto;display:block;margin:0 auto;filter:drop-shadow(0 16px 50px rgba(0,0,0,.7))}
+
+  /* кликабельные элементы SVG */
+  .clickable{cursor:pointer;transition:opacity .15s}
+  .clickable:hover text{fill:#fff !important}
+  .clickable:hover rect{stroke:#fff !important;stroke-width:2 !important}
+
+  /* ── ТАБЛИЦА ── */
+  .table-wrap{max-width:1100px;margin:56px auto 0;display:flex;flex-direction:column;gap:28px}
+  .table-title{font-family:'Cinzel',serif;color:var(--gold);font-size:1.1rem;letter-spacing:.12em;text-align:center;margin-bottom:8px;padding-top:8px;border-top:1px solid rgba(201,168,76,.2)}
+  section{background:#13151f;border-radius:12px;border:1px solid rgba(201,168,76,.12);overflow:hidden}
+  section h2{padding:14px 22px;font-size:1rem;letter-spacing:.08em;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:8px;font-family:'Cinzel',serif}
+  section h2 .tag{font-family:'Jost',sans-serif;font-size:.6rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;padding:2px 8px;border-radius:20px;opacity:.8}
+  table{width:100%;border-collapse:collapse}
+  th{background:rgba(255,255,255,.03);padding:9px 18px;font-size:.65rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);text-align:left}
+  td{padding:0;border-top:1px solid rgba(255,255,255,.04);vertical-align:top}
+  tr:hover td{background:rgba(255,255,255,.025)}
+  .term-btn{display:block;width:100%;padding:12px 18px;background:none;border:none;color:#e8e0c8;font-family:'Jost',sans-serif;font-size:.88rem;font-weight:500;text-align:left;cursor:pointer;transition:color .15s}
+  .term-btn:hover{color:var(--gold)}
+  .term-btn .ru{display:block;color:var(--gold);font-size:.82rem;font-weight:400;margin-top:2px}
+  .desc-row td{padding:0}
+  .desc-box{padding:14px 22px 16px;background:#0f1018;border-top:1px solid rgba(201,168,76,.15);font-size:.85rem;line-height:1.65;color:#c0baa8;display:none}
+  .desc-box.open{display:block;animation:fadeIn .2s ease}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+  .desc-box strong{color:var(--gold)}
+
+  /* цвета секций */
+  .s-struct h2{color:var(--gold)} .s-struct h2 .tag{background:rgba(201,168,76,.12);color:var(--gold)}
+  .s-bases  h2{color:var(--green)} .s-bases  h2 .tag{background:rgba(80,200,120,.1);color:var(--green)}
+  .s-center h2{color:#d4a0ff}      .s-center h2 .tag{background:rgba(180,100,255,.1);color:#d4a0ff}
+  .s-left   h2{color:#d06080}      .s-left   h2 .tag{background:rgba(180,60,80,.15);color:#d06080}
+  .s-right  h2{color:#60b0d0}      .s-right  h2 .tag{background:rgba(60,140,190,.15);color:#60b0d0}
+  .s-evol   h2{color:#d08040}      .s-evol   h2 .tag{background:rgba(180,100,30,.15);color:#d08040}
+  .s-inan   h2{color:#c060a0}      .s-inan   h2 .tag{background:rgba(160,50,120,.15);color:#c060a0}
+
+  /* подсветка активного термина в SVG */
+  .svg-highlight{filter:brightness(1.6)}
+</style>
+</head>
+<body>
+<script>
+/* ── VIP TOKEN GUARD ── */
+(function(){
+  var p   = new URLSearchParams(window.location.search);
+  var t   = p.get('t');
+  var e   = parseInt(p.get('e') || '0', 10);
+  var now = Date.now();
+  // Разрешаем если: токен присутствует И время не истекло
+  var ok  = t && t.length > 8 && now < e;
+  if(!ok){
+    document.body.innerHTML = '<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0d0e14;font-family:Inter,sans-serif;text-align:center;padding:40px 20px;">'
+      +'<div style="font-size:48px;margin-bottom:20px;">🔒</div>'
+      +'<h2 style="color:#c9a84c;font-size:1.4rem;margin-bottom:12px;">Доступ ограничен</h2>'
+      +'<p style="color:#7a7060;font-size:.9rem;margin-bottom:28px;max-width:320px;line-height:1.6;">Эта страница доступна только по действующей ссылке.<br>Срок действия ссылки истёк или она недействительна.</p>'
+      +'<a href="../index.html" style="color:#7b2cff;text-decoration:none;font-size:.85rem;border-bottom:1px solid #7b2cff;">← Вернуться на главную</a>'
+      +'</div>';
+  }
+})();
+</script>
+<!-- ── TOKEN GUARD ── -->
+<div id="tokenGuard" style="
+  display:none;position:fixed;inset:0;z-index:99999;
+  background:#0d0e14;align-items:center;justify-content:center;
+  flex-direction:column;font-family:'Jost',sans-serif;text-align:center;
+">
+  <div style="font-size:48px;margin-bottom:20px;">🔒</div>
+  <h2 style="color:#c9a84c;font-size:1.3rem;letter-spacing:.1em;margin:0 0 10px;">Доступ закрыт</h2>
+  <p style="color:#5a5040;font-size:.9rem;max-width:300px;line-height:1.6;">
+    Срок действия ссылки истёк.<br>Вернитесь на главную и введите код заново.
+  </p>
+  <a href="../index.html" style="
+    margin-top:24px;padding:12px 28px;border-radius:10px;
+    background:linear-gradient(135deg,#7b2cff,#c83bff);
+    color:#fff;text-decoration:none;font-size:.85rem;font-weight:700;
+    letter-spacing:.06em;
+  ">← На главную</a>
+</div>
+<script>
+(function(){
+  var p = new URLSearchParams(location.search);
+  var t = p.get('t'), e = parseInt(p.get('e')||'0',10);
+  // Нет токена или время истекло → показываем заглушку, скрываем контент
+  if(!t || !e || Date.now() > e){
+    document.getElementById('tokenGuard').style.display='flex';
+    document.body.style.overflow='hidden';
+    // Скрыть весь остальной контент кроме guard
+    document.addEventListener('DOMContentLoaded',function(){
+      Array.from(document.body.children).forEach(function(el){
+        if(el.id!=='tokenGuard') el.style.visibility='hidden';
+      });
+    });
+  }
+})();
+</script>
+<h1>Human Design — Base Theory</h1>
+<p class="vikram">VIKRAM HUMAN DESIGN &nbsp;·&nbsp; <a href="https://vikramhd2027.netlify.app/" target="_blank">vikramhd2027.netlify.app</a></p>
+<p class="sub">MACROCOSMOS / UNIVERSE · MICROCOSMOS / HUMANITY</p>
+
+<svg id="mainsvg" viewBox="0 0 1100 680" xmlns="http://www.w3.org/2000/svg" font-family="'Jost',sans-serif">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#1e2235"/><stop offset="100%" stop-color="#0d0e14"/>
+    </radialGradient>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff" stop-opacity=".06"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1100" height="680" fill="url(#bg)" rx="16"/>
+  <!-- wings -->
+  <polygon points="230,90 550,340 230,340" fill="#2a3a28" opacity=".4"/>
+  <polygon points="230,340 550,340 230,590" fill="#2a2820" opacity=".4"/>
+  <polygon points="870,90 550,340 870,340" fill="#1e2840" opacity=".4"/>
+  <polygon points="870,340 550,340 870,590" fill="#28202a" opacity=".4"/>
+  <polygon points="230,90 550,340 230,590" fill="none" stroke="#3a5a38" stroke-width="1.5" opacity=".6"/>
+  <polygon points="870,90 550,340 870,590" fill="none" stroke="#364a60" stroke-width="1.5" opacity=".6"/>
+  <ellipse cx="550" cy="340" rx="140" ry="85" fill="url(#glow)"/>
+  <!-- axes -->
+  <line x1="550" y1="70" x2="550" y2="610" stroke="#c9a84c" stroke-width="1" stroke-dasharray="4,4" opacity=".35"/>
+  <line x1="60" y1="340" x2="1040" y2="340" stroke="#c9a84c" stroke-width="1" stroke-dasharray="4,4" opacity=".35"/>
+  <line x1="230" y1="90" x2="870" y2="590" stroke="#888" stroke-width=".8" opacity=".2"/>
+  <line x1="870" y1="90" x2="230" y2="590" stroke="#888" stroke-width=".8" opacity=".2"/>
+  <!-- arrows civilisation -->
+  <line x1="315" y1="180" x2="440" y2="180" stroke="#9a60aa" stroke-width="1.8"/>
+  <polygon points="440,177 448,180 440,183" fill="#9a60aa"/>
+  <line x1="785" y1="180" x2="660" y2="180" stroke="#9a60aa" stroke-width="1.8"/>
+  <polygon points="660,177 652,180 660,183" fill="#9a60aa"/>
+  <!-- arrows friction -->
+  <line x1="320" y1="500" x2="440" y2="500" stroke="#9a60aa" stroke-width="1.8"/>
+  <polygon points="440,497 448,500 440,503" fill="#9a60aa"/>
+  <line x1="780" y1="500" x2="660" y2="500" stroke="#9a60aa" stroke-width="1.8"/>
+  <polygon points="660,497 652,500 660,503" fill="#9a60aa"/>
+  <!-- vert arrows -->
+  <line x1="405" y1="288" x2="405" y2="222" stroke="#50a855" stroke-width="1.5"/>
+  <polygon points="402,222 405,214 408,222" fill="#50a855"/>
+  <line x1="695" y1="288" x2="695" y2="222" stroke="#50a855" stroke-width="1.5"/>
+  <polygon points="692,222 695,214 698,222" fill="#50a855"/>
+  <line x1="405" y1="395" x2="405" y2="462" stroke="#50a855" stroke-width="1.5"/>
+  <polygon points="402,462 405,470 408,462" fill="#50a855"/>
+  <line x1="695" y1="395" x2="695" y2="462" stroke="#50a855" stroke-width="1.5"/>
+  <polygon points="692,462 695,470 698,462" fill="#50a855"/>
+
+  <!-- SPEED / FORCE -->
+  <g class="clickable" data-term="speed" onclick="scrollToTerm('speed')">
+    <text x="550" y="55" text-anchor="middle" font-size="11" fill="#e85050" font-weight="600" letter-spacing="2">SPEED · СКОРОСТЬ</text>
+  </g>
+  <g class="clickable" data-term="force" onclick="scrollToTerm('force')">
+    <text x="550" y="650" text-anchor="middle" font-size="11" fill="#e85050" font-weight="600" letter-spacing="2">FORCE · СИЛА</text>
+  </g>
+
+  <!-- CIVILISATION -->
+  <g class="clickable" data-term="civilisation" onclick="scrollToTerm('civilisation')">
+    <rect x="455" y="163" width="190" height="30" rx="6" fill="#2a1a2e" stroke="#9a60aa" stroke-width="1.2"/>
+    <text x="550" y="178" text-anchor="middle" font-size="10" fill="#c880e0" font-weight="500" letter-spacing="1">CIVILISATION · ЦИВИЛИЗАЦИЯ</text>
+    <text x="550" y="190" text-anchor="middle" font-size="7" fill="#9a70aa">Ось Цивилизации</text>
+  </g>
+
+  <!-- FRICTION -->
+  <g class="clickable" data-term="friction" onclick="scrollToTerm('friction')">
+    <rect x="455" y="484" width="190" height="30" rx="6" fill="#1a1a2e" stroke="#9a60aa" stroke-width="1.2"/>
+    <text x="550" y="499" text-anchor="middle" font-size="10" fill="#c880e0" font-weight="500" letter-spacing="1">FRICTION · ТРЕНИЕ</text>
+    <text x="550" y="511" text-anchor="middle" font-size="7" fill="#9a70aa">Ось Трения / Конфликта</text>
+  </g>
+
+  <!-- HUMANITY -->
+  <g class="clickable" data-term="humanity" onclick="scrollToTerm('humanity')">
+    <rect x="66" y="325" width="136" height="32" rx="5" fill="#2a1a2e" stroke="#9a60aa" stroke-width="1.2"/>
+    <text x="134" y="340" text-anchor="middle" font-size="10" fill="#c880e0" font-weight="600" letter-spacing="1">HUMANITY</text>
+    <text x="134" y="353" text-anchor="middle" font-size="8.5" fill="#9a70aa">ЧЕЛОВЕЧЕСТВО</text>
+  </g>
+
+  <!-- EARTH -->
+  <g class="clickable" data-term="earth" onclick="scrollToTerm('earth')">
+    <rect x="898" y="325" width="110" height="32" rx="5" fill="#2a1a2e" stroke="#9a60aa" stroke-width="1.2"/>
+    <text x="953" y="340" text-anchor="middle" font-size="10" fill="#c880e0" font-weight="600" letter-spacing="1">EARTH</text>
+    <text x="953" y="353" text-anchor="middle" font-size="8.5" fill="#9a70aa">ЗЕМЛЯ</text>
+  </g>
+
+  <!-- CENTRAL BLOCK -->
+  <g class="clickable" data-term="personality" onclick="scrollToTerm('personality')">
+    <rect x="455" y="298" width="190" height="86" rx="8" fill="#1a1e2e" stroke="#c9a84c" stroke-width="1.5" filter="url(#sh)"/>
+    <rect x="461" y="304" width="52" height="20" rx="4" fill="#2a2a1a" stroke="#c9a84c" stroke-width="1"/>
+    <text x="487" y="318" text-anchor="middle" font-size="8" fill="#c9a84c" font-weight="500">Rave?</text>
+    <text x="610" y="320" text-anchor="middle" font-size="17" fill="#c9a84c" opacity=".85">⊕</text>
+    <text x="550" y="340" text-anchor="middle" font-size="9.5" fill="#e8e0c8" font-weight="500">Personality / Личность</text>
+    <text x="550" y="354" text-anchor="middle" font-size="7.5" fill="#9a9070">Presence · I Think · Присутствие · Я Думаю</text>
+    <text x="550" y="366" text-anchor="middle" font-size="7.5" fill="#aaa">Space / Пространство</text>
+    <text x="550" y="378" text-anchor="middle" font-size="7" fill="#888">Type · Fantasy · Rhythm · Timing</text>
+  </g>
+
+  <!-- BASE TYPES -->
+  <g class="clickable" data-term="integrative" onclick="scrollToTerm('integrative')">
+    <text x="375" y="260" text-anchor="middle" font-family="'Cinzel',serif" font-size="44" fill="#50c878" opacity=".9" font-weight="600">2</text>
+    <text x="375" y="280" text-anchor="middle" font-size="12" fill="#50c878" font-weight="500">Integrative</text>
+    <text x="375" y="295" text-anchor="middle" font-size="10" fill="#80e898">Интегративный</text>
+  </g>
+  <g class="clickable" data-term="progressive" onclick="scrollToTerm('progressive')">
+    <text x="725" y="260" text-anchor="middle" font-family="'Cinzel',serif" font-size="44" fill="#50c878" opacity=".9" font-weight="600">4</text>
+    <text x="725" y="280" text-anchor="middle" font-size="12" fill="#50c878" font-weight="500">Progressive</text>
+    <text x="725" y="295" text-anchor="middle" font-size="10" fill="#80e898">Прогрессивный</text>
+  </g>
+  <g class="clickable" data-term="objective" onclick="scrollToTerm('objective')">
+    <text x="375" y="472" text-anchor="middle" font-family="'Cinzel',serif" font-size="44" fill="#50c878" opacity=".9" font-weight="600">3</text>
+    <text x="375" y="492" text-anchor="middle" font-size="12" fill="#50c878" font-weight="500">Objective</text>
+    <text x="375" y="507" text-anchor="middle" font-size="10" fill="#80e898">Объективный</text>
+  </g>
+  <g class="clickable" data-term="reactive" onclick="scrollToTerm('reactive')">
+    <text x="725" y="472" text-anchor="middle" font-family="'Cinzel',serif" font-size="44" fill="#50c878" opacity=".9" font-weight="600">1</text>
+    <text x="725" y="492" text-anchor="middle" font-size="12" fill="#50c878" font-weight="500">Reactive</text>
+    <text x="725" y="507" text-anchor="middle" font-size="10" fill="#80e898">Реактивный</text>
+  </g>
+  <g class="clickable" data-term="subjective" onclick="scrollToTerm('subjective')">
+    <text x="550" y="428" text-anchor="middle" font-family="'Cinzel',serif" font-size="44" fill="#50c878" opacity=".9" font-weight="600">5</text>
+    <text x="550" y="448" text-anchor="middle" font-size="12" fill="#50c878" font-weight="500">Subjective</text>
+    <text x="550" y="463" text-anchor="middle" font-size="10" fill="#80e898">Субъективный</text>
+  </g>
+
+  <!-- LEFT TOP -->
+  <g class="clickable" data-term="plants" onclick="scrollToTerm('plants')">
+    <rect x="8" y="12" width="210" height="112" rx="8" fill="#1a2218" stroke="#50a030" stroke-width="1.5" filter="url(#sh)"/>
+    <text x="113" y="32" text-anchor="middle" font-size="11" fill="#80d858" font-weight="600">Plants to Simple Animals</text>
+    <text x="113" y="46" text-anchor="middle" font-size="8.5" fill="#60a848">От растений до простых животных</text>
+    <line x1="8" y1="52" x2="218" y2="52" stroke="#50a030" stroke-width=".8" opacity=".5"/>
+    <text x="113" y="67" text-anchor="middle" font-size="8.5" fill="#c9a84c">Role · Роль</text>
+    <text x="113" y="79" text-anchor="middle" font-size="8" fill="#9a9070">I Remember · Я Помню</text>
+    <text x="113" y="91" text-anchor="middle" font-size="7.5" fill="#888">Evolution · Эволюция</text>
+    <text x="113" y="103" text-anchor="middle" font-size="7.5" fill="#777">Mind / Electron · Разум / Электрон</text>
+    <text x="113" y="118" text-anchor="middle" font-size="7" fill="#555">Character · Separation · Nature · Spirit</text>
+  </g>
+
+  <!-- RIGHT TOP -->
+  <g class="clickable" data-term="homo" onclick="scrollToTerm('homo')">
+    <rect x="882" y="12" width="210" height="112" rx="8" fill="#1a1e2a" stroke="#4080c0" stroke-width="1.5" filter="url(#sh)"/>
+    <text x="987" y="32" text-anchor="middle" font-size="11" fill="#60a8e0" font-weight="600">Homo … to Homo Sapiens</text>
+    <text x="987" y="46" text-anchor="middle" font-size="8.5" fill="#4888b8">От Хомо до Хомо Сапиенс</text>
+    <line x1="882" y1="52" x2="1092" y2="52" stroke="#4080c0" stroke-width=".8" opacity=".5"/>
+    <text x="987" y="67" text-anchor="middle" font-size="8.5" fill="#c9a84c">Self · Самость</text>
+    <text x="987" y="79" text-anchor="middle" font-size="8" fill="#9a9070">I Design · Я Проектирую</text>
+    <text x="987" y="91" text-anchor="middle" font-size="7.5" fill="#888">Design · Дизайн</text>
+    <text x="987" y="103" text-anchor="middle" font-size="7.5" fill="#777">Ego / Neutrino · Эго / Нейтрино</text>
+    <text x="987" y="118" text-anchor="middle" font-size="7" fill="#555">Growth · Decay · Continuity · Manifestation</text>
+  </g>
+
+  <!-- MATERIAL -->
+  <g class="clickable" data-term="material" onclick="scrollToTerm('material')">
+    <rect x="8" y="375" width="140" height="152" rx="8" fill="#12151e" stroke="#c9a84c" stroke-width="1.2" filter="url(#sh)"/>
+    <text x="78" y="396" text-anchor="middle" font-size="14" fill="#e8d88a" font-weight="700" letter-spacing="1">Material</text>
+    <text x="78" y="410" text-anchor="middle" font-size="9" fill="#a89860">Материальное</text>
+    <line x1="8" y1="417" x2="148" y2="417" stroke="#c9a84c" stroke-width=".6" opacity=".4"/>
+    <text x="78" y="431" text-anchor="middle" font-size="7.5" fill="#888">Character · Характер</text>
+    <text x="78" y="443" text-anchor="middle" font-size="7.5" fill="#888">Separation · Разделение</text>
+    <text x="78" y="455" text-anchor="middle" font-size="7.5" fill="#888">Nature · Природа</text>
+    <text x="78" y="467" text-anchor="middle" font-size="7.5" fill="#888">Integration · Интеграция</text>
+    <text x="78" y="479" text-anchor="middle" font-size="7.5" fill="#888">Spirit · Дух</text>
+    <line x1="8" y1="487" x2="148" y2="487" stroke="#c9a84c" stroke-width=".4" opacity=".3"/>
+    <text x="78" y="500" text-anchor="middle" font-size="7.5" fill="#c9a84c">Evolution · Эволюция</text>
+    <text x="78" y="512" text-anchor="middle" font-size="7" fill="#666">Mind / Electron · Разум / Электрон</text>
+    <text x="78" y="522" text-anchor="middle" font-size="7" fill="#555">Genetics · I Am · Being</text>
+  </g>
+
+  <!-- POSITION -->
+  <g class="clickable" data-term="position" onclick="scrollToTerm('position')">
+    <rect x="952" y="375" width="140" height="152" rx="8" fill="#12151e" stroke="#c9a84c" stroke-width="1.2" filter="url(#sh)"/>
+    <text x="1022" y="396" text-anchor="middle" font-size="14" fill="#e8d88a" font-weight="700" letter-spacing="1">Position</text>
+    <text x="1022" y="410" text-anchor="middle" font-size="9" fill="#a89860">Позиция</text>
+    <line x1="952" y1="417" x2="1092" y2="417" stroke="#c9a84c" stroke-width=".6" opacity=".4"/>
+    <text x="1022" y="431" text-anchor="middle" font-size="7.5" fill="#888">Uniqueness · Уникальность</text>
+    <text x="1022" y="443" text-anchor="middle" font-size="7.5" fill="#888">I Define · Я Определяю</text>
+    <text x="1022" y="455" text-anchor="middle" font-size="7.5" fill="#888">Activity · Активность</text>
+    <text x="1022" y="467" text-anchor="middle" font-size="7.5" fill="#888">Reaction · Реакция</text>
+    <text x="1022" y="479" text-anchor="middle" font-size="7.5" fill="#888">Limitation · Ограничение</text>
+    <text x="1022" y="491" text-anchor="middle" font-size="7.5" fill="#888">Perspective · Перспектива</text>
+    <text x="1022" y="503" text-anchor="middle" font-size="7.5" fill="#888">Relation · Отношение</text>
+    <text x="1022" y="518" text-anchor="middle" font-size="7" fill="#555">Movement · Individuality / MM</text>
+  </g>
+
+  <!-- REPTILE -->
+  <g class="clickable" data-term="reptile" onclick="scrollToTerm('reptile')">
+    <rect x="8" y="560" width="210" height="106" rx="8" fill="#1a1812" stroke="#a06020" stroke-width="1.5" filter="url(#sh)"/>
+    <text x="113" y="580" text-anchor="middle" font-size="11" fill="#d08040" font-weight="600">Reptile to Primates</text>
+    <text x="113" y="594" text-anchor="middle" font-size="8.5" fill="#a06030">От рептилий до приматов</text>
+    <line x1="8" y1="600" x2="218" y2="600" stroke="#a06020" stroke-width=".8" opacity=".5"/>
+    <text x="113" y="614" text-anchor="middle" font-size="8.5" fill="#c9a84c">Genetics · Генетика</text>
+    <text x="113" y="626" text-anchor="middle" font-size="8" fill="#9a9070">I Am · Я Есть</text>
+    <text x="113" y="638" text-anchor="middle" font-size="7.5" fill="#888">Being · Бытие</text>
+    <text x="113" y="650" text-anchor="middle" font-size="7" fill="#666">Body / Quark · Тело / Кварк</text>
+    <text x="113" y="661" text-anchor="middle" font-size="7" fill="#555">Biology · Chemistry · Geometry · Trajectory</text>
+  </g>
+
+  <!-- INANIMATE -->
+  <g class="clickable" data-term="inanimate" onclick="scrollToTerm('inanimate')">
+    <rect x="882" y="560" width="210" height="106" rx="8" fill="#1a1218" stroke="#803060" stroke-width="1.5" filter="url(#sh)"/>
+    <text x="987" y="580" text-anchor="middle" font-size="10" fill="#c060a0" font-weight="600">Inanimate to Simple Life Forms</text>
+    <text x="987" y="594" text-anchor="middle" font-size="8" fill="#904870">От неживой материи до простых форм жизни</text>
+    <line x1="882" y1="600" x2="1092" y2="600" stroke="#803060" stroke-width=".8" opacity=".5"/>
+    <text x="987" y="614" text-anchor="middle" font-size="8.5" fill="#c9a84c">Movement · Движение</text>
+    <text x="987" y="626" text-anchor="middle" font-size="8" fill="#9a9070">Individuality · Индивидуальность</text>
+    <text x="987" y="638" text-anchor="middle" font-size="7.5" fill="#888">Activity · Активность</text>
+    <text x="987" y="650" text-anchor="middle" font-size="7.5" fill="#888">Reaction · Реакция</text>
+    <text x="987" y="661" text-anchor="middle" font-size="7" fill="#555">Limitation · Perspective · Relation</text>
+  </g>
+
+  <text x="550" y="674" text-anchor="middle" font-size="8" fill="#2e2c24" letter-spacing="1">64keys.com · Human Design Base Theory</text>
+</svg>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- ГЛОССАРИЙ                                      -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="table-wrap" id="glossary">
+  <p class="table-title">📖 Глоссарий — кликни на термин для описания</p>
+
+  <!-- СТРУКТУРА -->
+  <section class="s-struct">
+    <h2>🌐 Общая структура <span class="tag">Base Theory</span></h2>
+    <div style="padding:18px 22px 14px;border-bottom:1px solid rgba(255,255,255,.06)">
+      <p style="font-size:.88rem;line-height:1.75;color:#c0baa8;margin-bottom:12px">
+        <strong style="color:#c9a84c">Что такое Base Theory и как её читать?</strong><br><br>
+        Base Theory — это схема, разработанная Ра Уру Ху и визуализированная 64keys.com, которая показывает <strong>эволюционную карту сознания</strong> от Макрокосмоса (Вселенная) до Микрокосмоса (человек). Схема построена в форме песочных часов: четыре угла — это четыре эволюционных уровня, центр — личность (Personality). Пять чисел (1–5) — пять Баз, каждая из которых занимает своё место в пространстве эволюции.
+      </p>
+      <p style="font-size:.88rem;line-height:1.75;color:#c0baa8;margin-bottom:12px">
+        <strong style="color:#c9a84c">Оси схемы — что они означают для аналитика?</strong><br>
+        Четыре оси схемы (Speed/Force вертикально, Civilisation/Friction горизонтально) — это <em>векторы энергии</em>, движущие эволюцию. Аналитик может использовать схему как ориентир: где на этой карте находится клиент? Тяготеет ли он к оси Цивилизации (социальное, коллективное) или к оси Трения (индивидуальное, конфликтное, материальное)? Это помогает понять, через какие жизненные темы разворачивается его дизайн.
+      </p>
+      <p style="font-size:.82rem;color:#5a5040"><!-- SOURCES_HIDDEN --> ✦ Подготовлено VIKRAM Human Design для <a href="https://vikramhd2027.netlify.app/" target="_blank" style="color:#60a0d8;text-decoration:none;border-bottom:1px solid #40688a">vikramhd2027.netlify.app</a></p>
+    </div>
+    <table>
+      <tr><th>Термин</th><th>Перевод</th></tr>
+      <tr id="row-speed">
+        <td><button class="term-btn" onclick="toggle('speed')">Speed<span class="ru">Скорость</span></button></td>
+        <td style="padding:12px 18px;color:#c9a84c;font-size:.82rem">Скорость</td>
+      </tr>
+      <tr class="desc-row"><td colspan="2"><div class="desc-box" id="desc-speed"><strong>Speed (Скорость)</strong> — вертикальная ось схемы Базовой Теории, направленная сверху вниз. Описывает темп эволюционного движения сознания от Макрокосмоса (Вселенной) к Микрокосмосу (человеку). В Дизайне Человека скорость связана с тем, насколько быстро нейтринный поток Солнца кодирует Кристалл Дизайна в момент рождения. Ось Скорости отражает вектор нисхождения информации от универсального к индивидуальному.</div></td></tr>
+
+      <tr id="row-force">
+        <td><button class="term-btn" onclick="toggle('force')">Force<span class="ru">Сила</span></button></td>
+        <td style="padding:12px 18px;color:#c9a84c;font-size:.82rem">Сила</td>
+      </tr>
+      <tr class="desc-row"><td colspan="2"><div class="desc-box" id="desc-force"><strong>Force (Сила)</strong> — нижняя вертикальная ось схемы. Представляет фундаментальную силу, движущую эволюцию снизу вверх: от инертной материи и простейших форм жизни к сложным существам. В HD это архетипическая жизненная сила, проявляющаяся через тело (кварки, гены) и восходящая к уровню разума и самосознания.</div></td></tr>
+
+      <tr id="row-civilisation">
+        <td><button class="term-btn" onclick="toggle('civilisation')">Civilisation<span class="ru">Цивилизация</span></button></td>
+        <td style="padding:12px 18px;color:#c9a84c;font-size:.82rem">Цивилизация</td>
+      </tr>
+      <tr class="desc-row"><td colspan="2"><div class="desc-box" id="desc-civilisation"><strong>Civilisation (Цивилизация)</strong> — горизонтальная ось верхней части схемы, соединяющая Интегративный (2) и Прогрессивный (4) базовые типы. Символизирует культурный и социальный уровень развития человечества — пространство, в котором разум и дизайн встречаются. Ось Цивилизации — это уровень коллективного сознания, идей, технологий и социальных структур.</div></td></tr>
+
+      <tr id="row-friction">
+        <td><button class="term-btn" onclick="toggle('friction')">Friction<span class="ru">Трение</span></button></td>
+        <td style="padding:12px 18px;color:#c9a84c;font-size:.82rem">Трение / Конфликт</td>
+      </tr>
+      <tr class="desc-row"><td colspan="2"><div class="desc-box" id="desc-friction"><strong>Friction (Трение)</strong> — нижняя горизонтальная ось, соединяющая Объективный (3) и Реактивный (1) типы. Трение — это первичная сила взаимодействия: конфликт, противостояние, сексуальное притяжение, борьба за выживание. В системе HD Tribal Circuit (Родовые цепи) работают через эту ось — законы, защита, ресурсы. Трение необходимо: оно двигает эволюцию вперёд.</div></td></tr>
+
+      <tr id="row-humanity">
+        <td><button class="term-btn" onclick="toggle('humanity')">Humanity<span class="ru">Человечество</span></button></td>
+        <td style="padding:12px 18px;color:#c9a84c;font-size:.82rem">Человечество</td>
+      </tr>
+      <tr class="desc-row"><td colspan="2"><div class="desc-box" id="desc-humanity"><strong>Humanity (Человечество)</strong> — левая горизонтальная ось центральной части схемы. Представляет коллективное поле человеческого опыта, взаимодействие и взаимозависимость людей. В HD — это уровень Родовых и Коллективных цепей, которые обеспечивают выживание и развитие вида через взаимоотношения, обмен ресурсами и передачу знаний.</div></td></tr>
+
+      <tr id="row-earth">
+        <td><button class="term-btn" onclick="toggle('earth')">Earth<span class="ru">Земля</span></button></td>
+        <td style="padding:12px 18px;color:#c9a84c;font-size:.82rem">Земля</td>
+      </tr>
+      <tr class="desc-row"><td colspan="2"><div class="desc-box" id="desc-earth"><strong>Earth (Земля)</strong> — правая горизонтальная ось центральной части. Символизирует материальный план существования, физическое воплощение, укоренённость в реальности. Земля — это принцип проявления: дизайн и позиция обретают конкретную форму, уникальность воплощается в действии и занятой позиции в пространстве-времени.</div></td></tr>
+    </table>
+  </section>
+
+  <!-- ПЯТЬ БАЗОВЫХ ТИПОВ -->
+  <section class="s-bases">
+    <h2>🔢 Пять базовых типов <span class="tag">Five Bases</span></h2>
+    <div style="padding:18px 22px 14px;border-bottom:1px solid rgba(255,255,255,.06)">
+      <p style="font-size:.88rem;line-height:1.75;color:#c0baa8;margin-bottom:12px">
+        <strong style="color:#50c878">Что такое пять Баз и для чего они нужны?</strong><br><br>
+        База (Base) — это глубинный слой подструктуры каждых Ворот в карте. В HD каждая Линия гексаграммы делится на 6 Цветов → 6 Тонов → 5 Баз. База является <strong>входной частотой нейтринного программирования</strong> Кристалла Сознания и остаётся неизменной на протяжении всей жизни — и, по Ра Уру Ху, сквозь все воплощения. Именно она определяет, какой вид нейтрино «слушает» Кристалл — как настройка радиоприёмника на конкретную частоту. Пять Баз образуют пять граней Кристалла, но функционирует лишь одна — та, которая является Базой данной личности.
+      </p>
+      <p style="font-size:.88rem;line-height:1.75;color:#c0baa8;margin-bottom:12px">
+        <strong style="color:#50c878">Как найти свою Базу в карте?</strong><br>
+        База отображается как число от 1 до 5 в маленьких квадратных ячейках рядом с символами Солнца/Земли в карте. Для корректного расчёта требуется <em>точное время рождения</em> — База меняется приблизительно каждые 8 минут. Она присутствует отдельно для Личности (чёрная сторона) и Дизайна (красная сторона).
+      </p>
+      <p style="font-size:.88rem;line-height:1.75;color:#c0baa8;margin-bottom:12px">
+        <strong style="color:#50c878">Как аналитик работает с Базой?</strong><br>
+        Base Theory — материал продвинутого уровня (IHDS, Jovian Archive). Аналитик использует Базу для понимания <em>ориентации сознания</em> клиента: как он воспринимает мир, каков его способ фильтрации реальности и где его «слепые пятна». Базы объясняют, почему одни люди тяготеют к материальному и интеграции (Базы 2, 3), а другие — к проектированию и позиции, и прогрессу (Базы 4, 1). На схеме Base Theory пять зон эволюции — от неживой материи до Homo Sapiens — наглядно показывают архетипический уровень каждой Базы. Работа с Базой рекомендуется после минимум 6–12 месяцев эксперимента со Стратегией и Авторитетом — это продвинутый инструмент, не начальный.
+      </p>
+      <p style="font-size:.82rem;color:#5a5040">
+        <!-- SOURCES_HIDDEN --> ✦ Подготовлено VIKRAM Human Design для <a href="https://vikramhd2027.netlify.app/" target="_blank" style="color:#60a0d8;text-decoration:none;border-bottom:1px solid #40688a">vikramhd2027.netlify.app</a>
+      </p>
+    </div>
+    <table>
+      <tr><th>#</th><th>Термин</th><th>Перевод</th></tr>
+      <tr id="row-reactive">
+        <td style="padding:12px 18px;font-family:'Cinzel',serif;font-size:1.4rem;color:#50c878;text-align:center">1</td>
+        <td><button class="term-btn" onclick="toggle('reactive')">Reactive<span class="ru">Реактивный</span></button></td>
+        <td style="padding:12px 18px;color:#80e898;font-size:.82rem">Реактивный</td>
+      </tr>
+      <tr class="desc-row"><td colspan="3"><div class="desc-box" id="desc-reactive"><strong>Reactive / Реактивный (База 1)</strong> — первый и наиболее древний уровень бытия. Это мгновенная, инстинктивная реакция на внешние стимулы без обдумывания. В системе 64keys Base Theory Реактивный тип связан с нижней правой областью схемы — неживой материей и простейшими формами жизни. Он отражает принцип Движения (Movement): существо реагирует, двигается, занимает позицию в пространстве. В HD это коррелирует с Индивидуальностью на уровне выживания — самый базовый механизм взаимодействия с реальностью.</div></td></tr>
+
+      <tr id="row-integrative">
+        <td style="padding:12px 18px;font-family:'Cinzel',serif;font-size:1.4rem;color:#50c878;text-align:center">2</td>
+        <td><button class="term-btn" onclick="toggle('integrative')">Integrative<span class="ru">Интегративный</span></button></td>
+        <td style="padding:12px 18px;color:#80e898;font-size:.82rem">Интегративный</td>
+      </tr>
+      <tr class="desc-row"><td colspan="3"><div class="desc-box" id="desc-integrative"><strong>Integrative / Интегративный (База 2)</strong> — уровень синтеза и объединения. Связан с верхней левой частью схемы (растения, простые животные) и принципом Эволюции. Интегративный тип объединяет разрозненный опыт в единое целое, создавая новые паттерны из существующих элементов. В HD это соответствует Интеграционным каналам (34-57, 10-20, 20-34, 10-57) — каналам самодостаточности, которые интегрируют интуицию, движение, поведение и присутствие в мощный индивидуальный механизм выживания. Роль (Role) — форма восприятия — «Я Помню» (I Remember).</div></td></tr>
+
+      <tr id="row-objective">
+        <td style="padding:12px 18px;font-family:'Cinzel',serif;font-size:1.4rem;color:#50c878;text-align:center">3</td>
+        <td><button class="term-btn" onclick="toggle('objective')">Objective<span class="ru">Объективный</span></button></td>
+        <td style="padding:12px 18px;color:#80e898;font-size:.82rem">Объективный</td>
+      </tr>
+      <tr class="desc-row"><td colspan="3"><div class="desc-box" id="desc-objective"><strong>Objective / Объективный (База 3)</strong> — уровень материальной объективности. Связан с нижней левой зоной (рептилии → приматы), принципом Бытия (Being) и Генетики. Объективный тип воспринимает реальность через факты, тело, химию, биологию. Форма восприятия — «Я Есть» (I Am / Genetics). В HD это архетип, укоренённый в физическом теле и материальной плоскости: биология, геометрия, траектория — всё это объективные параметры существования, не зависящие от интерпретации.</div></td></tr>
+
+      <tr id="row-progressive">
+        <td style="padding:12px 18px;font-family:'Cinzel',serif;font-size:1.4rem;color:#50c878;text-align:center">4</td>
+        <td><button class="term-btn" onclick="toggle('progressive')">Progressive<span class="ru">Прогрессивный</span></button></td>
+        <td style="padding:12px 18px;color:#80e898;font-size:.82rem">Прогрессивный</td>
+      </tr>
+      <tr class="desc-row"><td colspan="3"><div class="desc-box" id="desc-progressive"><strong>Progressive / Прогрессивный (База 4)</strong> — уровень развития и продвижения вперёд. Связан с верхней правой зоной (Homo → Homo Sapiens) и принципом Дизайна. Форма восприятия — «Я Проектирую» (I Design / Self). Прогрессивный тип устремлён к будущему, к росту и манифестации. В HD это соответствует Эго-Нейтрино (Ego/Neutrino) — Кристаллу Дизайна, который несёт программу через нейтринный поток Солнца. Концепции Роста (Growth), Упадка (Decay), Непрерывности (Continuity) и Манифестации описывают жизненный цикл Прогрессивного типа.</div></td></tr>
+
+      <tr id="row-subjective">
+        <td style="padding:12px 18px;font-family:'Cinzel',serif;font-size:1.4rem;color:#50c878;text-align:center">5</td>
+        <td><button class="term-btn" onclick="toggle('subjective')">Subjective<span class="ru">Субъективный</span></button></td>
+        <td style="padding:12px 18px;color:#80e898;font-size:.82rem">Субъективный</td>
+      </tr>
+      <tr class="desc-row"><td colspan="3"><div class="desc-box" id="desc-subjective"><strong>Subjective / Субъективный (База 5)</strong> — центральный уровень, связывающий все четыре других. Это пространство личностного восприятия: Fantasy (Фантазия), Subjectivity (Субъективность), Rhythm (Ритм) и Timing (Тайминг) — ключевые атрибуты этого типа. В HD Субъективный тип соответствует Кристаллу Личности (Personality Crystal) — сознательной части человека, воспринимающей мир через призму своего уникального типа. <strong>Timing (Тайминг)</strong> — критически важный принцип: правильное действие в правильный момент, определяемый Стратегией и Авторитетом. <strong>Rhythm (Ритм)</strong> — личный жизненный ритм, которому необходимо следовать, а не навязывать себе чужой темп.</div></td></tr>
+    </table>
+  </section>
+
+  <!-- ЦЕНТРАЛЬНЫЙ БЛОК -->
+  <section class="s-center">
+    <h2>🎭 Центр схемы <span class="tag">Personality / Rave</span></h2>
+    <div style="padding:18px 22px 14px;border-bottom:1px solid rgba(255,255,255,.06)">
+      <p style="font-size:.88rem;line-height:1.75;color:#c0baa8;margin-bottom:12px">
+        <strong style="color:#d4a0ff">Центр схемы — Личность и её атрибуты</strong><br><br>
+        Центральный блок Base Theory — это точка встречи всех пяти Баз в Кристалле Личности. Именно здесь нейтринный поток преобразуется в <em>субъективный опыт</em>: фантазию, ритм, тайминг, тип. Личность (Personality Crystal) — это то, что человек осознаёт как «себя», тогда как Дизайн (Design Crystal) несёт бессознательную программу тела. Вместе они создают уникальный Бодиграф.
+      </p>
+      <p style="font-size:.88rem;line-height:1.75;color:#c0baa8;margin-bottom:12px">
+        <strong style="color:#d4a0ff">Как аналитик работает с центральными понятиями?</strong><br>
+        Присутствие (Presence) и «Я Думаю» (I Think) — напоминание о том, что <em>ум — пассажир, не водитель</em>. В HD ум обрабатывает нейтринные импульсы и создаёт концепции, но решения принимаются через Авторитет тела. Аналитик помогает клиенту увидеть, где он «застрял в голове» вместо того, чтобы следовать телесной мудрости. Тайминг (Timing) — одна из главных тем работы: правильное действие в неверный момент не работает. Это особенно важно для Эмоционального Авторитета (волна, ясность со временем) и Проекторов (ожидание приглашения).
+      </p>
+      <p style="font-size:.82rem;color:#5a5040"><!-- SOURCES_HIDDEN --> ✦ Подготовлено VIKRAM Human Design для <a href="https://vikramhd2027.netlify.app/" target="_blank" style="color:#60a0d8;text-decoration:none;border-bottom:1px solid #40688a">vikramhd2027.netlify.app</a></p>
+    </div>
+    <table>
+      <tr><th>Термин</th><th>Перевод</th></tr>
+      <tr id="row-personality">
+        <td><button class="term-btn" onclick="toggle('personality')">Personality / Rave?<span class="ru">Личность / Рейв?</span></button></td>
+        <td style="padding:12px 18px;color:#d4a0ff;font-size:.82rem">Личность / Рейв?</td>
+      </tr>
+      <tr class="desc-row"><td colspan="2"><div class="desc-box" id="desc-personality"><strong>Personality (Личность)</strong> — в HD это сознательная составляющая человека, «Кристалл Личности» (Personality Crystal). Рассчитывается по дате рождения (Сознательное/Чёрное в карте). Это то, что человек осознаёт как своё «Я», хотя подлинный Дизайн чаще бессознателен. <strong>Rave?</strong> — термин Ра Уру Ху для обозначения нового генетического типа человека, мутация к которому, по его концепции, начнёт проявляться у детей, рождённых после 2027 года. Это не внезапное событие, а постепенный эволюционный сдвиг в структуре ауры и сакрального центра. Base Theory описывает этот переход от Homo Sapiens к новой форме как следующий шаг эволюционной спирали.</div></td></tr>
+
+      <tr id="row-presence">
+        <td><button class="term-btn" onclick="toggle('presence')">Presence / I Think<span class="ru">Присутствие / Я Думаю</span></button></td>
+        <td style="padding:12px 18px;color:#d4a0ff;font-size:.82rem">Присутствие / Я Думаю</td>
+      </tr>
+      <tr class="desc-row"><td colspan="2"><div class="desc-box" id="desc-presence"><strong>Presence / I Think (Присутствие / Я Думаю)</strong> — форма восприятия Субъективного (5-го) базового типа. «Я Думаю» — это способ, которым сознательная Личность воспринимает реальность: через мышление, рефлексию, ментальное присутствие. В HD ум (Ajna, Head) отвечает за осознание и концептуализацию опыта. Присутствие означает осознанное нахождение в моменте «сейчас» — ключевой принцип правильного использования Стратегии и Авторитета.</div></td></tr>
+
+      <tr id="row-space">
+        <td><button class="term-btn" onclick="toggle('space')">Space<span class="ru">Пространство</span></button></td>
+        <td style="padding:12px 18px;color:#d4a0ff;font-size:.82rem">Пространство</td>
+      </tr>
+      <tr class="desc-row"><td colspan="2"><div class="desc-box" id="desc-space"><strong>Space (Пространство)</strong> — одно из пяти измерений Base Theory наряду со Скоростью и Силой. В схеме Пространство — это поле, в котором разворачивается субъективный опыт. В HD каждый человек несёт уникальное «пространство» своей ауры, которое взаимодействует с аурами других. Тип ауры (Генератор, Манифестор, Проектор, Рефлектор) определяет, как человек занимает пространство и взаимодействует с окружающим миром.</div></td></tr>
+
+      <tr id="row-timing">
+        <td><button class="term-btn" onclick="toggle('timing')">Timing · Rhythm · Fantasy<span class="ru">Тайминг · Ритм · Фантазия</span></button></td>
+        <td style="padding:12px 18px;color:#d4a0ff;font-size:.82rem">Тайминг / Ритм / Фантазия</td>
+      </tr>
+      <tr class="desc-row"><td colspan="2"><div class="desc-box" id="desc-timing"><strong>Timing (Тайминг)</strong> — один из ключевых принципов HD: действие в правильный момент. Стратегия и Авторитет существуют именно для того, чтобы определять верный тайминг. <strong>Rhythm (Ритм)</strong> — личный жизненный ритм: у каждого типа он свой. Генератор следует ритму отклика тела, Проектор — ритму ожидания правильного приглашения. <strong>Fantasy (Фантазия)</strong> — способность ума создавать ментальные образы и сценарии; в HD ум не является авторитетом, поэтому фантазии нужно осознавать, но не следовать им в принятии решений.</div></td></tr>
+    </table>
+  </section>
+
+  <!-- ЛЕВАЯ ЭВОЛЮЦИЯ -->
+  <section class="s-left">
+    <h2>⬅ Левая ось — Материал / Интегративный <span class="tag">Material · #2</span></h2>
+    <div style="padding:18px 22px 14px;border-bottom:1px solid rgba(255,255,255,.06)">
+      <p style="font-size:.88rem;line-height:1.75;color:#c0baa8;margin-bottom:12px">
+        <strong style="color:#d06080">Материальное и Интегративный тип — о чём эта ось?</strong><br><br>
+        Левая ось схемы описывает путь эволюции через <em>интеграцию и материальное освоение</em> мира. Интегративный (2-й) тип базы связан с уровнем от растений до простых животных — этапом, когда появляется способность <strong>объединять опыт</strong>, запоминать и адаптироваться. Ра Уру Ху описывал 2-ю базу так: «Просто существовать уже недостаточно — нужно расти, расширяться, интегрировать». Отсюда тяга к обучению, накоплению знаний, синтезу разрозненных элементов в единое целое.
+      </p>
+      <p style="font-size:.88rem;line-height:1.75;color:#c0baa8;margin-bottom:12px">
+        <strong style="color:#d06080">Что показывает аналитику?</strong><br>
+        Человек с Базой 2 (Интегративный) воспринимает мир через призму <em>роли и памяти</em> («I Remember»). Он накапливает опыт как слои — каждый новый пласт интегрируется в предыдущий. В карте это проявляется как стремление к системности, длительному обучению, глубокому освоению навыков. Такие люди нередко чувствуют потребность «переварить» опыт, прежде чем двигаться дальше. <br><br>
+        <strong>Material (Материальное)</strong> как ось указывает на то, что данный человек работает через <em>тело, физическую реальность и конкретные проявления</em>. В аналитической сессии это означает: жизненные уроки приходят через материальный мир — деньги, тело, пространство, отношения с физической реальностью. Центр G, Сакральный, Корневой могут быть особенно значимы.
+      </p>
+      <p style="font-size:.88rem;line-height:1.75;color:#c0baa8;margin-bottom:12px">
+        <strong style="color:#d06080">Как использовать на практике?</strong><br>
+        Аналитик, видя в карте клиента акцент на Material/Integrative, может обратить внимание на: насколько клиент позволяет себе <em>время для интеграции</em> между событиями? Не торопит ли он себя? Признаёт ли ценность накопленного опыта? Такие люди часто недооценивают то, что уже знают и умеют — именно это стоит подчеркнуть в чтении.
+      </p>
+      <p style="font-size:.82rem;color:#5a5040">
+        <!-- SOURCES_HIDDEN --> ✦ Подготовлено VIKRAM Human Design для <a href="https://vikramhd2027.netlify.app/" target="_blank" style="color:#60a0d8;text-decoration:none;border-bottom:1px solid #40688a">vikramhd2027.netlify.app</a>
+      </p>
+    </div>
+    <table>
+      <tr><th>Термин</th><th>Перевод</th></tr>
+      <tr id="row-plants">
+        <td><button class="term-btn" onclick="toggle('plants')">Plants to Simple Animals<span class="ru">От растений до простых животных</span></button></td>
+        <td style="padding:12px 18px;color:#d06080;font-size:.82rem">Эволюционный уровень</td>
+      </tr>
+      <tr class="desc-row"><td colspan="2"><div class="desc-box" id="desc-plants"><strong>Plants to Simple Animals (От растений до простых животных)</strong> — эволюционный уровень верхней левой зоны схемы. Описывает этап, когда появляется роль (Role) и память (I Remember): организмы начинают узнавать паттерны среды и адаптироваться к ним через запоминание. В HD это архетип Интегративного (2) базового типа. Эволюция Разума начинается здесь: Электрон (Mind/Electron) — частица, ассоциированная с умом, появляется на этом уровне сложности.</div></td></tr>
+
+      <tr id="row-material">
+        <td><button class="term-btn" onclick="toggle('material')">Material<span class="ru">Материальное</span></button></td>
+        <td style="padding:12px 18px;color:#d06080;font-size:.82rem">Материальное</td>
+      </tr>
+      <tr class="desc-row"><td colspan="2"><div class="desc-box" id="desc-material"><strong>Material (Материальное)</strong> — левая ось центральной части схемы, противоположная Position. Описывает материальный, физический аспект существования. Включает в себя: Характер (Character), Разделение (Separation), Природу (Nature), Интеграцию (Integration), Дух (Spirit). В HD материальная сторона связана с телесной мудростью — Кристалл Дизайна несёт генетическую программу через нейтрино, которая проявляется как физические, химические и биологические характеристики.</div></td></tr>
+
+      <tr id="row-evolution">
+        <td><button class="term-btn" onclick="toggle('evolution')">Evolution / Mind / Electron<span class="ru">Эволюция / Разум / Электрон</span></button></td>
+        <td style="padding:12px 18px;color:#d06080;font-size:.82rem">Эволюция / Разум / Электрон</td>
+      </tr>
+      <tr class="desc-row"><td colspan="2"><div class="desc-box" id="desc-evolution"><strong>Evolution (Эволюция)</strong> — фундаментальный процесс усложнения форм жизни и сознания. В HD эволюция — не случайный процесс, а управляемый нейтринным потоком Солнца. <strong>Mind/Electron (Разум/Электрон)</strong> — в Базовой Теории каждому уровню сознания соответствует субатомная частица. Электрон ассоциирован с умом: лёгкость, скорость, способность к передаче информации. Разум в HD — инструмент осознания, но не принятия решений; он обрабатывает нейтринные импульсы, создавая ментальные концепции.</div></td></tr>
+
+      <tr id="row-character">
+        <td><button class="term-btn" onclick="toggle('character')">Character · Separation · Nature · Integration · Spirit<span class="ru">Характер · Разделение · Природа · Интеграция · Дух</span></button></td>
+        <td style="padding:12px 18px;color:#d06080;font-size:.82rem">Атрибуты материального</td>
+      </tr>
+      <tr class="desc-row"><td colspan="2"><div class="desc-box" id="desc-character"><strong>Character (Характер)</strong> — устойчивая совокупность черт личности, определяемых генетической программой и опытом. <strong>Separation (Разделение)</strong> — принцип дифференциации: каждое существо уникально и отделено от других — основа индивидуальности. <strong>Nature (Природа)</strong> — врождённая сущность, то, что нельзя изменить. <strong>Integration (Интеграция)</strong> — процесс объединения разных аспектов в единое целое; в HD — Интеграционные каналы обеспечивают самодостаточность. <strong>Spirit (Дух)</strong> — нематериальная составляющая, связывающая тело с информационным полем нейтрино.</div></td></tr>
+    </table>
+  </section>
+
+  <!-- ПРАВАЯ ПОЗИЦИЯ -->
+  <section class="s-right">
+    <h2>➡ Правая ось — Позиция / Прогрессивный <span class="tag">Position · #4</span></h2>
+    <div style="padding:18px 22px 14px;border-bottom:1px solid rgba(255,255,255,.06)">
+      <p style="font-size:.88rem;line-height:1.75;color:#c0baa8;margin-bottom:12px">
+        <strong style="color:#60b0d0">Позиция и Прогрессивный тип — о чём эта ось?</strong><br><br>
+        Правая ось описывает путь через <em>проектирование, занятие позиции и движение вперёд</em>. Прогрессивный (4-й) тип базы связан с уровнем от Homo до Homo Sapiens — этапом, когда появляется способность <strong>задавать вопрос «почему»</strong> и целенаправленно строить будущее. Ра Уру Ху говорил о 4-й базе: «Мы добрались до 'почему'. Это очень важно для человечества — знать, зачем мы делаем то, что делаем».
+      </p>
+      <p style="font-size:.88rem;line-height:1.75;color:#c0baa8;margin-bottom:12px">
+        <strong style="color:#60b0d0">Что показывает аналитику?</strong><br>
+        Человек с Базой 4 (Прогрессивный) воспринимает мир через призму <em>самости и дизайна</em> («I Design»). Он ориентирован на цели, смысл, осмысленное движение вперёд. Такие люди нередко чувствуют необходимость понимать <em>зачем</em> — без ясного «почему» им трудно действовать. В карте это проявляется как сильная ориентация на будущее, способность видеть картину целиком и выстраивать структуры.<br><br>
+        <strong>Position (Позиция)</strong> как ось указывает на то, что человек учится через <em>занятие своего места в пространстве и иерархии</em>. Ключевые вопросы: где моё место? В чём моя уникальная роль? Центр G/Identity и Эго-центр могут быть особенно значимы в карте.
+      </p>
+      <p style="font-size:.88rem;line-height:1.75;color:#c0baa8;margin-bottom:12px">
+        <strong style="color:#60b0d0">Как использовать на практике?</strong><br>
+        Аналитик, видя акцент на Position/Progressive, обращает внимание: насколько клиент <em>занимает своё место</em> — не уступает ли пространство другим, не скромничает ли сверх меры? Прогрессивный тип страдает, когда вынужден стоять на месте без движения к цели. Важный вопрос для такого клиента: «Есть ли у тебя ясное направление?» — и помочь найти его через Стратегию и Авторитет, а не через ментальное планирование.
+      </p>
+      <p style="font-size:.82rem;color:#5a5040">
+        <!-- SOURCES_HIDDEN --> ✦ Подготовлено VIKRAM Human Design для <a href="https://vikramhd2027.netlify.app/" target="_blank" style="color:#60a0d8;text-decoration:none;border-bottom:1px solid #40688a">vikramhd2027.netlify.app</a>
+      </p>
+    </div>
+    <table>
+      <tr><th>Термин</th><th>Перевод</th></tr>
+      <tr id="row-homo">
+        <td><button class="term-btn" onclick="toggle('homo')">Homo … to Homo Sapiens<span class="ru">От Хомо до Хомо Сапиенс</span></button></td>
+        <td style="padding:12px 18px;color:#60b0d0;font-size:.82rem">Эволюционный уровень</td>
+      </tr>
+      <tr class="desc-row"><td colspan="2"><div class="desc-box" id="desc-homo"><strong>Homo … to Homo Sapiens (От Хомо до Хомо Сапиенс)</strong> — верхний правый эволюционный уровень схемы. Описывает путь от ранних представителей рода Homo до современного человека разумного. На этом уровне появляются Самость (Self), проектирование (I Design) и Дизайн как принцип. В HD Homo Sapiens — это существо с развитым Эго (Ego/Neutrino), способное манифестировать замыслы в реальность. Именно здесь начинается возможность сознательного Дизайна своей жизни.</div></td></tr>
+
+      <tr id="row-position">
+        <td><button class="term-btn" onclick="toggle('position')">Position<span class="ru">Позиция</span></button></td>
+        <td style="padding:12px 18px;color:#60b0d0;font-size:.82rem">Позиция</td>
+      </tr>
+      <tr class="desc-row"><td colspan="2"><div class="desc-box" id="desc-position"><strong>Position (Позиция)</strong> — правая ось центральной части схемы, противоположная Material. Описывает место, которое существо занимает в пространстве, иерархии и социальной структуре. Включает: Уникальность (Uniqueness), Активность (Activity), Реакцию (Reaction), Ограничение (Limitation), Перспективу (Perspective), Отношение (Relation). В HD позиция — это то, как человек проявляет свою уникальность через действие, занимая определённое место в поле взаимоотношений.</div></td></tr>
+
+      <tr id="row-design">
+        <td><button class="term-btn" onclick="toggle('design')">Self · I Design · Design · Ego / Neutrino<span class="ru">Самость · Я Проектирую · Дизайн · Эго / Нейтрино</span></button></td>
+        <td style="padding:12px 18px;color:#60b0d0;font-size:.82rem">Атрибуты позиции</td>
+      </tr>
+      <tr class="desc-row"><td colspan="2"><div class="desc-box" id="desc-design"><strong>Self (Самость)</strong> — ощущение собственной идентичности, «Я-есть» на уровне дизайна. В HD Центр G/Identity отвечает за самость, направление и любовь. <strong>I Design (Я Проектирую)</strong> — форма восприятия Прогрессивного (4) типа: реальность воспринимается как проект, который можно создавать и изменять. <strong>Ego/Neutrino (Эго/Нейтрино)</strong> — Кристалл Дизайна (бессознательная, красная часть карты) кодируется нейтринным потоком Солнца в момент ~88° до рождения. Нейтрино взаимодействует с ДНК, задавая генетическую программу тела. <strong>Design (Дизайн)</strong> — архитектура, встроенная в тело генетикой и нейтрино.</div></td></tr>
+
+      <tr id="row-growth">
+        <td><button class="term-btn" onclick="toggle('growth')">Growth · Decay · Continuity · Manifestation<span class="ru">Рост · Упадок · Непрерывность · Манифестация</span></button></td>
+        <td style="padding:12px 18px;color:#60b0d0;font-size:.82rem">Жизненный цикл</td>
+      </tr>
+      <tr class="desc-row"><td colspan="2"><div class="desc-box" id="desc-growth"><strong>Growth (Рост)</strong> — фаза расширения, накопления ресурсов и возможностей. <strong>Decay (Упадок/Распад)</strong> — необходимая фаза трансформации: старое распадается, освобождая место новому. В HD циклические процессы упадка и обновления отражены в Сенсорных цепях и транзитах планет. <strong>Continuity (Непрерывность)</strong> — передача информации, генетического кода и культуры через поколения — основа эволюции. <strong>Manifestation (Манифестация)</strong> — воплощение дизайна в физической реальности; в HD только Манифесторы имеют прямую способность к инициации действия без одобрения.</div></td></tr>
+    </table>
+  </section>
+
+  <!-- ЛЕВЫЙ НИЖНИЙ -->
+  <section class="s-evol">
+    <h2>↙ Нижняя левая — Объективный / Being <span class="tag">Objective · #3</span></h2>
+    <div style="padding:18px 22px 14px;border-bottom:1px solid rgba(255,255,255,.06)">
+      <p style="font-size:.88rem;line-height:1.75;color:#c0baa8;margin-bottom:12px">
+        <strong style="color:#d08040">Объективный тип — о чём эта зона?</strong><br><br>
+        Нижняя левая зона — уровень от рептилий до приматов — это архетип <strong>чистого бытия в теле</strong>. Объективный (3-й) тип базы связан с генетикой, биологией и физической объективностью. Форма восприятия — «I Am» (Я Есть): реальность воспринимается через то, что есть, без прикрас и иллюзий. Тело как храм дизайна — центральная метафора этой зоны.
+      </p>
+      <p style="font-size:.88rem;line-height:1.75;color:#c0baa8;margin-bottom:12px">
+        <strong style="color:#d08040">Как использовать аналитику?</strong><br>
+        Клиент с акцентом на Объективном типе принимает решения через тело — его Авторитет, скорее всего, телесный (Сакральный, Селезёночный или Эмоциональный). Такому человеку важно <em>доверять физическим сигналам</em>: усталости, голоду, телесному дискомфорту. Биология — его учитель. Аналитик может указать: «Твоё тело знает ответ раньше ума». Темы здоровья, питания (Primary Health System) и физического окружения особенно актуальны для клиентов с выраженной Базой 3.
+      </p>
+      <p style="font-size:.82rem;color:#5a5040"><!-- SOURCES_HIDDEN --> ✦ Подготовлено VIKRAM Human Design для <a href="https://vikramhd2027.netlify.app/" target="_blank" style="color:#60a0d8;text-decoration:none;border-bottom:1px solid #40688a">vikramhd2027.netlify.app</a></p>
+    </div>
+    <table>
+      <tr><th>Термин</th><th>Перевод</th></tr>
+      <tr id="row-reptile">
+        <td><button class="term-btn" onclick="toggle('reptile')">Reptile to Primates<span class="ru">От рептилий до приматов</span></button></td>
+        <td style="padding:12px 18px;color:#d08040;font-size:.82rem">Эволюционный уровень</td>
+      </tr>
+      <tr class="desc-row"><td colspan="2"><div class="desc-box" id="desc-reptile"><strong>Reptile to Primates (От рептилий до приматов)</strong> — нижний левый эволюционный сектор. На этом уровне появляется генетика (Genetics) как основа бытия: организм определяется прежде всего своим телесным устройством. «Я Есть» (I Am) — форма восприятия, связанная с чистым бытием в теле. Тело/Кварк (Body/Quark): в HD Кварк — элементарная частица, ассоциированная с физическим телом. От рептилий до приматов — развитие сложности нервной системы и социального поведения.</div></td></tr>
+
+      <tr id="row-genetics">
+        <td><button class="term-btn" onclick="toggle('genetics')">Genetics · I Am · Being · Body / Quark<span class="ru">Генетика · Я Есть · Бытие · Тело / Кварк</span></button></td>
+        <td style="padding:12px 18px;color:#d08040;font-size:.82rem">Основы бытия</td>
+      </tr>
+      <tr class="desc-row"><td colspan="2"><div class="desc-box" id="desc-genetics"><strong>Genetics (Генетика)</strong> — биологическая программа, записанная в ДНК. В HD нейтрино Солнца кодируют генетику через 64 кодона ДНК (=64 гексаграммы И-Цзин). <strong>I Am (Я Есть)</strong> — форма восприятия: чистое бытие, без концепций и ролей. <strong>Being (Бытие)</strong> — философский принцип присутствия: существование предшествует сущности. <strong>Body/Quark (Тело/Кварк)</strong> — в Базовой Теории физическое тело ассоциировано с кварком — фундаментальной частицей материи. Тело — храм дизайна, оно несёт мудрость, которую ум не может понять рационально.</div></td></tr>
+
+      <tr id="row-biology">
+        <td><button class="term-btn" onclick="toggle('biology')">Biology · Chemistry · Objectivity · Geometry · Trajectory<span class="ru">Биология · Химия · Объективность · Геометрия · Траектория</span></button></td>
+        <td style="padding:12px 18px;color:#d08040;font-size:.82rem">Объективные науки</td>
+      </tr>
+      <tr class="desc-row"><td colspan="2"><div class="desc-box" id="desc-biology"><strong>Biology (Биология)</strong> — наука о живых системах; в HD тело — живая система с собственным интеллектом. <strong>Chemistry (Химия)</strong> — химические процессы (нейромедиаторы, гормоны) формируют эмоциональные и физические реакции. <strong>Objectivity (Объективность)</strong> — восприятие реальности без субъективного искажения; Объективный (3-й) тип воспринимает мир через факты. <strong>Geometry (Геометрия)</strong> — пространственные структуры и паттерны; в HD геометрия ауры определяет характер взаимодействия. <strong>Trajectory (Траектория)</strong> — жизненный путь, предопределённый дизайном; в HD это «Линия» в Профиле (1/3, 2/4 и т.д.).</div></td></tr>
+    </table>
+  </section>
+
+  <!-- ПРАВЫЙ НИЖНИЙ -->
+  <section class="s-inan">
+    <h2>↘ Нижняя правая — Реактивный / Movement <span class="tag">Reactive · #1</span></h2>
+    <div style="padding:18px 22px 14px;border-bottom:1px solid rgba(255,255,255,.06)">
+      <p style="font-size:.88rem;line-height:1.75;color:#c0baa8;margin-bottom:12px">
+        <strong style="color:#c060a0">Реактивный тип — о чём эта зона?</strong><br><br>
+        Нижняя правая зона — уровень от неживой материи до простых форм жизни — это архетип <strong>первичного движения и реакции</strong>. Реактивный (1-й) тип базы — самый «древний» с точки зрения эволюции. Он связан с инстинктивным откликом на среду: двигаться, занимать позицию, реагировать. Ра Уру Ху описывал 1-ю базу как «Бога, внешнего наблюдателя» — позицию, из которой всё измеряется и оценивается с внешней точки зрения.
+      </p>
+      <p style="font-size:.88rem;line-height:1.75;color:#c0baa8;margin-bottom:12px">
+        <strong style="color:#c060a0">Как использовать аналитику?</strong><br>
+        Клиент с акцентом на Реактивном типе живёт во многом через <em>немедленный отклик</em> на внешние стимулы. Для него важно научиться отличать <em>аутентичную реакцию</em> (через Стратегию и Авторитет) от кондиционированной. Ключевые темы в чтении: как человек реагирует на неожиданные изменения? Умеет ли он работать с ограничениями, не воспринимая их как тюрьму? Принцип Limitation (Ограничение) — особенно важен: именно в рамках ограничений Реактивный тип находит свою форму и силу.
+      </p>
+      <p style="font-size:.82rem;color:#5a5040"><!-- SOURCES_HIDDEN --> ✦ Подготовлено VIKRAM Human Design для <a href="https://vikramhd2027.netlify.app/" target="_blank" style="color:#60a0d8;text-decoration:none;border-bottom:1px solid #40688a">vikramhd2027.netlify.app</a></p>
+    </div>
+    <table>
+      <tr><th>Термин</th><th>Перевод</th></tr>
+      <tr id="row-inanimate">
+        <td><button class="term-btn" onclick="toggle('inanimate')">Inanimate to Simple Life Forms<span class="ru">От неживой материи до простых форм жизни</span></button></td>
+        <td style="padding:12px 18px;color:#c060a0;font-size:.82rem">Эволюционный уровень</td>
+      </tr>
+      <tr class="desc-row"><td colspan="2"><div class="desc-box" id="desc-inanimate"><strong>Inanimate to Simple Life Forms (От неживой материи до простых форм жизни)</strong> — нижний правый эволюционный сектор, самый базовый уровень существования. Здесь движение (Movement) и индивидуальность появляются впервые: даже молекула занимает уникальную позицию в пространстве. Это уровень физических законов — активность, реакция, ограничение, перспектива, отношение возникают как первичные принципы взаимодействия частиц. В HD — архетип Реактивного (1) типа.</div></td></tr>
+
+      <tr id="row-movement">
+        <td><button class="term-btn" onclick="toggle('movement')">Movement · Individuality / MM<span class="ru">Движение · Индивидуальность / MM</span></button></td>
+        <td style="padding:12px 18px;color:#c060a0;font-size:.82rem">Движение / Индивидуальность</td>
+      </tr>
+      <tr class="desc-row"><td colspan="2"><div class="desc-box" id="desc-movement"><strong>Movement (Движение)</strong> — первичный принцип: всё существующее движется. В HD движение проявляется через Стратегию — каждый тип имеет свой способ движения в жизни. <strong>Individuality/MM (Индивидуальность/MM)</strong> — в контексте Base Theory MM означает сокращение от Microcosmos/Macrocosmos, указывая на связь индивидуальной уникальности с масштабом Вселенной. Индивидуальность — уникальная комбинация активированных ворот и каналов, делающая каждого человека неповторимым выражением нейтринного потока.</div></td></tr>
+
+      <tr id="row-activity">
+        <td><button class="term-btn" onclick="toggle('activity')">Activity · Reaction · Limitation · Perspective · Relation<span class="ru">Активность · Реакция · Ограничение · Перспектива · Отношение</span></button></td>
+        <td style="padding:12px 18px;color:#c060a0;font-size:.82rem">Принципы реактивности</td>
+      </tr>
+      <tr class="desc-row"><td colspan="2"><div class="desc-box" id="desc-activity"><strong>Activity (Активность)</strong> — способность действовать, проявляться через действие. <strong>Reaction (Реакция)</strong> — отклик на внешние стимулы; у Генератора — сакральная реакция (да/нет). <strong>Limitation (Ограничение)</strong> — принцип границ: ограничения создают форму, без них нет структуры; в HD это Ворота 60 (Принятие ограничений). <strong>Perspective (Перспектива)</strong> — угол зрения; в HD Линии Профиля задают разные перспективы восприятия жизни. <strong>Relation (Отношение)</strong> — взаимосвязь между существами и явлениями; в HD Каналы — это и есть отношения между двумя Воротами/Центрами.</div></td></tr>
+    </table>
+  </section>
+
+</div><!-- end table-wrap -->
+
+<script>
+// ── данные для подсветки в SVG ──
+const termToSvgGroup = {
+  speed:'speed', force:'force', civilisation:'civilisation', friction:'friction',
+  humanity:'humanity', earth:'earth', personality:'personality', presence:'personality',
+  space:'personality', timing:'personality',
+  integrative:'integrative', progressive:'progressive',
+  objective:'objective', reactive:'reactive', subjective:'subjective',
+  plants:'plants', material:'material', evolution:'material', character:'material',
+  homo:'homo', position:'position', design:'homo', growth:'homo',
+  reptile:'reptile', genetics:'reptile', biology:'reptile',
+  inanimate:'inanimate', movement:'inanimate', activity:'inanimate'
+};
+
+function toggle(id) {
+  const box = document.getElementById('desc-' + id);
+  if (!box) return;
+  const isOpen = box.classList.contains('open');
+  // закрыть все
+  document.querySelectorAll('.desc-box.open').forEach(b => b.classList.remove('open'));
+  if (!isOpen) {
+    box.classList.add('open');
+    // подсветить в SVG
+    highlightSvg(termToSvgGroup[id]);
+  } else {
+    clearSvgHighlight();
+  }
+}
+
+function highlightSvg(term) {
+  clearSvgHighlight();
+  if (!term) return;
+  document.querySelectorAll('[data-term="' + term + '"]').forEach(g => {
+    g.classList.add('svg-highlight');
+  });
+}
+
+function clearSvgHighlight() {
+  document.querySelectorAll('.svg-highlight').forEach(g => g.classList.remove('svg-highlight'));
+}
+
+function scrollToTerm(term) {
+  // открыть описание
+  const box = document.getElementById('desc-' + term);
+  if (!box) return;
+  document.querySelectorAll('.desc-box.open').forEach(b => b.classList.remove('open'));
+  box.classList.add('open');
+  // прокрутить к строке в таблице
+  const row = document.getElementById('row-' + term);
+  if (row) {
+    setTimeout(() => row.scrollIntoView({behavior:'smooth', block:'center'}), 80);
+  }
+  highlightSvg(term);
+}
+</script>
+</body>
+</html>

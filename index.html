@@ -1,0 +1,2308 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Персональный астро-прогноз, Human Design и гештальт для женщин в Украине. Безопасность, переезды, финансы 2027. Консультации Викрама — 15 лет опыта." />
+    <meta name="keywords" content="Human Design, астрология, прогноз 2027, консультация, женщины Украина, переезд, безопасность" />
+    <meta property="og:title" content="Астро-прогноз 2027 — Викрам" />
+    <meta property="og:description" content="Персональные прогнозы безопасности, переездов и финансов для женщин в Украине" />
+    <meta property="og:image" content="./foto/myfoto.jpg" />
+    <meta property="og:type" content="website" />
+    <meta name="robots" content="index, follow" />
+    <link rel="icon" type="image/png" href="./foto/logo.png" />
+    <link rel="apple-touch-icon" href="./foto/logo.png" />
+    <meta name="theme-color" content="#1e293b" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta property="og:url" content="https://vikram2027.com/" />
+    <meta property="og:locale" content="ru_UA" />
+    <title>Астро-прогноз 2027 — Викрам | Human Design для женщин Украины</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Header background fix — blend with hero cosmic bg */
+      .site-header {
+        background: linear-gradient(135deg, rgba(20, 10, 40, 0.92), rgba(30, 15, 55, 0.88)) !important;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(123, 44, 255, 0.15);
+      }
+
+      /* ═══ ЦВЕТОЧНЫЙ БЛОК — тёмный текст на светлом фоне карточки ═══ */
+      #flowerBlock,
+      #flowerBlock p,
+      #flowerBlock li,
+      #flowerBlock div,
+      #flowerBlock span,
+      #flowerBlock h2,
+      #flowerBlock h3,
+      #flowerBlock strong {
+        color: #1a1a2e !important;
+      }
+
+      /* Заголовки разделов цветочного блока — по центру */
+      #flowerBlock .flower-section-heading-el {
+        text-align: center !important;
+      }
+
+      /* Заголовок психотипа (иконка, число, название, subtitle) — по центру */
+      .full-description h2,
+      .full-description .subtitle,
+      .full-description .psychotype-icon {
+        text-align: center !important;
+        display: block;
+      }
+
+      #resultImage {
+        width: 100%;
+        max-width: 260px;
+        height: auto;
+        display: none;
+        margin: 20px auto;
+        border-radius: 12px;
+        object-fit: cover;
+      }
+
+      @keyframes glowBtn {
+        0% { box-shadow: 0 0 10px rgba(123,44,255,0.4); }
+        50% { box-shadow: 0 0 20px rgba(255,59,107,0.6); }
+        100% { box-shadow: 0 0 10px rgba(123,44,255,0.4); }
+      }
+
+      #moreBtn {
+        margin-top: 20px;
+        padding: 14px 22px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        color: white;
+        background: linear-gradient(135deg, #7b2cff, #ff3b6b);
+        transition: all 0.3s ease;
+        animation: glowBtn 2.5s infinite;
+      }
+
+      #moreBtn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 20px rgba(255,59,107,0.6);
+      }
+
+      /* ── Переопределяем styles.css для цветочного блока ── */
+      #flowerBlock p,
+      #flowerBlock div,
+      #flowerBlock span,
+      #flowerBlock strong {
+        color: inherit !important;
+      }
+      #flowerBlock .flower-section-heading {
+        color: #c9a84c !important;
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        letter-spacing: .12em !important;
+        text-transform: uppercase !important;
+        border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+        padding-bottom: 6px !important;
+        margin-bottom: 8px !important;
+      }
+      #flowerBlock .flower-section-body {
+        color: #c8c4bc !important;
+        font-size: 15px !important;
+        line-height: 1.75 !important;
+      }
+      #flowerBlock .flower-section {
+        margin-bottom: 20px;
+      }
+      #resultPanel .flower-title-main {
+        color: #fff !important;
+      }
+      #resultPanel .flower-title-sub {
+        color: #c9a84c !important;
+      }
+      #resultPanel,
+      #resultPanel * {
+        font-family: 'Inter', sans-serif;
+      }
+      /* XL — название психотипа */
+      #resultType, #resultTitle {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(22px, 3vw, 28px);
+        font-weight: 700;
+        line-height: 1.2;
+      }
+      /* «Важно!» — чуть меньше XL */
+      .result-extra h4 {
+        font-size: clamp(16px, 2.2vw, 20px) !important;
+        font-weight: 800 !important;
+        line-height: 1.3 !important;
+      }
+      /* M — основной текст */
+      #resultText, #resultDesc, .result-extra,
+      #resultMinus, #resultPlus, #full-description p,
+      #full-description li {
+        font-size: 16px;
+        line-height: 1.7;
+      }
+      /* S — метки и расчёт */
+      #resultNumber, #calcSteps, .result-extra .energy-label,
+      .type-badge {
+        font-size: 13px;
+      }
+      .result-extra {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(201,168,76,0.12);
+        border-radius: 12px;
+        padding: 18px 20px;
+        margin-bottom: 20px;
+        text-align: left;
+        font-size: 14px;
+        line-height: 1.7;
+        color: #c8c4bc;
+      }
+      .result-extra h4 {
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #c9a84c;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      .result-extra .energy-row {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 6px;
+        align-items: flex-start;
+      }
+      .result-extra .energy-label {
+        flex-shrink: 0;
+        font-size: 13px;
+        opacity: 0.6;
+        min-width: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#hero">Перейти к контенту</a>
+
+    <header id="header" class="site-header" aria-label="Site header">
+      <div class="container header-inner">
+        <a class="logo" href="#hero" aria-label="Logo" id="secretLogo">
+          <img class="logo-img" src="./foto/logo.png" alt="Logo" />
+        </a>
+        <script>
+        document.addEventListener('DOMContentLoaded', function(){
+          var clicks=0, timer;
+          var logo = document.getElementById('secretLogo');
+          if(!logo) return;
+          logo.addEventListener('click', function(e){
+            e.preventDefault(); // блокируем href на КАЖДОМ клике
+            clicks++;
+            clearTimeout(timer);
+            if(clicks >= 3){
+              clicks = 0;
+              if(typeof window.showSecretMenu === 'function') window.showSecretMenu();
+            } else {
+              timer = setTimeout(function(){ clicks = 0; }, 800);
+            }
+          });
+        });
+        </script>
+
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a class="nav-link" href="#hero">Главная</a>
+          <a class="nav-link" href="#section-2">Консультации</a>
+          <a class="nav-link" href="reference.html">Большой справочник понятий</a>
+          <a class="nav-link" href="#lunar-section">🌙 Лунный календарь</a>
+          <a class="nav-link" href="./calculator_web.html">🧬 HD Калькулятор</a>
+        </nav>
+
+
+      </div>
+    </header>
+
+    <main>
+      <section id="hero" class="hero" aria-label="Hero section">
+        <div class="container hero-inner">
+          <div class="hero-content" data-reveal>
+            <p class="eyebrow">Human Design — Гештальт - Астрология</p>
+            <h1 class="hero-title">
+              Твой Прогноз по безопасности в эпоху перемен 2027
+            </h1>
+            <p class="hero-subtitle">
+              Мои показатели с социальных сетях
+            </p>
+
+            <div class="hero-social-proof" aria-label="Социальное доказательство">
+              <p class="hero-social-proof-item">136K+ TikTok подписчиков</p>
+              <p class="hero-social-proof-item">20K+ Instagram/YouTube</p>
+              <p class="hero-social-proof-item">15 лет опыта</p>
+            </div>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary hero-cta-primary" href="#pricing">Заказать персональный прогноз</a>
+              <a class="btn btn-ghost hero-cta-secondary" href="#psychotype">Бесплатный экспресс-анализ</a>
+            </div>
+            <p class="hero-cta-note">✓ Конфиденциально · ✓ Ответ в течение 24 часов</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="pain-section unified-section-transition" aria-label="Боли клиентов">
+        <div class="container">
+          <header class="section-header pain-section-header" data-reveal>
+            <h2 class="section-title pain-section-title">Вопросы, которые не дают спать спокойно</h2>
+          </header>
+
+          <div class="pain-grid" data-reveal>
+            <article class="pain-card">
+              <p class="pain-card-icon" aria-hidden="true">🛡️</p>
+              <h3 class="pain-card-title">Безопасность и переезды</h3>
+              <p class="pain-card-text">Стоит ли уезжать? Куда переехать с детьми?</p>
+            </article>
+
+            <article class="pain-card">
+              <p class="pain-card-icon" aria-hidden="true">💰</p>
+              <h3 class="pain-card-title">Деньги и выживание</h3>
+              <p class="pain-card-text">Как не потерять накопления? Когда менять работу?</p>
+            </article>
+
+            <article class="pain-card">
+              <p class="pain-card-icon" aria-hidden="true">❤️</p>
+              <h3 class="pain-card-title">Отношения и будущее</h3>
+              <p class="pain-card-text">Как сохранить семью? Как понять предназначение?</p>
+            </article>
+          </div>
+
+          <div class="pain-cta-wrap" data-reveal>
+            <a class="btn btn-primary pain-cta-btn" href="#pricing">Получить персональные ответы →</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="survival-insights-section unified-section-transition" style="--photo-url: url('./foto/book2.JPG');" aria-label="Дизайн Человека даст ответы">
+        <div class="container survival-insights-wrap">
+          <header class="survival-insights-header" data-reveal>
+            <h2 class="survival-insights-title">Дизайн Человека даст ответы</h2>
+            <p class="survival-insights-subtitle">13 ключевых аспектов твоей уникальной природы</p>
+          </header>
+
+          <div class="survival-insights-layout" data-reveal>
+            <div class="survival-insights-grid">
+              <article class="survival-card">
+                <h3 class="survival-card-title">🏠 Где жить?!</h3>
+                <p class="survival-card-text">Твоё идеальное место силы — где ты будешь в ресурсе и безопасности.</p>
+              </article>
+
+              <article class="survival-card">
+                <h3 class="survival-card-title">🍽️ Питание</h3>
+                <p class="survival-card-text">Твоя персональная система питания для энергии и здорового веса.</p>
+              </article>
+
+              <article class="survival-card hidden-aspect">
+                <h3 class="survival-card-title">🎯 Мотивация</h3>
+                <p class="survival-card-text">Что на самом деле движет тобою к целям и как это использовать.</p>
+              </article>
+
+              <article class="survival-card">
+                <h3 class="survival-card-title">❤️ Отношения, любовь, секс</h3>
+                <p class="survival-card-text">Твои ключи к близости и страсти без драм и манипуляций.</p>
+              </article>
+
+              <article class="survival-card hidden-aspect">
+                <h3 class="survival-card-title">🔄 Паттерны взаимоотношений</h3>
+                <p class="survival-card-text">Почему ты притягиваешь не тех людей и как это изменить.</p>
+              </article>
+
+              <article class="survival-card">
+                <h3 class="survival-card-title">💰 Деньги и выгорание</h3>
+                <p class="survival-card-text">Ваш индивидуальный способ зарабатывать деньги и реализовываться в материальном мире.</p>
+              </article>
+
+              <article class="survival-card">
+                <h3 class="survival-card-title">🏥 Здоровье</h3>
+                <p class="survival-card-text">Никогда не болеть "чужими" болезнями и избегать самоуничтожения своего тела.</p>
+              </article>
+
+              <article class="survival-card hidden-aspect">
+                <h3 class="survival-card-title">👶 Детский Дизайн Человека</h3>
+                <p class="survival-card-text">Нюансы воспитания и развития ребёнка для раскрытия его потенциала на 100%.</p>
+              </article>
+
+              <article class="survival-card hidden-aspect">
+                <h3 class="survival-card-title">😰 Страхи и меланхолия</h3>
+                <p class="survival-card-text">Страх - это топливо для осознанности, а меланхолия для творчества.</p>
+              </article>
+
+              <article class="survival-card hidden-aspect">
+                <h3 class="survival-card-title">😴 Механика сна</h3>
+                <p class="survival-card-text">Последствия и потенциал процесса, в котором мы проводим треть нашей жизни.</p>
+              </article>
+
+              <article class="survival-card hidden-aspect">
+                <h3 class="survival-card-title">🪐 Транзиты</h3>
+                <p class="survival-card-text">Ежедневное влияние, которое на Вас оказывают планеты.</p>
+              </article>
+
+              <article class="survival-card hidden-aspect">
+                <h3 class="survival-card-title">👨‍👩‍👧 Роли в семье</h3>
+                <p class="survival-card-text">Какие роли вы проявляете в семейном взаимодействии.</p>
+              </article>
+
+              <article class="survival-card hidden-aspect">
+                <h3 class="survival-card-title">🤝 Командный потенциал</h3>
+                <p class="survival-card-text">Ваши роли в команде и типы взаимодействия.</p>
+              </article>
+
+              <button id="showAllAspects" class="btn btn-primary" style="grid-column: 1 / -1; margin-top: 16px;">
+                Показать все
+              </button>
+            </div>
+
+            <aside class="survival-bonus" aria-label="Бонусный PDF-гайд">
+              <span class="survival-bonus-badge">🎁 БОНУС</span>
+              <img class="survival-bonus-image" src="foto/serce.png" alt="Бонусный PDF-гайд" loading="lazy" />
+              <p class="survival-bonus-note">Каждый клиент получает PDF-гайд в подарок</p>
+              <a class="btn btn-primary survival-bonus-btn" href="https://spisok-voprosov-vikram.netlify.app/" target="_blank" rel="noopener noreferrer">Получить полный разбор →</a>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+
+      <section id="pricing" class="pricing-offers-section unified-section-transition" aria-label="Цены и услуги">
+        <div class="container">
+          <header class="section-header pricing-offers-header" data-reveal>
+            <h2 class="section-title pricing-offers-title">Выберите формат персональной помощи</h2>
+          </header>
+
+          <div class="pricing-offers-grid" data-reveal>
+            <article class="pricing-offer-card">
+              <h3 class="pricing-offer-title">Экспресс-консультация</h3>
+              <p class="pricing-offer-meta">30 минут</p>
+              <p class="pricing-offer-price">1.250 гривен</p>
+              <a class="btn btn-primary pricing-offer-btn" href="https://t.me/Vikram_2027?text=Здравствуйте!%20Хочу%20заказать:%0A%0A✅%20Экспресс-консультация%20(30%20минут)%0A💰%20Цена:%201.250%20гривен" target="_blank" rel="noopener noreferrer">Записаться</a>
+            </article>
+
+            <article class="pricing-offer-card pricing-offer-card--hit">
+              <span class="pricing-offer-badge">ХИТ</span>
+              <h3 class="pricing-offer-title">PDF-прогноз на год</h3>
+              <p class="pricing-offer-meta">Календарь опасных дней</p>
+              <p class="pricing-offer-price">1.300 гривен</p>
+              <a class="btn btn-primary pricing-offer-btn" href="https://t.me/Vikram_2027?text=Здравствуйте!%20Хочу%20заказать:%0A%0A✅%20PDF-прогноз%20на%20год%20(Календарь%20опасных%20дней)%0A💰%20Цена:%201.300%20гривен%0A%0A🔥%20ХИТ%20продаж!" target="_blank" rel="noopener noreferrer">Заказать прогноз</a>
+            </article>
+
+            <article class="pricing-offer-card">
+              <h3 class="pricing-offer-title">Личная консультация</h3>
+              <p class="pricing-offer-meta">60-90 минут + PDF</p>
+              <p class="pricing-offer-price">2.550 гривен</p>
+              <a class="btn btn-primary pricing-offer-btn" href="https://t.me/Vikram_2027?text=Здравствуйте!%20Хочу%20заказать:%0A%0A✅%20Личная%20консультация%20(60-90%20минут%20%2B%20PDF)%0A💰%20Цена:%202.550%20гривен%0A%0A📝%20Готов(а)%20обсудить%20темы%20для%20разбора" target="_blank" rel="noopener noreferrer">Выбрать темы</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="section-2" class="photo-section unified-section-transition" style="--photo-url: url('./foto/book1.JPG');" aria-label="Section-2">
+        <div class="container">
+          <div class="consult-card" style="text-align: center;">
+
+          <div style="margin-top: 16px; max-width: 600px; margin-left: auto; margin-right: auto;" data-reveal>
+            <div id="psychotype" class="psychotype-block">
+              <div class="form-card">
+                <span class="form-label">🎁 Бесплатный инструмент: Узнай свой энергетический психотип</span>
+                <div class="date-row" role="group" aria-label="Введите дату рождения">
+                  <div class="field-group">
+                    <label for="day">День</label>
+                    <select id="day">
+                      <option value="">—</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label for="month">Месяц</label>
+                    <select id="month">
+                      <option value="">—</option>
+                      <option value="1">Январь</option>
+                      <option value="2">Февраль</option>
+                      <option value="3">Март</option>
+                      <option value="4">Апрель</option>
+                      <option value="5">Май</option>
+                      <option value="6">Июнь</option>
+                      <option value="7">Июль</option>
+                      <option value="8">Август</option>
+                      <option value="9">Сентябрь</option>
+                      <option value="10">Октябрь</option>
+                      <option value="11">Ноябрь</option>
+                      <option value="12">Декабрь</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label for="year">Год</label>
+                    <input type="number" id="year" placeholder="1990" min="1900" max="2026">
+                  </div>
+                </div>
+                <div class="error-msg" id="error"></div>
+                <button class="btn-calc" onclick="calculate()" aria-label="Рассчитать энергетический психотип по дате рождения">Рассчитать</button>
+                <p class="psychotype-demo-note">Демо-версия моей методики анализа. Полный разбор — в персональной консультации.</p>
+              </div>
+              <div class="result-panel" id="resultPanel" role="region" aria-label="Результат расчёта психотипа" aria-live="polite">
+                <div class="result-card" id="resultCard">
+
+                  <!-- ═══ БЛОК 1: РАЗБОР ═══ -->
+                  <div id="flowerBlock" style="display:none; margin-bottom:36px; padding-bottom:36px; border-bottom:1px solid rgba(255,255,255,0.1);">
+                    <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(20px,3vw,26px); font-weight:700; text-align:center; margin-bottom:24px; line-height:1.3;">
+                      <span class="flower-title-main" style="color:#1a1a2e !important;">Результат быстрого разбора</span><br>
+                      <span class="flower-title-sub" style="font-size:0.7em; font-weight:600; font-style:italic; color:#7b2cff !important;">от Викрама</span>
+                    </div>
+                    <!-- скрытые служебные элементы цветка -->
+                    <span id="flowerEmoji" style="display:none;"></span>
+                    <div id="flowerName" style="display:none;"></div>
+                    <div id="flowerPeriod" style="display:none;"></div>
+                    <div id="flowerTags" style="display:none;"></div>
+                    <!-- описание -->
+                    <div id="flowerDesc"></div>
+                  </div>
+
+                  <!-- ═══ БЛОК 2: ПСИХОТИП ═══ -->
+                  <div id="psychotypeHeader" style="display:none; text-align:center; margin-bottom:20px;">
+                    <div id="resultIcon" style="font-size:32px; margin-bottom:6px;"></div>
+                    <div id="resultNumber" style="font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,0.45); margin-bottom:6px;"></div>
+                    <div id="resultType" style="font-family:'Cormorant Garamond',serif; font-size:clamp(20px,3vw,26px); font-weight:700; color:#fff;"></div>
+                  </div>
+                  <div id="full-description" class="full-description"></div>
+
+                  <!-- скрытые legacy-элементы -->
+                  <div id="typeBadge" style="display:none;"></div>
+                  <img id="resultImage" src="" alt="" style="display:none;" />
+                  <div id="resultExtra" style="display:none;"></div>
+                  <div id="resultTitle" style="display:none;"></div>
+                  <div id="resultText" style="display:none;"></div>
+                  <div id="resultMinus" style="display:none;"></div>
+                  <div id="resultPlus" style="display:none;"></div>
+                  <div id="resultDesc" style="display:none;"></div>
+                  <div id="calcSteps" style="display:none;"></div>
+                  <button id="read-more-btn" style="display:none;"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <style>
+            .stack-wrap {
+              position: relative;
+              width: 100%;
+              max-width: 500px;
+              margin: 24px auto 32px;
+              height: clamp(260px, 72vw, 380px);
+            }
+            .stack-wrap .si {
+              position: absolute;
+              width: 62%;
+              height: 92%;
+              top: 4%;
+              object-fit: cover;
+              border-radius: 20px;
+              box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+              cursor: pointer;
+              transition: all 0.45s cubic-bezier(0.34,1.56,0.64,1);
+            }
+            /* active — front, centre */
+            .stack-wrap .si.active {
+              left: 50%;
+              transform: translateX(-50%) rotate(0deg) scale(1);
+              z-index: 4;
+              width: 56%;
+              height: 100%;
+              top: 0;
+              box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            }
+            /* peek-1: справа, ~45% видно */
+            .stack-wrap .si.peek-1 {
+              left: auto;
+              right: -6%;
+              width: 56%;
+              transform: rotate(5deg) scale(0.93);
+              z-index: 3;
+            }
+            /* peek-2: слева, ~45% видно */
+            .stack-wrap .si.peek-2 {
+              left: -6%;
+              width: 56%;
+              transform: rotate(-5deg) scale(0.88);
+              z-index: 2;
+            }
+            /* peek-3: крайняя справа */
+            .stack-wrap .si.peek-3 {
+              left: auto;
+              right: -10%;
+              width: 52%;
+              transform: rotate(8deg) scale(0.82);
+              z-index: 1;
+              opacity: 0.75;
+            }
+            /* contain для карточек с текстом */
+            .stack-wrap .si.si-contain {
+              object-fit: contain;
+              background: rgba(20,12,40,0.7);
+            }
+          </style>
+          <div class="stack-wrap" id="cardStack">
+            <!-- Карточка 1: Главное видео БЕЗ autoplay -->
+            <div class="card-media si active" data-idx="0">
+              <img src="./foto/myfoto1.png" alt="" class="background-photo">
+              <video 
+                id="video-main" 
+                muted 
+                loop 
+                playsinline
+                webkit-playsinline
+                preload="auto"
+                class="card-video"
+              >
+                <source src="./video/2027-1.mp4" type="video/mp4">
+              </video>
+            </div>
+
+            <!-- Карточка 2: Второе видео -->
+            <div class="card-media si peek-1" data-idx="1">
+              <video 
+                id="video-second"
+                loop 
+                muted 
+                playsinline
+                webkit-playsinline
+                preload="none"
+                class="card-video"
+              >
+                <source src="video/wow.mp4" type="video/mp4">
+              </video>
+            </div>
+
+            <!-- Карточка 3: Третье видео -->
+            <div class="card-media si peek-2" data-idx="2">
+              <video 
+                id="video-third"
+                class="card-video" 
+                loop
+                muted
+                playsinline
+                webkit-playsinline
+                preload="metadata"
+              >
+                <source src="./video/2027-2.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+          <script>
+          (function(){
+            var stack = document.getElementById('cardStack');
+            if (!stack) return;
+            
+            var peekClasses = ['active','peek-1','peek-2','peek-3'];
+
+            function rotateTo(clickedIdx) {
+              var cards = stack.querySelectorAll('.si');
+              var order = [];
+              
+              for (var i = 0; i < cards.length; i++) {
+                order.push(parseInt(cards[i].dataset.idx));
+              }
+              
+              while (order[0] !== clickedIdx) {
+                order.push(order.shift());
+              }
+              
+              cards.forEach(function(c) {
+                var pos = order.indexOf(parseInt(c.dataset.idx));
+                c.className = 'card-media si ' + (peekClasses[pos] || 'peek-3');
+                
+                if (pos !== 0) {
+                  var videos = c.querySelectorAll('video');
+                  videos.forEach(function(v) { 
+                    v.pause(); 
+                    v.muted = true;
+                  });
+                } else {
+                  var activeVideo = c.querySelector('video');
+                  if (activeVideo && activeVideo.paused) {
+                    activeVideo.muted = true;
+                    activeVideo.play().catch(function(){});
+                  }
+                }
+              });
+            }
+
+            stack.addEventListener('click', function(e) {
+              var card = e.target.closest('.si');
+              if (!card) return;
+              
+              var video = card.querySelector('video');
+              
+              if (card.classList.contains('active') && video) {
+                e.stopPropagation();
+                video.muted = false;
+                video.currentTime = 0;
+                video.play().catch(function(){});
+                return;
+              }
+              
+              if (!card.classList.contains('active')) {
+                rotateTo(parseInt(card.dataset.idx));
+              }
+            });
+
+            // Автозапуск главного видео (БЕЗ звука)
+            var videoMain = document.getElementById('video-main');
+            if (videoMain) {
+              videoMain.muted = true;
+              videoMain.play().catch(function(){});
+            }
+
+            // ═══════════════════════════════════════════════════════════
+            // 🔇 АВТООТКЛЮЧЕНИЕ ЗВУКА ПРИ СКРОЛЛЕ
+            // ═══════════════════════════════════════════════════════════
+            
+            function muteAllVideos() {
+              var allVideos = stack.querySelectorAll('video');
+              allVideos.forEach(function(v) {
+                if (!v.muted) {
+                  v.muted = true;
+                }
+              });
+            }
+
+            // Основной метод: IntersectionObserver (современные браузеры)
+            if ('IntersectionObserver' in window) {
+              var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                  // Если блок с видео вышел из зоны видимости (меньше 12% видно)
+                  if (!entry.isIntersecting || entry.intersectionRatio < 0.12) {
+                    muteAllVideos();
+                  }
+                });
+              }, {
+                threshold: [0, 0.12] // Отслеживаем пересечения на уровне 0% и 12%
+              });
+
+              observer.observe(stack);
+            } else {
+              // Fallback для старых браузеров: scroll события
+              var scrollTimeout;
+              
+              function handleScroll() {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(function() {
+                  var rect = stack.getBoundingClientRect();
+                  var vh = window.innerHeight || document.documentElement.clientHeight;
+                  
+                  // Проверяем, виден ли блок на экране
+                  var isVisible = rect.bottom > vh * 0.12 && rect.top < vh * 0.88;
+                  if (!isVisible) {
+                    muteAllVideos();
+                  }
+                }, 50);
+              }
+              
+              window.addEventListener('scroll', handleScroll, { passive: true });
+            }
+
+            // Дополнительная защита для мобильных устройств
+            var touchTimeout;
+            window.addEventListener('touchmove', function() {
+              clearTimeout(touchTimeout);
+              touchTimeout = setTimeout(function() {
+                var rect = stack.getBoundingClientRect();
+                var vh = window.innerHeight || document.documentElement.clientHeight;
+                
+                var isVisible = rect.bottom > vh * 0.12 && rect.top < vh * 0.88;
+                if (!isVisible) {
+                  muteAllVideos();
+                }
+              }, 100);
+            }, { passive: true });
+
+          })();
+          </script>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ═══════════════════ КАК ПРОХОДИТ РАЗБОР ═══════════════════ -->
+      <section class="section unified-section-transition" aria-label="Как проходит разбор" style="padding: 60px 0; background: linear-gradient(180deg, #110a28 0%, #0d0820 100%);">
+        <div class="container">
+          <div class="text-center mb-5" data-reveal>
+            <h2 style="color: #fff; font-size: clamp(28px, 4vw, 42px); font-weight: 700; margin: 0 0 16px; text-align: center;">
+              Как это работает
+            </h2>
+            <p style="color: rgba(255,255,255,0.6); font-size: 16px; max-width: 600px; margin: 0 auto;">
+              3 шага от вопроса до плана безопасности
+            </p>
+          </div>
+
+          <div class="consultation-steps" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; max-width: 1200px; margin: 0 auto;">
+            <!-- ШАГ 1 -->
+            <div class="step-card" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(123,44,255,0.2); border-radius: 20px; overflow: hidden;" data-reveal>
+              <img src="./foto/consultation-step1.jpg" alt="Доверительный разговор" style="width: 100%; height: 200px; object-fit: cover; border-radius: 20px 20px 0 0;" onerror="this.style.display='none'">
+              <div style="padding: 28px 24px;">
+                <h3 style="color: #fff; font-size: 22px; font-weight: 700; margin: 0 0 16px;">
+                  1. Личный контакт
+                </h3>
+                <p style="color: rgba(255,255,255,0.7); font-size: 15px; margin: 0; text-align: left; line-height: 1.7;">
+                  Напиши мне в Telegram. Я лично вникну в твою ситуацию и отвечу в течение 2-4 часов. Без ботов и менеджеров — только живое общение.
+                </p>
+              </div>
+            </div>
+
+            <!-- ШАГ 2 -->
+            <div class="step-card" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(123,44,255,0.2); border-radius: 20px; overflow: hidden;" data-reveal>
+              <img src="./foto/consultation-step2.jpg" alt="Глубокий анализ карты" style="width: 100%; height: 200px; object-fit: cover; border-radius: 20px 20px 0 0;" onerror="this.style.display='none'">
+              <div style="padding: 28px 24px;">
+                <h3 style="color: #fff; font-size: 22px; font-weight: 700; margin: 0 0 16px;">
+                  2. Анализ твоей карты
+                </h3>
+                <p style="color: rgba(255,255,255,0.7); font-size: 15px; margin: 0; text-align: left; line-height: 1.7;">
+                  Соединяю Астрологию и Human Design, чтобы найти безопасные места для жизни и скрытые финансовые возможности на 2027 год.
+                </p>
+              </div>
+            </div>
+
+            <!-- ШАГ 3 -->
+            <div class="step-card" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(123,44,255,0.2); border-radius: 20px; overflow: hidden;" data-reveal>
+              <img src="./foto/consultation-step3.jpg" alt="План безопасности" style="width: 100%; height: 200px; object-fit: cover; border-radius: 20px 20px 0 0;" onerror="this.style.display='none'">
+              <div style="padding: 28px 24px;">
+                <h3 style="color: #fff; font-size: 22px; font-weight: 700; margin: 0 0 16px;">
+                  3. Твой план действий
+                </h3>
+                <p style="color: rgba(255,255,255,0.7); font-size: 15px; margin: 0; text-align: left; line-height: 1.7;">
+                  Ты получаешь PDF-стратегию безопасности, запись нашего разбора и мою личную поддержку в Telegram после встречи.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="about-section"
+        class="photo-section about-guide unified-section-transition"
+        style="--photo-url: url('./foto/cards.JPG');"
+        aria-label="About и справочник"
+      >
+        <div class="container">
+          <div id="consultation-section" style="position: relative; top: -84px;"></div>
+          <div class="about-grid">
+            <div class="about-left" data-reveal>
+              <img
+                class="about-photo"
+                src="./foto/myfoto.jpg"
+                alt="Викрам"
+                loading="lazy"
+              />
+              <p class="about-text">
+                <strong>Викрам</strong> — аналитик системы Дизайна Человека, гештальт-психолог
+              </p>
+              <p class="about-text about-text--muted">
+                Опыт работы более 15 лет
+              </p>
+            </div>
+
+            <div id="cta-block" class="about-right" data-reveal style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+              <p style="color: #fff; font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 800; font-style: italic; margin: 0; text-align: center;">ПРОСТО НАЖМИ ТУТ<br><span style="font-size: 0.65em; font-weight: 600; opacity: 0.8;">(мой телеграм)</span></p>
+              <div style="text-align:center;">
+                <svg width="80" height="100" viewBox="0 0 80 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 12px rgba(255,255,255,0.9)); animation: arrowBounce 1.2s ease-in-out infinite;">
+                  <path d="M40 6 L40 76" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/>
+                  <path d="M12 58 L40 90 L68 58" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <style>
+                  @keyframes arrowBounce {
+                    0%, 100% { transform: translateY(0); }
+                    50% { transform: translateY(12px); }
+                  }
+                </style>
+              </div>
+                <a class="btn btn-primary" href="https://spisok-voprosov-vikram.netlify.app/" target="_blank" rel="noopener noreferrer" style="margin-top: 8px;">ВЫБРАТЬ ТЕМЫ ДЛЯ КОНСУЛЬТАЦИИ</a>
+                <a class="btn btn-primary" href="https://t.me/provodnik_2027" target="_blank" rel="noopener noreferrer">ГРУППА 2027 - В ТЕЛЕГРАМ</a>
+              <p style="color: rgba(255,255,255,0.75); font-size: 0.9rem; margin: 0; text-align: center;">Полный список вопросов</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      
+
+      <!-- ═══════════════════ LUNAR MINI SECTION ═══════════════════ -->
+      <section id="lunar-section" class="section unified-section-transition" aria-label="Лунный календарь" style="padding: 80px 0; background: linear-gradient(180deg, #0d0820 0%, #110a28 100%);">
+        <div class="container">
+
+          <div style="text-align:center; margin-bottom:40px;">
+            <p style="color:rgba(255,255,255,0.5); font-size:13px; letter-spacing:.12em; text-transform:uppercase; margin:0 0 10px;">Астрология</p>
+            <h2 style="color:#fff; font-size:clamp(28px,4vw,42px); font-weight:700; margin:0 0 12px;">🌙 Лунный календарь</h2>
+            <p style="color:rgba(255,255,255,0.6); font-size:16px; margin:0;">Расчёт для Киева · обновляется ежедневно</p>
+          </div>
+
+          <!-- Mini summary card -->
+          <div id="lm-card" style="
+            background: linear-gradient(135deg, rgba(109,40,217,0.22), rgba(139,43,226,0.12));
+            border: 1px solid rgba(167,139,250,0.25);
+            border-radius: 20px; padding: 28px 32px; margin-bottom: 24px;
+          ">
+            <!-- Top row -->
+            <div style="display:flex; align-items:center; gap:20px; flex-wrap:wrap; margin-bottom:22px;">
+              <div id="lm-moon-icon" style="font-size:52px; line-height:1;">🌒</div>
+              <div>
+                <h3 id="lm-title" style="color:#fff; font-size:20px; font-weight:700; margin:0 0 4px;">Загрузка…</h3>
+                <div id="lm-subtitle" style="color:#a78bfa; font-size:14px;"></div>
+              </div>
+            </div>
+            <!-- Metrics grid -->
+            <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:10px;">
+              <div style="background:rgba(255,255,255,0.06); border-radius:12px; padding:12px 14px;">
+                <div style="font-size:10px; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:.07em; margin-bottom:5px;">Лунный день</div>
+                <div id="lm-day" style="font-size:18px; font-weight:600; color:#fff;">—</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.06); border-radius:12px; padding:12px 14px;">
+                <div style="font-size:10px; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:.07em; margin-bottom:5px;">Знак Луны</div>
+                <div id="lm-zodiac" style="font-size:18px; font-weight:600; color:#fff;">—</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.06); border-radius:12px; padding:12px 14px;">
+                <div style="font-size:10px; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:.07em; margin-bottom:5px;">Фаза</div>
+                <div id="lm-phase" style="font-size:18px; font-weight:600; color:#fff;">—</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.06); border-radius:12px; padding:12px 14px;">
+                <div style="font-size:10px; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:.07em; margin-bottom:5px;">Оценка дня</div>
+                <div id="lm-rating" style="font-size:18px; font-weight:600;">—</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.06); border-radius:12px; padding:12px 14px;">
+                <div style="font-size:10px; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:.07em; margin-bottom:5px;">Стихия</div>
+                <div id="lm-element" style="font-size:18px; font-weight:600; color:#fff;">—</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.06); border-radius:12px; padding:12px 14px;">
+                <div style="font-size:10px; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:.07em; margin-bottom:5px;">Планета Луны</div>
+                <div id="lm-planet" style="font-size:18px; font-weight:600; color:#fff;">—</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTA button -->
+          <div style="text-align:center;">
+            <a href="./lunar.html" class="btn btn-primary" style="display:inline-block; text-decoration:none; padding:16px 40px; font-size:16px; font-weight:600;">
+              Открыть полный календарь дня →
+            </a>
+          </div>
+
+        </div>
+      </section>
+      <!-- ═══════════════════════════════════════════════════════════ -->
+
+      <!-- ═══════════════════ PROGRESS LEVEL SECTION ═══════════════════ -->
+      <section id="level-section" class="unified-section-transition" aria-label="Тест Дизайн Человека" style="padding: 60px 0; position: relative; background-image: url('foto/level-1.png'); background-size: cover; background-position: center; background-attachment: fixed;">
+        <style>
+          #level-section::before { content:""; position:absolute; inset:0; background:rgba(10,5,25,0.85); z-index:0; }
+          #level-section > * { position:relative; z-index:1; }
+          .lv-wrap { max-width:900px; margin:0 auto; padding:0 20px; text-align:center; }
+
+          /* INTRO */
+          .lv-intro-inner { display:flex; align-items:center; justify-content:center; gap:40px; flex-wrap:wrap; }
+          .lv-intro-img { width:clamp(120px,20vw,200px); border-radius:50%; border:2px solid rgba(123,44,255,0.4); }
+          .lv-intro-text { text-align:left; max-width:420px; }
+          .lv-intro-text h2 { font-family:"Cormorant Garamond",serif; font-size:clamp(28px,4vw,42px); font-weight:700; color:#fff; margin:0 0 16px; line-height:1.2; }
+          .lv-intro-text .lv-intro-sub { color:rgba(255,255,255,0.55); font-size:14px; line-height:1.6; margin-bottom:20px; }
+
+          /* QUIZ */
+          .lv-q-wrap { display:flex; align-items:flex-start; gap:18px; text-align:left; margin-bottom:18px; padding:20px 24px; background:rgba(255,255,255,0.04); border:1px solid rgba(123,44,255,0.18); border-radius:12px; }
+          .lv-q-img { flex-shrink:0; width:140px; height:140px; border-radius:10px; overflow:hidden; border:1px solid rgba(123,44,255,0.25); }
+          .lv-q-img svg { width:100%; height:100%; display:block; }
+          .lv-q-body { flex:1; min-width:0; }
+          .lv-q-title { font-size:clamp(16px,2.5vw,22px); font-weight:600; color:#e8e0f8; margin-bottom:16px; line-height:1.5; }
+          .lv-q-title .lv-q-num { color:#7b2cff; font-size:clamp(13px,1.8vw,17px); letter-spacing:.08em; display:block; margin-bottom:6px; font-weight:700; }
+          .lv-options { display:flex; gap:10px; flex-wrap:wrap; }
+          .lv-opt { padding:11px 18px; border-radius:8px; border:1px solid rgba(123,44,255,0.3); background:transparent; color:rgba(255,255,255,0.7); font-size:clamp(14px,2vw,18px); cursor:pointer; transition:all .18s; font-family:"Inter",sans-serif; }
+          .lv-opt:hover { border-color:#7b2cff; color:#fff; }
+          .lv-opt.active { background:linear-gradient(135deg,rgba(123,44,255,0.35),rgba(255,59,107,0.2)); border-color:#7b2cff; color:#fff; font-weight:600; }
+          @media(max-width:600px){ .lv-q-wrap { flex-direction:column; gap:14px; padding:16px; } .lv-q-img { width:100%; height:auto; aspect-ratio:1/1; border-radius:12px; } .lv-q-img svg { width:100%; height:100%; } }
+
+          /* PROGRESS */
+          .lv-prog-label { font-size:12px; color:rgba(255,255,255,0.4); text-align:right; margin-bottom:5px; }
+          .lv-prog-wrap { background:rgba(255,255,255,0.08); border-radius:50px; height:8px; overflow:hidden; margin-bottom:24px; }
+          .lv-prog-fill { height:100%; width:0; border-radius:50px; background:linear-gradient(135deg,#7b2cff,#ff3b6b); transition:width .4s ease; }
+
+          /* BTN */
+          .lv-btn { display:inline-block; padding:14px 28px; border-radius:50px; border:none; cursor:pointer; font-weight:700; font-size:15px; letter-spacing:.04em; color:#fff; background:linear-gradient(135deg,#7b2cff,#ff3b6b); transition:all .3s; font-family:"Inter",sans-serif; text-decoration:none; margin-top:8px; }
+          .lv-btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(123,44,255,0.4); }
+          .lv-btn-outline { background:transparent; border:1px solid rgba(123,44,255,0.5); color:rgba(255,255,255,0.7); font-size:13px; padding:10px 20px; }
+
+          /* RESULT */
+          .lv-result-box { background:rgba(255,255,255,0.04); border:1px solid rgba(123,44,255,0.25); border-radius:16px; padding:28px 24px; margin-bottom:24px; text-align:left; }
+          .lv-result-pct { font-family:"Cormorant Garamond",serif; font-size:clamp(48px,8vw,72px); font-weight:700; color:#7b2cff; line-height:1; margin-bottom:4px; }
+          .lv-result-name { font-size:clamp(18px,3vw,24px); font-weight:700; color:#fff; margin-bottom:12px; }
+          .lv-result-desc { color:rgba(255,255,255,0.65); font-size:15px; line-height:1.7; }
+          .lv-result-note { font-size:12px; color:rgba(255,255,255,0.35); margin-top:10px; font-style:italic; }
+          .lv-final-phrase { background:linear-gradient(135deg,rgba(123,44,255,0.15),rgba(255,59,107,0.1)); border:1px solid rgba(123,44,255,0.3); border-radius:12px; padding:16px 20px; margin-bottom:24px; color:rgba(255,255,255,0.8); font-size:14px; line-height:1.7; font-style:italic; }
+        </style>
+
+        <div class="lv-wrap">
+
+          <!-- INTRO -->
+          <div id="lvIntro">
+            <div class="lv-intro-inner">
+              <img class="lv-intro-img" src="foto/level-0.png" alt="Тест Human Design" loading="lazy">
+              <div class="lv-intro-text">
+                <p style="color:rgba(255,255,255,0.4);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 10px;">Human Design</p>
+                <h2>ТЕСТ: Насколько глубоко ты знаешь свой Дизайн Человека?</h2>
+                <p class="lv-intro-sub">25 вопросов · шкала 0–3 · результат в процентах<br>Займёт около 3 минут</p>
+                <button class="lv-btn" onclick="lvStart()" aria-label="Начать тест по Human Design">Пройти тест →</button>
+                <a class="lv-btn" href="https://vikram2027.netlify.app/calculator_web.html" style="display:inline-block;margin-top:12px;">🧬РАСЧИТАТЬ СВОЙ ЛИЧНЫЙ БОДИГРАФ</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- QUIZ -->
+          <div id="lvQuiz" style="display:none;">
+            <h2 style="color:#fff;font-size:clamp(16px,2.5vw,22px);font-weight:700;margin:0 0 6px;">🧬 ТЕСТ: Насколько глубоко ты знаешь свой Дизайн Человека?</h2>
+            <p style="color:rgba(255,255,255,0.4);font-size:13px;margin:0 0 18px;">Для каждого пункта выбери один ответ: 0 / 1 / 2 / 3</p>
+            <div class="lv-prog-label" id="lvProgLabel">Вопрос 1 из 25</div>
+            <div class="lv-prog-wrap"><div class="lv-prog-fill" id="lvProgFill"></div></div>
+            <div id="lvQBlock"></div>
+            <div style="display:flex;gap:12px;justify-content:center;margin-top:24px;flex-wrap:wrap;">
+              <button class="lv-btn lv-btn-outline" id="lvPrevBtn" onclick="lvNav(-1)" style="display:none;">← Назад</button>
+            </div>
+          </div>
+
+          <!-- RESULT -->
+          <div id="lvResult" style="display:none;">
+            <div class="lv-result-box">
+              <div class="lv-result-pct" id="lvPct">0%</div>
+              <div class="lv-result-name" id="lvName">—</div>
+              <div class="lv-result-desc" id="lvDesc">—</div>
+              <div class="lv-result-note" id="lvNote"></div>
+            </div>
+            <div class="lv-final-phrase" id="lvPhrase"></div>
+            <a class="lv-btn" href="https://spisok-voprosov-vikram.netlify.app/" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;margin-bottom:16px;">Выбрать темы для консультации →</a>
+            <button class="lv-btn lv-btn-outline" onclick="lvReset()" style="display:block;width:100%;text-align:center;">Пройти тест заново</button>
+          </div>
+
+        </div>
+
+        <script src="hd-icons.js"></script>
+<script>
+        (function(){
+          var SVGS = window.HD_ICONS || [];
+
+          var QUESTIONS = [
+            { n:1,  topic:"🔹 1. Тип",                  q:"Ты знаешь свой тип (Генератор, МГ, Проектор, Манифестор, Рефлектор)?" },
+            { n:2,  topic:"🔹 2. Стратегия",             q:"Ты знаешь свою стратегию (отклик, информирование, ожидание приглашения, лунный цикл)?" },
+            { n:3,  topic:"🔹 3. Авторитет",             q:"Ты знаешь свой внутренний авторитет (эмоциональный, сакральный, селезёночный и др.)?" },
+            { n:4,  topic:"🔹 4. Профиль",               q:"Ты знаешь свой профиль (например 1/3, 4/6, 5/1 и т.д.) и линии профиля?" },
+            { n:5,  topic:"🔹 5. Ролевые ворота",        q:"Ты знаешь свои ролевые ворота (7, 13, 1, 10, 27, 59) и их 36 ролей по линиям?" },
+            { n:6,  topic:"🔹 6. Определённость",        q:"Ты знаешь свой тип определённости (single, split, triple split, quad split)?" },
+            { n:7,  topic:"🔹 7. Открытые центры",       q:"Ты знаешь какие центры у тебя открытые и как ты в них обуславливаешься?" },
+            { n:8,  topic:"🔹 8. Центры",                q:"Ты знаешь все 9 центров (Голова, Аджна, Горло, G-центр, Эго, Селезёнка, Сол. сплетение, Сакрал, Корень)?" },
+            { n:9,  topic:"🔹 9. Каналы",                q:"Ты знаешь свои каналы (например 34–20, 59–6 и т.д.) и их значение?" },
+            { n:10, topic:"🔹 10. Ворота",               q:"Ты знаешь свои ворота (все 64 гексаграммы / генные ключи)?" },
+            { n:11, topic:"🔹 11. Контуры",              q:"Ты знаешь контуры (индивидуальный, коллективный, племенной)?" },
+            { n:12, topic:"🔹 12. Потоки",               q:"Ты понимаешь потоки внутри контуров (логический, абстрактный, знание, центрирование, защита, эго)?" },
+            { n:13, topic:"🔹 13. Планеты",              q:"Ты знаешь свои планетарные активации (Солнце, Земля, Луна, Узлы, Меркурий и др.)?" },
+            { n:14, topic:"🔹 14. Крест Инкарнации",    q:"Ты знаешь свой крест инкарнации (4 ключевых ворот Солнца/Земли личности и дизайна)?" },
+            { n:15, topic:"🔹 15. Переменные",           q:"Ты знаешь свои переменные (Determination, Environment, Perspective, Motivation — стрелки)?" },
+            { n:16, topic:"🔹 16. Генные ключи",         q:"Ты знаешь свои генные ключи и их уровни (Тень, Дар, Сиддхи)?" },
+            { n:17, topic:"🔹 17. Хологенетический профиль", q:"Ты знаешь свой хологенетический профиль (11 сфер: Дело жизни, Эволюция, Сияние, Цель и т.д.)?" },
+            { n:18, topic:"🔹 18. Линии",                q:"Ты знаешь все 6 линий (1–6) и их архетипы (фундамент, проекция, адаптация, влияние, универсализация, трансценденция)?" },
+            { n:19, topic:"🔹 19. Цвет",                 q:"Ты знаешь свой цвет (1–6) и его влияние (мотивация, питание, восприятие)?" },
+            { n:20, topic:"🔹 20. Тон",                  q:"Ты знаешь свой тон (1–6) и свою сенсорную природу (обоняние, вкус, слух, зрение, осязание и др.)?" },
+            { n:21, topic:"🔹 21. База",                 q:"Ты знаешь свою базу (1–5) как фундаментальную частоту формы?" },
+            { n:22, topic:"🔹 22. PHS",                  q:"Ты знаешь свою систему PHS (Determination — питание, Environment — среда, Cognition — восприятие)?" },
+            { n:23, topic:"🔹 23. Dream Rave",           q:"Ты знаешь свой Dream Rave (ночной дизайн, активные ворота во сне, механика сна)?" },
+            { n:24, topic:"🔹 24. Рэйв Психология",     q:"Ты понимаешь рэйв психологию (разницу между умом, ложным Я и осознанностью)?" },
+            { n:25, topic:"🔹 25. Рэйв Биология",       q:"Ты понимаешь рэйв биологию (гормоны, нейрохимия, физиология тела в дизайне)?" }
+          ];
+
+          var OPTS = [
+            { v:0, label:"0 — не знаю" },
+            { v:1, label:"1 — слышал(а)" },
+            { v:2, label:"2 — понимаю" },
+            { v:3, label:"3 — живу этим" }
+          ];
+
+          var LEVELS = [
+            { min:0,  max:10,  name:"Новичок",                         desc:"Ты только знакомишься с системой. Пока это больше интерес, чем знание себя.", note:"" },
+            { min:11, max:20,  name:"Искатель",                        desc:"Ты уже слышал(а) о Дизайне Человека и знаешь базовые вещи (тип, возможно профиль), но глубина ещё впереди.", note:"" },
+            { min:21, max:35,  name:"Ученик Основ",                    desc:"Ты понимаешь фундамент: тип, стратегия, авторитет, профиль. Начинаешь видеть, как система работает.", note:"" },
+            { min:36, max:50,  name:"Практик Бодиграфа",               desc:"Ты разбираешься в центрах, каналах, воротах и уже можешь читать карту.", note:"" },
+            { min:51, max:65,  name:"Глубокий Практик по Дизайну",     desc:"Ты понимаешь контуры, потоки, планеты и начинаешь видеть механику глубже, чем большинство.", note:"" },
+            { min:66, max:80,  name:"Проводник осознанности по Дизайну", desc:"Ты работаешь с линиями, переменными, генными ключами и реально применяешь знания в жизни.", note:"" },
+            { min:81, max:90,  name:"Почти аналитик системы Дизайн Человека", desc:"Ты понимаешь подструктуру: цвет, мотивацию, восприятие. Видишь, как формируется сознание и тело.", note:"" },
+            { min:91, max:97,  name:"Алхимик дифференциации",           desc:"Ты работаешь с тоном, PHS, средой и живёшь через тело, а не через ум.", note:"Можно получать сертификат профессионального аналитика при условии, что ты изучаешь Дизайн Человека более 7 лет." },
+            { min:98, max:100, name:"Рэйв Мастер Human Design",         desc:"Ты достиг(ла) уровня глубокой дифференциации: база, PHS, Dream Rave, биология. Ты являешься своим дизайном.", note:"Можно получать сертификат профессионального аналитика при условии, что ты изучаешь Дизайн Человека более 7 лет." }
+          ];
+
+          var answers = new Array(QUESTIONS.length).fill(null);
+          var cur = 0;
+          var MAX_SCORE = QUESTIONS.length * 3; // 75
+
+          window.lvStart = function() {
+            document.getElementById('lvIntro').style.display = 'none';
+            document.getElementById('lvQuiz').style.display = 'block';
+            renderQ(0);
+          };
+
+          function renderQ(idx) {
+            cur = idx;
+            var q = QUESTIONS[idx];
+            var answered = answers.filter(function(a){ return a !== null; }).length;
+            var progPct = answered / QUESTIONS.length * 100;
+
+            document.getElementById('lvProgLabel').textContent = 'Вопрос ' + (idx+1) + ' из ' + QUESTIONS.length;
+            document.getElementById('lvProgFill').style.width = progPct + '%';
+
+            var html = '<div class="lv-q-wrap">'
+              + '<div class="lv-q-img">' + (SVGS[idx] || '') + '</div>'
+              + '<div class="lv-q-body">'
+              + '<div class="lv-q-title"><span class="lv-q-num">' + q.topic + '</span>' + q.q + '</div>'
+              + '<div class="lv-options">';
+            OPTS.forEach(function(o) {
+              var isActive = answers[idx] === o.v ? ' active' : '';
+              html += '<button class="lv-opt' + isActive + '" onclick="lvSelect(' + idx + ',' + o.v + ')">' + o.label + '</button>';
+            });
+            html += '</div></div></div>';
+            document.getElementById('lvQBlock').innerHTML = html;
+
+            document.getElementById('lvPrevBtn').style.display = idx > 0 ? 'inline-block' : 'none';
+          }
+
+          window.lvSelect = function(idx, val) {
+            answers[idx] = val;
+            renderQ(idx);
+            // автопереход через 400мс
+            setTimeout(function(){
+              if(idx === QUESTIONS.length - 1) {
+                lvFinish();
+              } else {
+                lvNav(1);
+              }
+            }, 400);
+          };
+
+          window.lvNav = function(dir) {
+            var next = cur + dir;
+            if (next < 0 || next >= QUESTIONS.length) return;
+            renderQ(next);
+          };
+
+          window.lvFinish = function() {
+            var unanswered = [];
+            answers.forEach(function(a, i){ if(a === null) unanswered.push(i+1); });
+            if (unanswered.length > 0) {
+              alert('Пожалуйста, ответь на вопросы: ' + unanswered.join(', '));
+              renderQ(unanswered[0] - 1);
+              return;
+            }
+            var total = answers.reduce(function(s, a){ return s + a; }, 0);
+            var pct = Math.round(total / MAX_SCORE * 100);
+            var level = LEVELS[0];
+            for (var i = 0; i < LEVELS.length; i++) {
+              if (pct >= LEVELS[i].min && pct <= LEVELS[i].max) { level = LEVELS[i]; break; }
+            }
+            document.getElementById('lvQuiz').style.display = 'none';
+            document.getElementById('lvResult').style.display = 'block';
+            document.getElementById('lvPct').textContent = pct + '%';
+            document.getElementById('lvName').textContent = 'Уровень: ' + level.name;
+            document.getElementById('lvDesc').textContent = level.desc;
+            document.getElementById('lvNote').textContent = level.note;
+            document.getElementById('lvPhrase').textContent =
+              '«Ты находишься на уровне: ' + level.name + ' — это примерно ' + pct + '% глубины понимания себя через систему Human Design.»';
+            window.scrollTo({ top: document.getElementById('level-section').offsetTop - 70, behavior: 'smooth' });
+          };
+
+          window.lvReset = function() {
+            answers = new Array(QUESTIONS.length).fill(null);
+            cur = 0;
+            document.getElementById('lvResult').style.display = 'none';
+            document.getElementById('lvIntro').style.display = 'block';
+          };
+        })();
+        </script>
+      </section>
+
+      <section id="contacts" class="section contacts unified-section-transition" aria-label="Контакты">
+        <div class="container">
+          <div class="contacts-card" style="background: linear-gradient(135deg, rgba(20, 10, 40, 0.92), rgba(30, 15, 55, 0.88)); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(123, 44, 255, 0.2); border-radius: 16px; padding: 40px 32px; max-width: 600px; margin: 0 auto; text-align: center;">
+            <header class="section-header" data-reveal>
+              <h2 class="section-title" style="color: #fff;">Контакты</h2>
+              <p class="section-subtitle" style="color: rgba(255,255,255,0.8); font-size: 1.1rem;">
+                Пиши — отвечу быстро
+              </p>
+            </header>
+
+            <div class="contacts-grid" role="list">
+              <a class="contact-link telegram-priority" href="https://t.me/Vikram_2027" target="_blank" rel="noopener noreferrer" style="position: relative;">
+                <span class="telegram-arrow">↓</span>
+                <span class="contact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M22 2L11 13" />
+                    <path d="M22 2L15 22l-4-9-9-4L22 2z" />
+                  </svg>
+                </span>
+                <span class="contact-text">Telegram</span>
+              </a>
+
+              <a class="contact-link" href="https://wa.me/380509000127" target="_blank" rel="noopener noreferrer">
+                <span class="contact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20.52 3.48A11.8 11.8 0 0 0 12.09 0C5.58 0 .28 5.3.28 11.81c0 2.08.55 4.12 1.59 5.9L0 24l6.5-1.84a11.8 11.8 0 0 0 5.64 1.44h.01c6.51 0 11.81-5.3 11.81-11.81 0-3.15-1.23-6.11-3.44-8.31z" />
+                    <path d="M17.19 14.57c-.28-.14-1.65-.81-1.9-.9-.25-.09-.43-.14-.62.14-.19.28-.71.9-.87 1.08-.16.19-.33.21-.61.07-.28-.14-1.19-.44-2.27-1.4-.84-.75-1.4-1.67-1.56-1.95-.16-.28-.02-.43.12-.57.12-.12.28-.33.42-.5.14-.16.19-.28.28-.47.09-.19.05-.35-.02-.49-.07-.14-.62-1.5-.85-2.06-.22-.52-.45-.45-.62-.46h-.53c-.19 0-.49.07-.75.35-.26.28-.98.96-.98 2.34s1 2.71 1.14 2.9c.14.19 1.96 2.99 4.75 4.2.66.29 1.18.46 1.59.59.67.21 1.28.18 1.76.11.54-.08 1.65-.67 1.89-1.31.23-.64.23-1.19.16-1.31-.07-.12-.26-.19-.54-.33z" />
+                  </svg>
+                </span>
+                <span class="contact-text">WhatsApp</span>
+              </a>
+
+              <a class="contact-link" href="https://www.instagram.com/vikram_hd_2027?igsh=MTFuem4xbm45NWg0bw==" target="_blank" rel="noopener noreferrer">
+                <span class="contact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="3" width="18" height="18" rx="5" ry="5" />
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                    <path d="M17.5 6.5h.01" />
+                  </svg>
+                </span>
+                <span class="contact-text">Instagram</span>
+              </a>
+
+              <a class="contact-link" style="grid-column: 2 / span 1;" href="/cdn-cgi/l/email-protection#592f30322b38342a382f3c192c322b77373c2d">
+                <span class="contact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4 4h16v16H4z" opacity="0" />
+                    <path d="M4 6h16v12H4z" />
+                    <path d="M4 6l8 7 8-7" />
+                  </svg>
+                </span>
+                <span class="contact-text">Email</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+      (function () {
+        const reducedMotion =
+          window.matchMedia &&
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (reducedMotion) return;
+
+        const items = document.querySelectorAll("[data-reveal]");
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { threshold: 0.12 }
+        );
+
+        items.forEach((el) => io.observe(el));
+      })();
+    </script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var daySelect = document.getElementById('day');
+        if (daySelect) {
+          daySelect.innerHTML = '<option value="">\u2014</option>';
+          for (var i = 1; i <= 31; i++) {
+            var opt = document.createElement('option');
+            opt.value = i;
+            opt.textContent = i;
+            daySelect.appendChild(opt);
+          }
+        }
+
+      });
+    </script>
+
+    <script>
+      // База данных психотипов и калькулятор
+
+      // База данных психотипов
+      var psychotypes = {
+        1: {
+          type: 'Энергетический очиститель',
+          icon: '🌑',
+          badge: 'type-vampire',
+          image: './foto/1t.png',
+          extra: '<h4 style="background:#c9a84c;color:#0a0a12;display:block;text-align:center;padding:8px 16px;border-radius:8px;margin-bottom:14px;font-size:clamp(20px,3vw,28px);font-weight:800;line-height:1.3;">Важно! Где тебе правильно брать энергию, и почему ты её тратишь быстро</h4><div class="energy-row"><span class="energy-label">⚡</span><span>Получает через живые эмоции других — конфликты, глубокие разговоры, провокации на чувства. Особенно силён источник — эмоциональный отклик: боль, раздражение, переживания.</span></div><div class="energy-row"><span class="energy-label">🌍</span><span>В социуме, в общении, в группах людей, в близких контактах — самый мощный эффект.</span></div><div class="energy-row"><span class="energy-label">⛔</span><span>Теряет в одиночестве, при отсутствии общения, при «пустых» разговорах без эмоциональной реакции.</span></div>',
+          title: 'Энергетический очиститель',
+          text: 'Поздравляем, ты — Энергетический очиститель! Это удивительный дар, который позволяет тебе преобразовывать негативные эмоции других людей и очищать энергетическое пространство вокруг себя. Ты обладаешь природной способностью улавливать тяжёлые эмоции и трансформировать их в спокойствие и гармонию. Ты входишь в контакт глубже, чем большинство людей. После общения с тобой люди могут чувствовать усталость, а ты — прилив энергии. Это происходит неосознанно: ты считываешь эмоции и включаешься в них. В плюсе ты создаёшь глубокую связь и очищаешь пространство, в минусе — усиливаешь напряжение ради ощущения жизни.',
+          full: '<p>Ты просто сидишь в кафе, пьёшь капучино, общаешься. Но после разговора людям рядом с тобой становится тяжелее, а тебе легче.</p> <p>Знакомо состояние, когда после глубокого разговора ты словно наполняешься. Ты не делаешь это специально, это происходит само.</p> <p>Ты умеешь входить в контакт глубже, точнее и ближе к чувствам. Ты словно видишь, где у человека настоящие эмоции, и интуитивно туда идёшь.</p> <p>Иногда это обычный разговор, а иногда ты задаёшь вопросы, возвращаешь к важным темам и вытягиваешь то, что человек прятал. В этот момент между вами появляется энергия, и именно она тебя наполняет.</p> <p>Но есть тонкая грань. Когда внутри пусто, ты начинаешь искать это состояние чаще. Становится важно, чтобы тебя слушали, реагировали и чтобы всё было по-настоящему.</p> <p>Тогда ты можешь не замечать, как усиливаешь эмоции, втягиваешь людей в переживания или создаёшь напряжение. Потому что именно там ощущается жизнь.</p> <p><strong>⚡ Твоя сила</strong></p> <p>Ты умеешь идти в глубину, чувствуешь людей, видишь их боль и достаёшь настоящие эмоции. Если ты осознаёшь это, ты не забираешь энергию, а очищаешь пространство. После общения с тобой становится легче, глубже и честнее.</p> <p><strong>🔻 Проявления в минусе</strong></p> <ul> <li>зависимость от внимания и эмоций других</li> <li>ощущение пустоты без общения</li> <li>провокация конфликтов или напряжённых разговоров</li> <li>обесценивание простых лёгких контактов</li> <li>втягивание людей в свои переживания</li> <li>эмоциональное давление</li> <li>трудность быть наедине с собой</li> </ul> <p><strong>🔺 Проявления в плюсе</strong></p> <ul> <li>глубокая эмпатия и чувствительность к людям</li> <li>умение создавать настоящий эмоциональный контакт</li> <li>способность помогать другим проживать чувства</li> <li>сильная интуиция в общении</li> <li>умение очищать напряжение в разговоре</li> <li>харизма и притягательность</li> <li>способность трансформировать негатив в ресурс</li> </ul>',
+          plus: [
+            'Высокая активность и энергичность',
+            'Способность к быстрому восстановлению в общении',
+            'Интуитивное понимание энергии других людей'
+          ],
+          minus: [
+            'Неосознанное поглощение чужой энергии',
+            'Риск истощить окружающих',
+            'Зависимость от внешних источников энергии'
+          ],
+          desc: 'Поздравляем, ты — Энергетический очиститель! Это удивительный дар, который позволяет тебе преобразовывать негативные эмоции других людей и очищать энергетическое пространство вокруг себя. Ты обладаешь природной способностью улавливать тяжёлые эмоции и трансформировать их в спокойствие и гармонию. Ты входишь в контакт глубже, чем большинство людей. После общения с тобой люди могут чувствовать усталость, а ты — прилив энергии. Это происходит неосознанно: ты считываешь эмоции и включаешься в них. В плюсе ты создаёшь глубокую связь и очищаешь пространство, в минусе — усиливаешь напряжение ради ощущения жизни.'
+        },
+        2: {
+          type: 'Энергетический очиститель',
+          icon: '🌑',
+          badge: 'type-vampire',
+          image: './foto/1t.png',
+          extra: '<h4 style="background:#c9a84c;color:#0a0a12;display:block;text-align:center;padding:8px 16px;border-radius:8px;margin-bottom:14px;font-size:clamp(20px,3vw,28px);font-weight:800;line-height:1.3;">Важно! Где тебе правильно брать энергию, и почему ты её тратишь быстро</h4><div class="energy-row"><span class="energy-label">⚡</span><span>Получает через живые эмоции других — конфликты, глубокие разговоры, провокации на чувства. Особенно силён источник — эмоциональный отклик: боль, раздражение, переживания.</span></div><div class="energy-row"><span class="energy-label">🌍</span><span>В социуме, в общении, в группах людей, в близких контактах — самый мощный эффект.</span></div><div class="energy-row"><span class="energy-label">⛔</span><span>Теряет в одиночестве, при отсутствии общения, при «пустых» разговорах без эмоциональной реакции.</span></div>',
+          title: 'Энергетический очиститель',
+          text: 'Поздравляем, ты — Энергетический очиститель! Это удивительный дар, который позволяет тебе преобразовывать негативные эмоции других людей и очищать энергетическое пространство вокруг себя. Ты обладаешь природной способностью улавливать тяжёлые эмоции и трансформировать их в спокойствие и гармонию. Ты входишь в контакт глубже, чем большинство людей. После общения с тобой люди могут чувствовать усталость, а ты — прилив энергии. Это происходит неосознанно: ты считываешь эмоции и включаешься в них. В плюсе ты создаёшь глубокую связь и очищаешь пространство, в минусе — усиливаешь напряжение ради ощущения жизни.',
+          full: '<p>Ты просто сидишь в кафе, пьёшь капучино, общаешься. Но после разговора людям рядом с тобой становится тяжелее, а тебе легче.</p> <p>Знакомо состояние, когда после глубокого разговора ты словно наполняешься. Ты не делаешь это специально, это происходит само.</p> <p>Ты умеешь входить в контакт глубже, точнее и ближе к чувствам. Ты словно видишь, где у человека настоящие эмоции, и интуитивно туда идёшь.</p> <p>Иногда это обычный разговор, а иногда ты задаёшь вопросы, возвращаешь к важным темам и вытягиваешь то, что человек прятал. В этот момент между вами появляется энергия, и именно она тебя наполняет.</p> <p>Но есть тонкая грань. Когда внутри пусто, ты начинаешь искать это состояние чаще. Становится важно, чтобы тебя слушали, реагировали и чтобы всё было по-настоящему.</p> <p>Тогда ты можешь не замечать, как усиливаешь эмоции, втягиваешь людей в переживания или создаёшь напряжение. Потому что именно там ощущается жизнь.</p> <p><strong>⚡ Твоя сила</strong></p> <p>Ты умеешь идти в глубину, чувствуешь людей, видишь их боль и достаёшь настоящие эмоции. Если ты осознаёшь это, ты не забираешь энергию, а очищаешь пространство. После общения с тобой становится легче, глубже и честнее.</p> <p><strong>🔻 Проявления в минусе</strong></p> <ul> <li>зависимость от внимания и эмоций других</li> <li>ощущение пустоты без общения</li> <li>провокация конфликтов или напряжённых разговоров</li> <li>обесценивание простых лёгких контактов</li> <li>втягивание людей в свои переживания</li> <li>эмоциональное давление</li> <li>трудность быть наедине с собой</li> </ul> <p><strong>🔺 Проявления в плюсе</strong></p> <ul> <li>глубокая эмпатия и чувствительность к людям</li> <li>умение создавать настоящий эмоциональный контакт</li> <li>способность помогать другим проживать чувства</li> <li>сильная интуиция в общении</li> <li>умение очищать напряжение в разговоре</li> <li>харизма и притягательность</li> <li>способность трансформировать негатив в ресурс</li> </ul>',
+          plus: [
+            'Быстрое восстановление после пассивности',
+            'Высокая социальная активность',
+            'Способность оживить скучную обстановку'
+          ],
+          minus: [
+            'Истощение окружающих людей',
+            'Сложность в построении долгосрочных отношений',
+            'Необходимость постоянного общения'
+          ],
+          desc: 'Поздравляем, ты — Энергетический очиститель! Это удивительный дар, который позволяет тебе преобразовывать негативные эмоции других людей и очищать энергетическое пространство вокруг себя. Ты обладаешь природной способностью улавливать тяжёлые эмоции и трансформировать их в спокойствие и гармонию. Ты входишь в контакт глубже, чем большинство людей. После общения с тобой люди могут чувствовать усталость, а ты — прилив энергии. Это происходит неосознанно: ты считываешь эмоции и включаешься в них. В плюсе ты создаёшь глубокую связь и очищаешь пространство, в минусе — усиливаешь напряжение ради ощущения жизни.'
+        },
+        3: {
+          type: 'Neutral',
+          icon: '⚖️',
+          badge: 'type-neutral',
+          image: './foto/4t.png',
+          extra: '<h4 style="background:#c9a84c;color:#0a0a12;display:block;text-align:center;padding:8px 16px;border-radius:8px;margin-bottom:14px;font-size:clamp(20px,3vw,28px);font-weight:800;line-height:1.3;">Важно! Где тебе правильно брать энергию, и почему ты её тратишь быстро</h4><div class="energy-row"><span class="energy-label">⚡</span><span>Получает за счёт собственной внутренней стабильности — энергия почти не зависит от внешнего мира. Ключ: энергия замкнута внутри системы.</span></div><div class="energy-row"><span class="energy-label">🌍</span><span>В привычной среде, в стабильности, в рутине, в контролируемом пространстве.</span></div><div class="energy-row"><span class="energy-label">⛔</span><span>Теряет при сильных эмоциональных перегрузках, при вынужденной вовлечённости в чужие проблемы, при давлении со стороны людей, при нарушении личных границ.</span></div>',
+          title: 'Нейтрал',
+          text: 'Ты обладаешь сильным и защищённым энергетическим полем. Ты не забираешь чужую энергию и не отдаёшь свою — твой(твоя) баланс стабилен.',
+          plus: [
+            'Внутренняя устойчивость и независимость',
+            'Стабильное энергетическое состояние',
+            'Защита от манипуляций и влияния'
+          ],
+          minus: [
+            'Сложность в глубоком эмоциональном контакте',
+            'Восприятие других как излишне зависимых',
+            'Возможная отчуждённость'
+          ],
+          desc: 'Поздравляем, ты — Энергетически нейтральный тип! Это особое состояние внутренней гармонии и баланса. Ты не подвержен(а) влиянию внешних энергетических потоков и умеешь сохранять спокойствие в любой ситуации. Ты обладаешь сильным и защищённым энергетическим полем. Ты не забираешь чужую энергию и не отдаёшь свою — твой(твоя) баланс стабилен. Это даёт тебе внутреннюю устойчивость и независимость от энергетического состояния окружающих. Ты часто находишься в хорошем тонусе и редко подвержен(а) влиянию эмоциональных манипуляций.'
+        },
+        4: {
+          type: 'Эмоциональный алхимик',
+          icon: '🔮',
+          badge: 'type-black-mage',
+          image: './foto/2t.png',
+          extra: '<h4 style="background:#c9a84c;color:#0a0a12;display:block;text-align:center;padding:8px 16px;border-radius:8px;margin-bottom:14px;font-size:clamp(20px,3vw,28px);font-weight:800;line-height:1.3;">Важно! Где тебе правильно брать энергию, и почему ты её тратишь быстро</h4><div class="energy-row"><span class="energy-label">⚡</span><span>Получает через контроль, влияние, власть над ситуациями, а также через энергию людей — осознаннее, чем вампир.</span></div><div class="energy-row"><span class="energy-label">🌍</span><span>В социуме, в группах, в ситуациях где есть управление и влияние, через взаимодействие с людьми.</span></div><div class="energy-row"><span class="energy-label">⛔</span><span>Теряет при потере контроля, в изоляции, при слабой позиции, когда не может влиять на ситуацию.</span></div>',
+          title: 'Эмоциональный алхимик',
+          text: 'Вау, ты — Эмоциональный алхимик! Это невероятно редкая и ценная способность управлять энергетическими потоками и трансформировать эмоции по своему желанию. Подобно искусному алхимику, ты можешь превращать негатив в позитив, страх в любовь, а гнев в спокойствие. Ты обладаешь редкой способностью переключаться между энергетическими состояниями. В благоприятных условиях ты действуешь как нейтрал, при дефиците сил — собираешь энергию окружающих.',
+          plus: [
+            'Редкая адаптивная способность',
+            'Управление энергетическим полем',
+            'Гибкость в различных ситуациях'
+          ],
+          minus: [
+            'Риск злоупотребления способностью',
+            'Сложность осознания своего истинного состояния',
+            'Необходимость постоянной саморегуляции'
+          ],
+          desc: 'Вау, ты — Эмоциональный алхимик! Это невероятно редкая и ценная способность управлять энергетическими потоками и трансформировать эмоции по своему желанию. Подобно искусному алхимику, ты можешь превращать негатив в позитив, страх в любовь, а гнев в спокойствие. Ты обладаешь редкой способностью переключаться между энергетическими состояниями. В благоприятных условиях ты действуешь как нейтрал, но при дефиците жизненных сил можешь начать заряжаться энергией окружающих. Ты умеешь управлять своим энергетическим полем и приспосабливаться к ситуации, но важно не злоупотреблять этой способностью.'
+        },
+        5: {
+          type: 'Donor',
+          icon: '☀️',
+          badge: 'type-donor',
+          image: './foto/3t.png',
+          extra: '<h4 style="background:#c9a84c;color:#0a0a12;display:block;text-align:center;padding:8px 16px;border-radius:8px;margin-bottom:14px;font-size:clamp(20px,3vw,28px);font-weight:800;line-height:1.3;">Важно! Где тебе правильно брать энергию, и почему ты её тратишь быстро</h4><div class="energy-row"><span class="energy-label">⚡</span><span>Слабо получает извне. Основной механизм — отдача (парадоксально). Иногда чувствует подъём именно когда помогает.</span></div><div class="energy-row"><span class="energy-label">🌍</span><span>Через благодарность, через признание, через ощущение что нужна — частично через природу и восстановление.</span></div><div class="energy-row"><span class="energy-label">⛔</span><span>Теряет при общении с вампирами, при постоянной отдаче без восстановления, когда её не ценят, когда игнорирует себя.</span></div>',
+          title: 'Донор',
+          text: 'Ты — источник жизненных сил для окружающих. Твоё биополе щедро делится энергией, и люди рядом с тобой чувствуют прилив сил и вдохновения.',
+          plus: [
+            'Способность вдохновлять других',
+            'Натуральная щедрость и открытость',
+            'Позитивное влияние на окружающих'
+          ],
+          minus: [
+            'Уязвимость перед вампирами',
+            'Риск истощения собственных ресурсов',
+            'Сложность в установлении границ'
+          ],
+          desc: 'Wow, ты — Энергетический донор! Это прекрасный дар — способность делиться своей энергией и поддерживать других людей. Ты — как неиссякаемый источник силы и вдохновения, к которому тянутся окружающие. Ты — источник жизненных сил для окружающих. Твоё биополе щедро делится энергией, и люди рядом с тобой чувствуют прилив сил и вдохновения. Однако ты уязвим(а) перед энергетическими вампирами, поэтому важно контролировать свои ресурсы и не позволять другим опустошать тебя. Найди свой(свою) источник восполнения — природа, вода, медитация.'
+        },
+        6: {
+          type: 'Neutral',
+          icon: '⚖️',
+          badge: 'type-neutral',
+          image: './foto/4t.png',
+          extra: '<h4 style="background:#c9a84c;color:#0a0a12;display:block;text-align:center;padding:8px 16px;border-radius:8px;margin-bottom:14px;font-size:clamp(20px,3vw,28px);font-weight:800;line-height:1.3;">Важно! Где тебе правильно брать энергию, и почему ты её тратишь быстро</h4><div class="energy-row"><span class="energy-label">⚡</span><span>Получает за счёт собственной внутренней стабильности — энергия почти не зависит от внешнего мира. Ключ: энергия замкнута внутри системы.</span></div><div class="energy-row"><span class="energy-label">🌍</span><span>В привычной среде, в стабильности, в рутине, в контролируемом пространстве.</span></div><div class="energy-row"><span class="energy-label">⛔</span><span>Теряет при сильных эмоциональных перегрузках, при вынужденной вовлечённости в чужие проблемы, при давлении со стороны людей, при нарушении личных границ.</span></div>',
+          title: 'Нейтрал',
+          text: 'Твоё энергетическое поле крепкое и самодостаточное. Ты не нуждаешься в чужой энергии и не отдаёшь свою.',
+          plus: [
+            'Полная независимость от других',
+            'Стабильное здоровье и благополучие',
+            'Надёжность в отношениях'
+          ],
+          minus: [
+            'Сложность в близких контактах',
+            'Риск быть воспринятым как холодный',
+            'Ограниченная способность к поддержке'
+          ],
+          desc: 'Поздравляем, ты — Энергетически нейтральный тип! Это особое состояние внутренней гармонии и баланса. Ты не подвержен(а) влиянию внешних энергетических потоков и умеешь сохранять спокойствие в любой ситуации. Твоё энергетическое поле крепкое и самодостаточное. Ты не нуждаешься в чужой энергии и редко отдаёшь свою. Это делает тебя устойчивым(ой) к негативным влияниям и позволяет сохранять эмоциональный баланс в любых ситуациях. Ты — надёжный(ая) и стабильный(ая) партнёр, который(ая) не создаёт дисбаланса в отношениях.'
+        },
+        7: {
+          type: 'Donor',
+          icon: '☀️',
+          badge: 'type-donor',
+          image: './foto/3t.png',
+          extra: '<h4 style="background:#c9a84c;color:#0a0a12;display:block;text-align:center;padding:8px 16px;border-radius:8px;margin-bottom:14px;font-size:clamp(20px,3vw,28px);font-weight:800;line-height:1.3;">Важно! Где тебе правильно брать энергию, и почему ты её тратишь быстро</h4><div class="energy-row"><span class="energy-label">⚡</span><span>Слабо получает извне. Основной механизм — отдача (парадоксально). Иногда чувствует подъём именно когда помогает.</span></div><div class="energy-row"><span class="energy-label">🌍</span><span>Через благодарность, через признание, через ощущение что нужна — частично через природу и восстановление.</span></div><div class="energy-row"><span class="energy-label">⛔</span><span>Теряет при общении с вампирами, при постоянной отдаче без восстановления, когда её не ценят, когда игнорирует себя.</span></div>',
+          title: 'Донор',
+          text: 'Ты обладаешь мощной энергетикой, которую щедро раздаёшь окружающим. Люди тянутся к тебе, чувствуя твой(твою) позитивный заряд.',
+          plus: [
+            'Мощная и привлекательная энергетика',
+            'Способность зарядить группу людей',
+            'Естественное лидерство'
+          ],
+          minus: [
+            'Неспособность восполняться от других',
+            'Быстрое истощение вблизи вампиров',
+            'Необходимость частого восстановления'
+          ],
+          desc: 'Wow, ты — Энергетический донор! Это прекрасный дар — способность делиться своей энергией и поддерживать других людей. Ты как неиссякаемый источник силы и вдохновения, к которому тянутся окружающие. Ты обладаешь мощной энергетикой, которую щедро раздаёшь окружающим. Люди тянутся к тебе, чувствуя твой(твою) позитивный заряд. При этом ты не способен(на) поглощать чужую энергию, поэтому при частом контакте с вампирами твои силы могут истощаться. Береги себя — ищи источники подзарядки и не бойся ставить границы.'
+        },
+        8: {
+          type: 'Neutral',
+          icon: '⚖️',
+          badge: 'type-neutral',
+          image: './foto/4t.png',
+          extra: '<h4 style="background:#c9a84c;color:#0a0a12;display:block;text-align:center;padding:8px 16px;border-radius:8px;margin-bottom:14px;font-size:clamp(20px,3vw,28px);font-weight:800;line-height:1.3;">Важно! Где тебе правильно брать энергию, и почему ты её тратишь быстро</h4><div class="energy-row"><span class="energy-label">⚡</span><span>Получает за счёт собственной внутренней стабильности — энергия почти не зависит от внешнего мира. Ключ: энергия замкнута внутри системы.</span></div><div class="energy-row"><span class="energy-label">🌍</span><span>В привычной среде, в стабильности, в рутине, в контролируемом пространстве.</span></div><div class="energy-row"><span class="energy-label">⛔</span><span>Теряет при сильных эмоциональных перегрузках, при вынужденной вовлечённости в чужие проблемы, при давлении со стороны людей, при нарушении личных границ.</span></div>',
+          title: 'Нейтрал',
+          text: 'Ты наделён(а) стабильным энергетическим полем, которое обеспечивает постоянный тонус и защиту от внешних воздействий.',
+          plus: [
+            'Постоянный стабильный тонус',
+            'Успешность и здоровье',
+            'Уравновешенность в любых ситуациях'
+          ],
+          minus: [
+            'Склонность к изоляции',
+            'Сложность в сопереживании',
+            'Восприятие других как менее независимых'
+          ],
+          desc: 'Поздравляем, ты — Энергетически нейтральный тип! Это особое состояние внутренней гармонии и баланса. Ты не подвержен(а) влиянию внешних энергетических потоков и умеешь сохранять спокойствие в любой ситуации. Ты наделён(а) стабильным энергетическим полем, которое обеспечивает постоянный тонус и защиту от внешних воздействий. Ты не забираешь и не отдаёшь энергию — твой внутренний ресурс самодостаточен. Благодаря этому ты успешен(а), здоров(а) и уравновешен(а). Твоё присутствие не истощает и не перегружает окружающих.'
+        },
+        9: {
+          type: 'Light Mage',
+          icon: '✨',
+          badge: 'type-white-mage',
+          image: './foto/5t.png',
+          extra: '<h4 style="background:#c9a84c;color:#0a0a12;display:block;text-align:center;padding:8px 16px;border-radius:8px;margin-bottom:14px;font-size:clamp(20px,3vw,28px);font-weight:800;line-height:1.3;">Важно! Где тебе правильно брать энергию, и почему ты её тратишь быстро</h4><div class="energy-row"><span class="energy-label">⚡</span><span>Получает через природу, «места силы», внутренние практики, состояние любви и гармонии. Ключ: самогенерация и подключение к внешним ресурсам — не люди.</span></div><div class="energy-row"><span class="energy-label">🌍</span><span>Лес, горы, вода, уединение, духовные практики, состояние смысла и вдохновения.</span></div><div class="energy-row"><span class="energy-label">⛔</span><span>Теряет при чрезмерной отдаче, при контакте с «тяжёлыми» людьми, когда не умеет защищать границы, при попытке помочь всем подряд.</span></div>',
+          title: 'Белый маг',
+          text: 'Ух ты — ты относишься к типу Светлых! Твоя энергия подобна солнечному свету — яркая, тёплая и жизнеутверждающая. Ты излучаешь позитив и оптимизм, заряжая окружающих своим энтузиазмом и радостью жизни. Ты обладаешь мощной позитивной энергетикой и способностью управлять своим полем. Ты можешь осознанно делиться энергией, защищая себя от вампиров.',
+          plus: [
+            'Осознанное управление энергией',
+            'Защита от негативных влияний',
+            'Способность помогать другим без истощения'
+          ],
+          minus: [
+            'Необходимость постоянного осознания',
+            'Риск чрезмерной ответственности',
+            'Сложность в расслаблении'
+          ],
+          desc: 'Ух ты — ты относишься к типу Светлых! Твоя энергия подобна солнечному свету — яркая, тёплая и жизнеутверждающая. Ты излучаешь позитив и оптимизм, заряжая окружающих своим энтузиазмом и радостью жизни. Ты обладаешь мощной позитивной энергетикой и способностью управлять своим полем. В отличие от обычного донора, ты можешь осознанно делиться энергией, при этом защищая себя от вампиров. Развивая свои способности, ты можешь стать практически неуязвим(а) для негативных влияний и помогать окружающим восстанавливать баланс.'
+        }
+      };
+
+      function digitSum(n) {
+        while (n > 9) {
+          var s = 0;
+          while (n > 0) { s += n % 10; n = Math.floor(n / 10); }
+          n = s;
+        }
+        return n;
+      }
+
+      window.calculate = function () {
+        var day = parseInt(document.getElementById('day').value);
+        var month = parseInt(document.getElementById('month').value);
+        var year = parseInt(document.getElementById('year').value);
+        var errorEl = document.getElementById('error');
+        var panel = document.getElementById('resultPanel');
+
+        panel.classList.remove('visible');
+        errorEl.textContent = '';
+        document.getElementById('flowerBlock').style.display = 'none';
+        document.getElementById('psychotypeHeader').style.display = 'none';
+        document.getElementById('full-description').hidden = true;
+        document.getElementById('read-more-btn').style.display = 'none';
+        var oldTimer = document.getElementById('tg-timer');
+        if (oldTimer) oldTimer.remove();
+
+        if (!day || !month || !year || year < 1900 || year > 2026) {
+          errorEl.textContent = 'Пожалуйста, заполните все поля корректно';
+          return;
+        }
+
+        var testDate = new Date(year, month - 1, day);
+        if (testDate.getDate() !== day || testDate.getMonth() !== month - 1) {
+          errorEl.textContent = 'Указана некорректная дата';
+          return;
+        }
+
+        var dateStr = '' + day + month + year;
+        var totalSum = 0;
+        for (var j = 0; j < dateStr.length; j++) {
+          totalSum += parseInt(dateStr[j]);
+        }
+
+        var firstSum = totalSum;
+        var energyNumber = digitSum(totalSum);
+        var info = psychotypes[energyNumber];
+
+        window.calculatedResult = energyNumber;
+
+        if (!info) return;
+
+        var digits = dateStr.split('').join(' + ');
+        var stepsHtml = '<strong>Расчёт:</strong> ' + digits + ' = ' + firstSum;
+        if (firstSum > 9) {
+          var firstSumDigits = String(firstSum).split('').join(' + ');
+          stepsHtml += '<br>' + firstSumDigits + ' = ' + energyNumber;
+        }
+        stepsHtml += '<br><strong>Энергетическое число:</strong> ' + energyNumber;
+
+        // Показываем заголовок психотипа
+        document.getElementById('resultIcon').textContent = info.icon;
+        document.getElementById('resultNumber').textContent = 'Число ' + energyNumber;
+        document.getElementById('resultType').textContent = info.type;
+        // Сразу показываем описание психотипа
+        var typeId = psychotypeMap[energyNumber];
+        var fullBlock = document.getElementById('full-description');
+        fullBlock.innerHTML = psychotypeFull[typeId] || '';
+        fullBlock.removeAttribute('hidden');
+        fullBlock.style.display = 'block';
+
+        // Показываем цветочный гороскоп
+        if (typeof showFlower === 'function') {
+          showFlower(parseInt(day), parseInt(month));
+        }
+
+        // Таймер → Telegram
+        setTimeout(function() {
+          var fullBlock2 = document.getElementById('full-description');
+          var timerDiv = document.getElementById('tg-timer');
+          if (!timerDiv && fullBlock2) {
+            timerDiv = document.createElement('div');
+            timerDiv.id = 'tg-timer';
+            timerDiv.style.cssText = 'margin-top:24px;text-align:center;padding:16px;background:rgba(20,12,40,0.85);border-radius:12px;border:1px solid rgba(123,44,255,0.3);';
+            fullBlock2.after(timerDiv);
+            timerDiv.innerHTML = '<div style="background:rgba(255,255,255,0.1);border-radius:8px;height:6px;overflow:hidden;"><div id="timer-bar" style="height:100%;width:100%;background:linear-gradient(135deg,#ff7a18,#ff3366,#8a2be2);"></div></div>';
+            var DURATION = 20000; // 20 секунд в мс
+            var startTime = Date.now();
+            function tick() {
+              var elapsed = Date.now() - startTime;
+              var remaining = Math.max(0, 1 - elapsed / DURATION);
+              var bar = document.getElementById('timer-bar');
+              if (bar) bar.style.width = (remaining * 100) + '%';
+              if (elapsed >= DURATION) {
+                timerDiv.innerHTML = '<a href="#cta-block" class="btn btn-primary" style="margin-top:8px;" onclick="document.getElementById(\'cta-block\').scrollIntoView({behavior:\'smooth\',block:\'center\'});return false;">Хочу узнать остальное 98% о себе</a>';
+              } else {
+                requestAnimationFrame(tick);
+              }
+            }
+            requestAnimationFrame(tick);
+          }
+        }, 300);
+
+        // Показываем sticky кнопку через 30 сек
+        if (typeof showStickyAfterDelay === 'function') showStickyAfterDelay();
+
+        var card = document.getElementById('resultCard');
+        card.classList.remove('glow');
+        setTimeout(function () {
+          panel.classList.add('visible');
+          setTimeout(function () {
+            card.classList.add('glow');
+            panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 100);
+        }, 100);
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        window.psychotypeMap = {
+          1: 'vampire',
+          2: 'vampire',
+          3: 'neutral',
+          4: 'dark',
+          5: 'donor',
+          6: 'neutral',
+          7: 'donor',
+          8: 'neutral',
+          9: 'light'
+        };
+
+        window.psychotypeFull = {
+          vampire: `<span class="psychotype-icon" aria-hidden="true">🌑</span>
+        <h2>Энергетический очиститель <span style="font-size:0.65em; opacity:0.7;">(в ложном — «Вампир»)</span></h2>
+        <p class="subtitle">Energy Cleanser · числа 1 и 2</p>
+
+        <div class="blocks-row">
+          <div class="power-block" style="grid-column:1/-1;">
+            <h3>Как получаешь энергию</h3>
+            <p>Наполняешься через глубокий, настоящий эмоциональный контакт. Тебе нужны живые разговоры с настоящими чувствами — после них ты в ресурсе. Поверхностное общение тебя не питает.</p>
+          </div>
+
+          <div class="plus-block">
+            <h3>В плюсе с людьми</h3>
+            <ul>
+              <li>умеешь создавать настоящую близость</li>
+              <li>после разговора с тобой людям становится легче</li>
+              <li>вытаскиваешь наружу то, что они прятали</li>
+              <li>глубокая эмпатия и харизма</li>
+              <li>трансформируешь напряжение в ресурс</li>
+            </ul>
+          </div>
+
+          <div class="minus-block">
+            <h3>В минусе с людьми</h3>
+            <ul>
+              <li>можешь высасывать энергию — опустошаешь человека до донышка</li>
+              <li>создаёшь конфликты из ничего ради «живого» контакта</li>
+              <li>важно находить много разных людей и не зацикливаться на одном</li>
+              <li>ощущение пустоты без эмоциональной подпитки извне</li>
+              <li>трудно быть наедине с собой</li>
+            </ul>
+          </div>
+        </div>`,
+          neutral: `<span class="psychotype-icon" aria-hidden="true">⚖️</span>
+        <h2>Нейтрал</h2>
+        <p class="subtitle">Neutral · числа 3, 6 и 8</p>
+
+        <div class="blocks-row">
+          <div class="power-block" style="grid-column:1/-1;">
+            <h3>Как получаешь энергию</h3>
+            <p>Через внутренний покой и отсутствие лишних потрясений. Тебя восстанавливает тишина, ясность, предсказуемость. Чужие эмоции тебя не заряжают — только истощают.</p>
+          </div>
+
+          <div class="plus-block">
+            <h3>В плюсе с людьми</h3>
+            <ul>
+              <li>тихая точка опоры — рядом с тобой успокаиваются</li>
+              <li>не втягиваешься в конфликты, сохраняешь ясность под давлением</li>
+              <li>надёжный, стабильный, на тебя можно опереться</li>
+              <li>чёткие личные границы</li>
+              <li>рациональность и взвешенность</li>
+            </ul>
+          </div>
+
+          <div class="minus-block">
+            <h3>В минусе с людьми</h3>
+            <ul>
+              <li>слишком много дистанции — людям рядом бывает одиноко</li>
+              <li>не говоришь о своих чувствах, не просишь помощи</li>
+              <li>ощущение «мне никто не нужен»</li>
+              <li>эмоциональная закрытость и холодность в отношениях</li>
+              <li>избегание вовлечённости</li>
+            </ul>
+          </div>
+        </div>`,
+          dark: `<span class="psychotype-icon" aria-hidden="true">🔮</span>
+        <h2>Эмоциональный алхимик <span style="font-size:0.65em; opacity:0.7;">(в ложном — «Вампир»)</span></h2>
+        <p class="subtitle">Emotional Alchemist · число 4</p>
+
+        <div class="blocks-row">
+          <div class="power-block" style="grid-column:1/-1;">
+            <h3>Как получаешь энергию</h3>
+            <p>Через влияние и контроль над ситуацией. Когда ты понимаешь происходящее и можешь на него повлиять — ты в ресурсе. Непредсказуемость и потеря рычагов тебя истощают.</p>
+          </div>
+
+          <div class="plus-block">
+            <h3>В плюсе с людьми</h3>
+            <ul>
+              <li>быстро считываешь людей и скрытые мотивы</li>
+              <li>стратег и лидер — умеешь вести за собой</li>
+              <li>харизматичен, влиятелен, видишь то, что другие пропускают</li>
+              <li>способность принимать сложные решения</li>
+              <li>сильная воля и внутренний стержень</li>
+            </ul>
+          </div>
+
+          <div class="minus-block">
+            <h3>В минусе с людьми</h3>
+            <ul>
+              <li>можешь высасывать энергию — опустошаешь человека до донышка</li>
+              <li>создаёшь конфликты из ничего ради ощущения контроля</li>
+              <li>важно находить много разных людей и не зацикливаться на одном</li>
+              <li>манипуляции и скрытое давление вместо честного контакта</li>
+              <li>трудно довериться — это воспринимается как слабость</li>
+            </ul>
+          </div>
+        </div>`,
+
+          donor: `<span class="psychotype-icon" aria-hidden="true">☀️</span>
+        <h2>Донор</h2>
+        <p class="subtitle">Donor · числа 5 и 7</p>
+
+        <div class="blocks-row">
+          <div class="power-block" style="grid-column:1/-1;">
+            <h3>Как получаешь энергию</h3>
+            <p>Через ощущение собственной нужности и пользы. Когда помог — наполнен. Но если помощь идёт из пустоты — только истощаешь себя. Нужен баланс: сначала себе, потом другим.</p>
+          </div>
+
+          <div class="plus-block">
+            <h3>В плюсе с людьми</h3>
+            <ul>
+              <li>искренняя забота без расчёта</li>
+              <li>умеешь поддержать так, что человек чувствует себя услышанным</li>
+              <li>тёплый, внимательный — рядом с тобой безопасно</li>
+              <li>способность глубоко поддерживать</li>
+              <li>умение создавать тёплые долгосрочные отношения</li>
+            </ul>
+          </div>
+
+          <div class="minus-block">
+            <h3>В минусе с людьми</h3>
+            <ul>
+              <li>помогаешь без запроса, берёшь чужие проблемы на себя</li>
+              <li>внутри копится усталость и обида — «я столько вкладываю, а меня не ценят»</li>
+              <li>трудно сказать нет</li>
+              <li>эмоциональное выгорание</li>
+              <li>зависимость от роли «нужного человека»</li>
+            </ul>
+          </div>
+        </div>`,
+          light: `<span class="psychotype-icon" aria-hidden="true">✨</span>
+        <h2>Светлый маг</h2>
+        <p class="subtitle">Light Mage · число 9</p>
+
+        <div class="blocks-row">
+          <div class="power-block" style="grid-column:1/-1;">
+            <h3>Как получаешь энергию</h3>
+            <p>Из внутреннего изобилия — когда ты в балансе, энергия не заканчивается. Тебя восстанавливает смысл, рост и живые точки контакта. Угнетает бессмысленная рутина.</p>
+          </div>
+
+          <div class="plus-block">
+            <h3>В плюсе с людьми</h3>
+            <ul>
+              <li>рядом с тобой становится легче без видимых причин</li>
+              <li>вдохновляешь, поддерживаешь, запускаешь рост в людях</li>
+              <li>редкий дар — делаешь пространство живым</li>
+              <li>развитая интуиция и чувствительность</li>
+              <li>естественная притягательность и тепло</li>
+            </ul>
+          </div>
+
+          <div class="minus-block">
+            <h3>В минусе с людьми</h3>
+            <ul>
+              <li>пытаешься спасти тех, кто не просил</li>
+              <li>слишком много отдаёшь, забываешь про себя</li>
+              <li>потом — разочарование и усталость</li>
+              <li>чувство вины, если не помог</li>
+              <li>потеря энергии через неэкологичное окружение</li>
+            </ul>
+          </div>
+        </div>`
+        };
+
+        var yearInput = document.getElementById('year');
+        if (yearInput) {
+          yearInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') window.calculate();
+          });
+        }
+
+        // ════════════════════════════════════════════════
+        // ЦВЕТОЧНЫЙ ГОРОСКОП
+        // ════════════════════════════════════════════════
+        var FLOWERS = [
+          {name:"Горечавка",e:"💙",f:[1,1],t:[10,1],tags:["стойкость","мудрость"]},
+          {name:"Чертополох",e:"🌿",f:[11,1],t:[20,1],tags:["независимость","доброта"]},
+          {name:"Бессмертник",e:"🌼",f:[21,1],t:[31,1],tags:["элегантность","сила духа"]},
+          {name:"Омела",e:"🌱",f:[1,2],t:[10,2],tags:["обаяние","страсть"]},
+          {name:"Красавка",e:"🍇",f:[11,2],t:[19,2],tags:["ум","преданность"]},
+          {name:"Мимоза",e:"💛",f:[20,2],t:[28,2],tags:["нежность","уязвимость"]},
+          {name:"Мак",e:"🌺",f:[1,3],t:[10,3],tags:["обаяние","дипломатия"]},
+          {name:"Лилия",e:"🌷",f:[11,3],t:[20,3],tags:["элегантность","настроение"]},
+          {name:"Наперстянка",e:"🔔",f:[21,3],t:[31,3],tags:["сила воли","расчёт"]},
+          {name:"Магнолия",e:"🌸",f:[1,4],t:[10,4],tags:["честолюбие","успех"]},
+          {name:"Гортензия",e:"💜",f:[11,4],t:[20,4],tags:["веселье","свобода"]},
+          {name:"Георгин",e:"🌻",f:[21,4],t:[30,4],tags:["ответственность","перфекционизм"]},
+          {name:"Ландыш",e:"🤍",f:[1,5],t:[10,5],tags:["доброта","наивность"]},
+          {name:"Портулак",e:"🌸",f:[11,5],t:[21,5],tags:["верность","подозрительность"]},
+          {name:"Ромашка",e:"🌼",f:[22,5],t:[31,5],tags:["свобода","хитрость"]},
+          {name:"Колокольчик",e:"🔵",f:[1,6],t:[11,6],tags:["консерватизм","надёжность"]},
+          {name:"Маргаритка",e:"🌸",f:[12,6],t:[21,6],tags:["скромность","надёжность"]},
+          {name:"Тюльпан",e:"🌷",f:[22,6],t:[1,7],tags:["красота","удача"]},
+          {name:"Кувшинка",e:"🌊",f:[2,7],t:[12,7],tags:["гибкость","популярность"]},
+          {name:"Фиалка",e:"💜",f:[13,7],t:[23,7],tags:["терпение","надёжность"]},
+          {name:"Шиповник",e:"🌹",f:[24,7],t:[2,8],tags:["стойкость","верность"]},
+          {name:"Подсолнух",e:"🌻",f:[3,8],t:[12,8],tags:["оптимизм","трудолюбие"]},
+          {name:"Роза",e:"🌹",f:[13,8],t:[23,8],tags:["лидерство","гордость"]},
+          {name:"Дельфиниум",e:"💙",f:[24,8],t:[2,9],tags:["требовательность","сочувствие"]},
+          {name:"Гвоздика",e:"❤️",f:[3,9],t:[11,9],tags:["честность","справедливость"]},
+          {name:"Астра",e:"⭐",f:[12,9],t:[22,9],tags:["радость","настоящий момент"]},
+          {name:"Вереск",e:"🟣",f:[23,9],t:[3,10],tags:["перфекционизм","надёжность"]},
+          {name:"Камелия",e:"🌸",f:[4,10],t:[13,10],tags:["артистизм","трудолюбие"]},
+          {name:"Сирень",e:"💜",f:[14,10],t:[23,10],tags:["молодость","влюбчивость"]},
+          {name:"Фрезия",e:"🌿",f:[24,10],t:[2,11],tags:["упорство","принципиальность"]},
+          {name:"Орхидея",e:"🌺",f:[3,11],t:[12,11],tags:["мистика","целеустремлённость"]},
+          {name:"Пион",e:"🌸",f:[13,11],t:[22,11],tags:["щедрость","непостоянство"]},
+          {name:"Гладиолус",e:"⚔️",f:[23,11],t:[2,12],tags:["трудолюбие","романтика"]},
+          {name:"Одуванчик",e:"🌬️",f:[3,12],t:[12,12],tags:["общительность","независимость"]},
+          {name:"Лотос",e:"🪷",f:[13,12],t:[22,12],tags:["благородство","верность"]},
+          {name:"Эдельвейс",e:"🏔️",f:[23,12],t:[31,12],tags:["свобода","авантюризм"]}
+        ];
+
+        var FLOWER_DESC = {
+"Горечавка": "• Социальное поведение\nпредпочитает узкий круг близких людей, избегает шумных мероприятий и больших компаний. тянется к домашней обстановке или природе, где чувствует себя по-настоящему собой. в широком обществе бывает по необходимости, но не ищет этого сам.\n\n• Имидж и самопрезентация\nвыглядит просто и естественно, без попыток произвести впечатление. одевается аккуратно, но без акцента на внешность. не стремится выделяться — скромность в облике отражает внутреннюю установку.\n\n• Отношение к людям\nискренне заботится об окружающих, не требуя ничего взамен. внимателен и дотошен в общении. недооценивает количество людей, которые к нему хорошо относятся — друзей на самом деле больше, чем кажется.\n\n• Характер и внутренняя опора\nсклонен переживать и волноваться по мелочам. с трудом принимает решения из страха совершить ошибку, хотя интуиция как правило не подводит. плохо переносит холод и нехватку солнца — физически и эмоционально нуждается в тепле.\n\n• Отношение к помощи и ожидания от других\nпомогает близким без лишних слов и не ждёт благодарности. при этом сам с трудом принимает помощь и редко её просит. стоит научиться опираться на других — это даётся непросто, но необходимо.",
+
+"Чертополох": "• Социальное поведение\nстарается привлечь к себе внимание, хотя окружающие замечают его не сразу. бывает суетлив и непоследователен в поведении, что мешает произвести нужное впечатление. ставит перед собой амбициозные цели, но при первых трудностях склонен отступать.\n\n• Имидж и самопрезентация\nвнешне может казаться колючим, резким или даже агрессивным. на самом деле за этой оболочкой скрывается чувствительный и ранимый человек, которого мало кто знает по-настоящему. близкие видят совершенно другую сторону — мягкую и заботливую.\n\n• Отношение к людям\nсемья и друзья — главный приоритет. много и упорно работает ради их благополучия. круг близких немаленький, и все они ощущают искреннюю заботу. посторонним кажется независимым и неуязвимым, но это защитная маска.\n\n• Характер и внутренняя опора\nв основе характера — доброта, которую сложно разглядеть за внешней суетой. не стремится причинить вред, хотя производит такое впечатление. любит своё дело и вкладывается в работу с полной отдачей.\n\n• Отношение к помощи и ожидания от других\nне умеет правильно отдыхать — чрезмерное трудолюбие без восстановления ведёт к нервным срывам и проблемам со здоровьем. нуждается в напоминании о том, что забота о себе — не слабость. от других ожидает такой же самоотдачи, какую демонстрирует сам.",
+
+"Бессмертник": "• Социальное поведение\nдержится сдержанно, избегает лишнего внимания, даже находясь в центре общества. не стремится к активному взаимодействию, может дистанцироваться от людей.\n\n• Имидж и самопрезентация\nпредпочитает аккуратный, сдержанный стиль. ориентирован на простоту и вкус без перегибов. производит впечатление ухоженного и эстетичного человека. к зрелому возрасту красота раскрывается особенно ярко — появляются завистники и подражатели.\n\n• Отношение к людям\nэмоционально сдержан, не склонен к флирту или демонстрации чувств. может казаться холодным или отстранённым.\n\n• Характер и внутренняя опора\nобладает высокой самостоятельностью, внутренней силой и устойчивостью. привык справляться с трудностями без помощи. для многих является идеалом или эталоном.\n\n• Отношение к помощи и ожидания от других\nредко обращается за поддержкой и ожидает того же от окружающих. помогает, но не поощряет зависимость. может дистанцироваться от тех, кто часто просит помощи — второй раз обратиться к нему решится не каждый.",
+
+"Омела": "• Социальное поведение\nвсегда в центре внимания, тщательно следит за внешностью и следует моде. конкуренции на своём поле не терпит — устраняет соперников жёстко, хотя обычно мягок и вежлив.\n\n• Имидж и самопрезентация\nпривлекательна, ухожена, всегда выглядит на высоте. обаяние безгранично — даже самые скептичные люди не могут устоять. производит впечатление лёгкого и располагающего человека.\n\n• Отношение к людям\nнуждается в постоянном внимании и любви — это необходимое условие душевного равновесия. ради чувства готова на всё, даже отказаться от роскоши и комфорта. при этом чувства быстро остывают при малейшем дискомфорте или неудовлетворённости условиями жизни.\n\n• Характер и внутренняя опора\nвнешняя мягкость скрывает жёсткость, когда дело касается конкуренции. умеет получать желаемое, не показывая истинных намерений. эмоционально зависима от чужого внимания.\n\n• Отношение к помощи и ожидания от других\nожидает заботы и лучшего отношения — не готова мириться с меньшим. стоит уделять внимание не только внешности, но и здоровью — спорт помогает снять стресс и поддерживать форму без крайних мер.",
+
+"Красавка": "• Социальное поведение\nсближается медленно, не подпускает к себе быстро. не привлекает к себе лишнего внимания и не кружит головы попусту. при этом целенаправленно притягивает тех, кто действительно интересен.\n\n• Имидж и самопрезентация\nскромность в сочетании с красотой создаёт неотразимый образ. не стремится пустить пыль в глаза — выглядит именно так, как есть. ухоженность и сдержанность считываются сразу.\n\n• Отношение к людям\nне льстит и не даёт ложных обещаний. говорит правду напрямую, может указать на недостатки без стеснения. если сказать правду невозможно — промолчит, но лгать не станет.\n\n• Характер и внутренняя опора\nвсе победы достигаются упорным трудом, хотя со стороны кажется, что всё даётся легко. организм крепок — не расплачивается за успехи здоровьем. высокая работоспособность и внутренняя дисциплина.\n\n• Отношение к помощи и ожидания от других\nпреданный и заботливый друг — добившись успеха, спешит поделиться с близкими. дружба с ней оказывается не только приятной, но и полезной. от других ожидает честности и взаимной преданности.",
+
+"Мимоза": "• Социальное поведение\nнуждается в постоянном внимании и заботе — без этого быстро теряет жизненный тонус. с детства привыкла быть в центре внимания и болезненно переживает его отсутствие. в одиночестве впадает в депрессию.\n\n• Имидж и самопрезентация\nвсегда старается проявить себя с лучшей стороны. любит, когда её хвалят. производит впечатление милого и приятного человека — это искреннее, а не наигранное.\n\n• Отношение к людям\nумеет привлекать к себе нужных и сильных людей — через их поддержку делает карьеру и обеспечивает комфорт. готова пожертвовать собой ради благодарности и признания.\n\n• Характер и внутренняя опора\nслабый иммунитет и хрупкое здоровье — любая мелочь может надолго уложить в постель. редко добивается заметного успеха самостоятельно. бережлива и не транжирит деньги, но крупного состояния обычно не достигает.\n\n• Отношение к помощи и ожидания от других\nожидает постоянной заботы и эмоциональной поддержки. сама помогает охотно, если это приносит ей признание и благодарность. нуждается в человеке рядом — более сильном и деятельном, который станет опорой.",
+
+"Мак": "• Социальное поведение\nлегко вписывается в любую компанию, обзаводится знакомыми везде, куда попадает. не старается намеренно оказаться в центре внимания — просто притягивает людей естественным образом. умеет вести за собой, не демонстрируя власти.\n\n• Имидж и самопрезентация\nобаятелен и харизматичен без видимых усилий. производит впечатление лёгкого, открытого человека. умеет подать себя так, что запоминается надолго.\n\n• Отношение к людям\nобладает даром дипломата и рассказчика. в трудную минуту всегда оказывается рядом. при этом сам непоследователен и непредсказуем — может сбивать с толку тех, кто к нему привязался.\n\n• Характер и внутренняя опора\nможет быть непостоянным и действовать импульсивно. при разочаровании склонен уходить в иллюзии и избегать реальности. если верит в себя — способен на многое, умеет вдохновлять и вести людей.\n\n• Отношение к помощи и ожидания от других\nпомогает искренне и без расчёта. не требует взаимности, но ценит тех, кто отвечает тем же. не любит, когда на него давят или от него слишком многого ждут.",
+
+"Лилия": "• Социальное поведение\nна первый взгляд кажется застенчивой и скромной, но умеет в нужный момент полностью завладеть вниманием окружающих. не навязывается, но когда появляется — её замечают все. с детства окружена поклонниками.\n\n• Имидж и самопрезентация\nобладает природной притягательностью и гипнотическим взглядом. следит за собой, ценит красоту в деталях. умеет произвести впечатление без лишних слов. интересуется эзотерикой, предпочитает держать личную жизнь в тайне.\n\n• Отношение к людям\nумеет дружить и производить впечатление, но иногда теряет близких — считает своё положение непоколебимым. заносчивость формируется из-за очевидного превосходства над сверстниками с ранних лет.\n\n• Характер и внутренняя опора\nчеловек настроения — когда хорошо, лучшего собеседника не найти, когда плохо — лучше держаться подальше. перепады настроения без видимых причин, требует терпения от окружающих.\n\n• Отношение к помощи и ожидания от других\nзнает чего хочет и умеет этого добиться самостоятельно. помощь принимает, но рассчитывает прежде всего на себя. от окружающих ожидает терпения и умения принимать её перепады без осуждения.",
+
+"Наперстянка": "• Социальное поведение\nяркая, энергичная, решительная — выделяется в любой компании. стремится к лидерству, идёт вперёд даже там, где другие останавливаются. не боится борьбы и сложных ситуаций.\n\n• Имидж и самопрезентация\nчасто обладает неординарной, запоминающейся внешностью. производит впечатление сильного и уверенного человека. умна, напориста, талантлива — это считывается сразу.\n\n• Отношение к людям\nэмоции держит под строгим контролем, близких людей почти нет. исключение — тот, кого выбрала партнёром: ему отдаётся без остатка. в дружбе и семье требует много мудрости и терпения от обеих сторон.\n\n• Характер и внутренняя опора\nобладает мощным внутренним стержнем, не ломается под давлением. мозг работает быстро и точно, находит решения там, где другие теряются. привлекают экстремальные нагрузки и рискованные предприятия — отдых в обычном понимании не для неё.\n\n• Отношение к помощи и ожидания от других\nпрактически не обращается за помощью и не понимает тех, кто делает это часто. ожидает от окружающих такой же самодостаточности. помогает, но скупо на эмоции при этом.",
+
+"Магнолия": "• Социальное поведение\nцеленаправленно выстраивает социальное окружение из нужных и влиятельных людей. в обществе держится с достоинством, умеет производить нужное впечатление даже в трудные времена. не торопится — добивается положения долго и терпеливо.\n\n• Имидж и самопрезентация\nокружает себя красивыми вещами, ценит комфорт и эстетику. выглядит состоятельно и ухоженно вне зависимости от реального положения дел. скромность не входит в список достоинств — хорошо знает себе цену.\n\n• Отношение к людям\nхорошо разбирается в людях и умело управляет ими — цивилизованными методами. тщательно отбирает окружение, не терпит неустроенности и бедности рядом. добивается своего через связи и партнёрства.\n\n• Характер и внутренняя опора\nтщеславна, стремится возвыситься над окружающими. честолюбие — главный двигатель. умеет работать в поте лица, когда это нужно для достижения цели.\n\n• Отношение к помощи и ожидания от других\nопирается на надёжных помощников, которых тщательно выбирает. сама редко просит о помощи напрямую — предпочитает выстраивать ситуацию так, чтобы нужные люди сами оказывались рядом. от окружения ожидает лояльности и соответствия своему уровню.",
+
+"Гортензия": "• Социальное поведение\nочень общительна, жадна до удовольствий и новых впечатлений. вечеринки, путешествия, покупки, встречи — не умеет и не хочет себе отказывать. несмотря на яркость и обаяние, нередко оказывается в одиночестве — слишком быстро теряет интерес к людям.\n\n• Имидж и самопрезентация\nяркая, весёлая, обольстительная — притягивает взгляды без усилий. умеет подать себя выигрышно в любой обстановке. создаёт впечатление человека, у которого всё хорошо — и это не всегда соответствует реальности.\n\n• Отношение к людям\nбыстро увлекается, но ещё быстрее остывает. относится к привязанным к ней людям несколько легкомысленно — уверена, что легко найдёт замену. предпочитает думать о людях хорошо и не задаёт лишних вопросов, чтобы не разочаровываться. узнать её по-настоящему близко удаётся единицам.\n\n• Характер и внутренняя опора\nглавный роман в её жизни — с самой собой. живёт в своё удовольствие и не считает это недостатком. щедра и великодушна, но непостоянна.\n\n• Отношение к помощи и ожидания от других\nне склонна просить о помощи — уверена, что справится сама или найдёт кого-то нового. от окружающих ожидает принятия без лишних вопросов и претензий. не терпит, когда её пытаются удержать или ограничить.",
+
+"Георгин": "• Социальное поведение\nумеет находить баланс между работой и личной жизнью, между общением и уединением. не слишком много друзей, но и не мало — осознанно выстраивает круг общения. хороший организатор, ответственный и профессиональный в любом деле.\n\n• Имидж и самопрезентация\nвыглядит сдержанно и по делу — без излишеств, но и без небрежности. производит впечатление надёжного, серьёзного человека. не склонен к самолюбованию, хотя внутренние стандарты к себе очень высоки.\n\n• Отношение к людям\nдобросовестен и внимателен к окружающим. при этом если дела идут плохо — лучше держаться подальше: не принимает помощи, а на сочувствие реагирует агрессией. без конца делится своими наблюдениями о собственных проблемах, что может утомлять.\n\n• Характер и внутренняя опора\nникогда не бывает собой доволен, постоянно анализирует свои неудачи. ждёт от себя большего — даже когда объективно всё хорошо. этот внутренний критик одновременно двигает вперёд и мешает быть счастливым.\n\n• Отношение к помощи и ожидания от других\nне просит помощи и не принимает её в трудный момент. от других ожидает такой же ответственности и профессионализма, какую демонстрирует сам. плохо переносит безответственность и непунктуальность в окружении.",
+
+"Ландыш": "• Социальное поведение\nоткрытый и искренний человек, легко идёт на контакт. охотно помогает другим, не задумываясь о том, стоит ли это делать. в критической ситуации способен преобразиться и постоять за себя — хотя на первый взгляд кажется беспомощным.\n\n• Имидж и самопрезентация\nвыглядит мягко и доброжелательно. не стремится производить впечатление силы или статуса. обаятелен и скромен — это располагает к нему людей с первых минут.\n\n• Отношение к людям\nдоверчив до наивности, не умеет учиться на ошибках в отношениях. любой может причинить боль — и это повторяется снова и снова. щедр без меры, помогает не ожидая взаимности. в отношениях с противоположным полом складывается непросто — влюбчив, но любовь приходит к нему не сразу.\n\n• Характер и внутренняя опора\nбеззащитен эмоционально, но в экстремальной ситуации мобилизуется неожиданно для окружающих. не накапливает ни деньги, ни жизненный опыт — каждый раз как будто заново. до конца жизни остаётся немного наивным и неопытным.\n\n• Отношение к помощи и ожидания от других\nсам помогает всем и всегда, не считая это чем-то особенным. при этом с трудом принимает помощь в свой адрес — не привык. от других не ждёт ничего конкретного, но глубоко ранится когда его доверием злоупотребляют.",
+
+"Портулак": "• Социальное поведение\nдержится замкнуто, круг общения очень узкий. завести дружбу с ним крайне сложно — подозрителен и не доверяет практически никому. если дружба всё же состоялась — окажется самым верным и надёжным человеком в жизни.\n\n• Имидж и самопрезентация\nне стремится понравиться или произвести впечатление. выглядит сдержанно и закрыто. внешняя холодность — это защита, а не высокомерие.\n\n• Отношение к людям\nкрайне подозрителен, склонен ждать подвоха даже от близких. одержав победу — уже готовится к поражению. с трудом верит в искренность чужих намерений. при этом сам абсолютно надёжен и никогда не предаёт.\n\n• Характер и внутренняя опора\nс юных лет разочарован в жизни, не ждёт от неё приятных сюрпризов. высокая работоспособность — нередко преуспевает в бизнесе, так как не склонен доверять деньги чужим рукам. всё контролирует сам.\n\n• Отношение к помощи и ожидания от других\nредко обращается за помощью — не доверяет. предпочитает справляться в одиночку, даже если это сложнее. от окружающих ожидает честности и не прощает обмана. один случай предательства — и человек исчезает из его жизни навсегда.",
+
+"Ромашка": "• Социальное поведение\nлегко располагает к себе людей, нравится практически всем. говорит то, что хочет услышать собеседник — общаться с ней легко и приятно. разочарование приходит позже, когда становится понятно, что открытость была инструментом, а не искренностью.\n\n• Имидж и самопрезентация\nвыглядит просто и незатейливо — именно это и обезоруживает. не производит впечатление сложного человека, хотя внутри всё устроено иначе. умеет казаться проще, чем есть на самом деле.\n\n• Отношение к людям\nредко говорит то, что думает на самом деле. умеет хранить чужие тайны, но использует информацию о людях в своих целях. не осудит и не даст непрошеных советов — но всё запомнит.\n\n• Характер и внутренняя опора\nза внешней простотой скрывается трезвый расчёт и чёткое понимание своих желаний. очень дорожит независимостью — свобода важнее стабильности и комфорта рядом с другим человеком. окружена поклонниками, но держит дистанцию.\n\n• Отношение к помощи и ожидания от других\nпомогает охотно, но всегда понимает зачем. бескорыстной помощи почти не бывает — есть скрытый интерес или расчёт на будущее. от других ожидает уважения к своей независимости и не терпит попыток её контролировать.",
+
+"Колокольчик": "• Социальное поведение\nконсерватор до мозга костей — уважает традиции, стабильность и привычный порядок. любые перемены воспринимает болезненно, даже самые незначительные. переезд, смена работы или перестановка мебели способны надолго выбить из колеи.\n\n• Имидж и самопрезентация\nпредпочитает проверенный, классический стиль без экспериментов. ценит качество и долговечность вещей, а не модность. выглядит надёжно и предсказуемо — и это не случайно.\n\n• Отношение к людям\nочень привязан к семье, ревнив — особенно в начале отношений. не понимает людей, которые стремятся к переменам. общение строит на доверии и проверенных временем связях, новые знакомства заводит неохотно.\n\n• Характер и внутренняя опора\nстабильность — главная ценность и источник внутреннего спокойствия. живёт по графику, дисциплинирован и методичен. девиз по жизни — не менять то, что работает.\n\n• Отношение к помощи и ожидания от других\nнадёжен и предсказуем — на него можно положиться. помогает стабильно и без лишних слов. от других ожидает такой же последовательности и верности договорённостям. плохо переносит непостоянство и внезапные изменения планов.",
+
+"Маргаритка": "• Социальное поведение\nне стремится выделяться, держится скромно и ненавязчиво. предпочитает домашний уют шумным компаниям. не амбициозна в карьере и социальном положении — но в критический момент, когда нужно защитить близких, преображается полностью.\n\n• Имидж и самопрезентация\nприветлива ровно настолько, насколько требует вежливость. не выделяется обаянием или шармом при первом знакомстве. производит впечатление чуть позже — когда люди замечают надёжность и ровный характер.\n\n• Отношение к людям\nтрудно сходится с людьми, но надолго удерживает их симпатию. умеет хранить тайны — своё и чужое. никогда не осудит, не даст непрошеных советов, не предаст. врагов практически нет — не совершает поступков, которые могли бы кому-то навредить.\n\n• Характер и внутренняя опора\nнаблюдательна, всё замечает и запоминает. жизнь развивается медленно и планомерно, без резких взлётов — но неизменно приходит к результату. не умеет использовать случайные возможности, зато доводит начатое до конца.\n\n• Отношение к помощи и ожидания от других\nзаботится об окружающих тихо и без демонстрации. помогает не потому что ждёт чего-то взамен, а потому что иначе не умеет. от других ожидает такого же спокойного, ненавязчивого отношения — без давления и резких движений.",
+
+"Тюльпан": "• Социальное поведение\nжизнь наполнена влюблённостями, романами и красивыми историями. не терпит зависимости ни в каком виде — свобода важнее отношений. удачлив, что провоцирует на безрассудные поступки — везёт и сходит с рук.\n\n• Имидж и самопрезентация\nтонкий ценитель красоты — окружает себя красивыми вещами и людьми. следит за собой, умеет подать себя выигрышно. главное оружие — обаяние, шарм и умение говорить то, что приятно слышать.\n\n• Отношение к людям\nмужчина этого типа — донжуан, ловелас, жадный до побед. у него масса недостатков, но обаяния и очарования ещё больше — и всё сходит с рук. женщина — натура тонкая и поэтичная, тяжело переносит безвкусицу и грубость рядом.\n\n• Характер и внутренняя опора\nмного хобби и интересов — это делает его интересным собеседником. живёт ярко, не склонен к унынию. непостоянство — одновременно черта характера и стиль жизни.\n\n• Отношение к помощи и ожидания от других\nне любит, когда на него рассчитывают или ждут постоянства. помогает охотно, но без обязательств. от окружающих ожидает принятия своей свободы — попытки удержать или привязать воспринимает как посягательство.",
+
+"Кувшинка": "• Социальное поведение\nлегко идёт по жизни, словно обстоятельства сами складываются в её пользу. всегда окружена самыми разными людьми — умеет выстраивать отношения одновременно с несколькими несовместимыми компаниями. пользуется особой популярностью у противоположного пола.\n\n• Имидж и самопрезентация\nмноголика и непостоянна — каждый видит в ней то, что хочет видеть. умеет адаптироваться к любой обстановке и выглядеть уместно везде. не привязана к одному стилю или образу.\n\n• Отношение к людям\nискренна и последовательна внутри, хотя снаружи кажется переменчивой. умеет быть благодарной — и это привлекает к ней всё новых союзников. легко увлекается новыми людьми и интересами, но не теряет себя в этом.\n\n• Характер и внутренняя опора\nумеет сочетать несочетаемое и выживать в самых сложных условиях. жизнь сводит её с нужными людьми в нужный момент — редко испытывает серьёзные финансовые трудности. внутренняя гибкость — главный ресурс.\n\n• Отношение к помощи и ожидания от других\nумеет принимать помощь легко и с благодарностью — не считает это слабостью. сама помогает охотно, без расчёта. от окружающих ожидает лёгкости в общении и не терпит тяжёлых, давящих отношений.",
+
+"Фиалка": "• Социальное поведение\nдолго держится в тени, не навязывается и не требует внимания. терпеливо ждёт своего момента — и когда он наступает, проявляет себя в полную силу. наблюдательна, хорошо чувствует людей и обстановку.\n\n• Имидж и самопрезентация\nна первый взгляд кажется простой и неприметной. в нужный момент способна ослепить — блеском, уверенностью или неожиданным поступком. не стремится произвести впечатление заранее — оно складывается само.\n\n• Отношение к людям\nлегко завоёвывает доверие и никогда им не злоупотребляет. озорная и весёлая, хотя поначалу этого не видно. привлекает влиятельных людей, которые готовы помогать и поддерживать.\n\n• Характер и внутренняя опора\nредко говорит о своих планах, но всегда их выполняет. надёжность выглядит почти сверхъестественной — обещанное делает без напоминаний. немного капризна, но это воспринимается окружающими снисходительно.\n\n• Отношение к помощи и ожидания от других\nумеет принимать поддержку от тех, кто сам её предлагает — не просит, но не отказывается. от окружающих ожидает терпения и готовности подождать, пока она раскроется. не терпит давления и попыток ускорить процесс сближения.",
+
+"Шиповник": "• Социальное поведение\nдержится независимо, мало кому доверяет. большую часть жизни проводит в некотором одиночестве — не потому что не умеет общаться, а потому что не подпускает близко. за внешней жёсткостью скрывается нежный и беззащитный человек.\n\n• Имидж и самопрезентация\nприрода наделила выразительным взглядом и обаятельной улыбкой. производит впечатление человека, к которому тянутся — рядом с ним люди буквально расцветают. может казаться невзрачным на первый взгляд, но это обманчиво.\n\n• Отношение к людям\nагрессивен и упрям на поверхности — голыми руками не возьмёшь. но тот, кто проявит терпение, откроет совершенно другого человека. в любви постоянен и очень ревнив, хотя умеет это скрывать.\n\n• Характер и внутренняя опора\nневероятно устойчив к жизненным трудностям — невзгоды закаляют, а не ломают. одинаково спокойно переносит взлёты и падения. для своей семьи сделает всё возможное и невозможное. удачлив в карьере.\n\n• Отношение к помощи и ожидания от других\nпрактически не просит о помощи — считает это слабостью. справляется сам, даже когда это даётся с трудом. от близких ожидает верности и не прощает предательства. помогает семье без слов и без условий.",
+
+"Подсолнух": "• Социальное поведение\nэнергичен, всегда движется вперёд. оптимизм заразителен — рядом с таким человеком трудно унывать. надёжный и верный друг, редко говорит о чувствах, но всегда готов помочь делом.\n\n• Имидж и самопрезентация\nпроизводит впечатление человека, который несёт внутри собственный свет. выглядит бодро и уверенно вне зависимости от обстоятельств. обладает хорошим чувством юмора — это делает его приятным в любой компании.\n\n• Отношение к людям\nвеликодушен и щедр. не склонен к зависти или мелочности. успех не меняет его отношения к людям — остаётся таким же доступным и простым в общении.\n\n• Характер и внутренняя опора\nпрактичен и трудолюбив, обладает чёткими жизненными целями и методично их достигает. не склонен к мечтаниям без действий. сложности на пути не пугают — воспринимает их как часть маршрута.\n\n• Отношение к помощи и ожидания от других\nпомогает охотно и без лишних слов. не требует взаимности, но ценит когда её проявляют. от окружающих ожидает честности и прямоты — фальшь и манипуляции распознаёт быстро и дистанцируется.",
+
+"Роза": "• Социальное поведение\nстремится занимать лидирующее положение в любой группе. требует восхищения и почтительного отношения — безразличие или панибратство воспринимает болезненно. многих считает потенциальными конкурентами, даже без оснований.\n\n• Имидж и самопрезентация\nвыглядит как человек, привыкший быть первым. ухоженность, уверенность, статусность — всё это считывается сразу. умеет производить впечатление даже без слов.\n\n• Отношение к людям\nумна, деловита, обладает природным лидерством. в личной жизни — требовательный и болезненно самолюбивый партнёр, плохо переносит критику. но тот, кто завоюет её уважение, получит преданного и страстного союзника.\n\n• Характер и внутренняя опора\nнезаурядный человек с хорошим логическим мышлением. умеет структурировать информацию и принимать взвешенные решения. амбиции — главный двигатель, причём обоснованный реальными способностями.\n\n• Отношение к помощи и ожидания от других\nредко просит о помощи — считает это уязвимостью. от окружающих ожидает признания заслуг и соответствия высоким стандартам. терпеливый и справедливый руководитель, но только для тех, кто демонстрирует отдачу.",
+
+"Дельфиниум": "• Социальное поведение\nдержится спокойно и невозмутимо, далёк от страстей и суеты. не ищет широкого круга общения. производит впечатление человека, которому мало что нужно от окружающих — и это недалеко от истины.\n\n• Имидж и самопрезентация\nвыглядит сдержанно и холодновато. не стремится понравиться или произвести впечатление. со стороны может казаться высокомерным — на самом деле просто равнодушен к чужому мнению о себе.\n\n• Отношение к людям\nснисходителен к слабостям окружающих, не осуждает. хороший слушатель, но плохой советчик — сочувствует, но решать чужие проблемы не умеет и не стремится. часто получает шишки за чужие ошибки — переносит это легко.\n\n• Характер и внутренняя опора\nсклонен к аскезе, равнодушен к материальным благам. философ и стоик — трудности переносит спокойно, без драмы. критику собственных качеств воспринимает болезненно, хотя внешне этого не показывает.\n\n• Отношение к помощи и ожидания от других\nк себе снисходителен, к окружающим требователен — и это несоответствие иногда создаёт напряжение. редко просит о помощи, предпочитает справляться самостоятельно. от других ожидает самостоятельности и не понимает тех, кто постоянно нуждается в поддержке.",
+
+"Гвоздика": "• Социальное поведение\nправдоруб и борец за справедливость — не умеет молчать, когда видит неправду. поведение предсказуемо, мотивы всегда прозрачны. нередко наживает врагов именно из-за прямолинейности, хотя не преследует цели обидеть.\n\n• Имидж и самопрезентация\nпроизводит впечатление человека, которому нечего скрывать. не занимается самопрезентацией намеренно — то, что видят окружающие, и есть реальность. резкость в общении воспринимается поначалу как грубость, потом как честность.\n\n• Отношение к людям\nповерхностных знакомств почти не заводит — только те, кто готов к честным отношениям без прикрас. друзей немного, но все надёжные. общаясь с ним, будьте готовы услышать о себе неудобную правду — льстить он не станет.\n\n• Характер и внутренняя опора\nполон кипучей энергии, которой нужно найти созидательное русло. высокая требовательность к себе и другим. внутренние стандарты честности и справедливости — непоколебимы, даже когда это невыгодно.\n\n• Отношение к помощи и ожидания от других\nпомогает открыто и без скрытых мотивов. от других ожидает такой же честности — обман или двуличие воспринимает как личное оскорбление. не прощает лжи, даже мелкой и невинной.",
+
+"Астра": "• Социальное поведение\nживёт настоящим моментом, не зацикливается на прошлом и не тревожится о будущем. легко отпускает изжившие себя отношения, вещи и ситуации — без драмы и сожалений. всегда в приподнятом настроении, что делает её желанным человеком в любой компании.\n\n• Имидж и самопрезентация\nяркая индивидуальность, которая считывается сразу. красота и веселье — не маска, а естественное состояние. умеет скрасить самый мрачный день одним своим появлением.\n\n• Отношение к людям\nостроумна, дружелюбна, лёгкая в общении. не склонна к тяжёлым, давящим отношениям. умеет радоваться жизни и заражает этим умением окружающих — унывать рядом с ней невозможно.\n\n• Характер и внутренняя опора\nлёгкость — главная черта и главный ресурс. не копит обиды, не держит зла. жизнестойка и неприхотлива, хотя порой обладает некоторой суровостью — от других тоже ожидает умения держаться.\n\n• Отношение к помощи и ожидания от других\nпомогает легко и без надрыва. не требует взаимности, но и не позволяет садиться на шею. от окружающих ожидает лёгкости в общении и позитивного настроя — с тяжёлыми людьми быстро теряет интерес к контакту.",
+
+"Вереск": "• Социальное поведение\nгостеприимен, с удовольствием принимает дома родных и друзей. среди людей этого типа больше всего мастеров прикладных направлений — гончаров, скульпторов, электриков, мастеров ремонта. умеет создавать вокруг себя атмосферу уюта и надёжности.\n\n• Имидж и самопрезентация\nстремится всегда выглядеть безупречно в глазах окружающих. тщательно контролирует свои порывы и реакции — не позволяет себе слабости на публике. производит впечатление человека, у которого всё под контролем.\n\n• Отношение к людям\nобладает широким кругозором, умеет поддержать разговор на любую тему. надёжен и верен — его слово закон. если что-то пообещал, сделает, чего бы это ни стоило. именно это качество вызывает глубокое уважение окружающих.\n\n• Характер и внутренняя опора\nперфекционист — любой собственный промах воспринимает как трагедию. живёт в постоянном внутреннем напряжении из-за завышенных требований к себе. может взяться за дело, которое другие сочли безнадёжным, и блестяще довести его до конца. необходимо научиться прощать себе ошибки.\n\n• Отношение к помощи и ожидания от других\nредко просит о помощи — привык справляться сам. от окружающих ожидает такой же ответственности и серьёзного отношения к делу. не терпит халтуры и необязательности. помогает охотно, но только тогда, когда видит, что человек сам прикладывает усилия.",
+
+"Камелия": "• Социальное поведение\nтворческая и артистичная натура — выделяется в любом обществе за счёт богатого воображения и нестандартного взгляда на вещи. отлично ладит с животными. тонко чувствует красоту и несправедливость — первая восхищает, вторая приводит в ярость.\n\n• Имидж и самопрезентация\nумеет производить впечатление лёгкого человека, которому всё даётся без усилий. на самом деле за внешней лёгкостью стоит серьёзная внутренняя работа. тщательно следит за деталями образа, обладает тонким вкусом.\n\n• Отношение к людям\nне умеет оставаться равнодушной, когда кому-то причиняют боль. сострадательна и внимательна к чужим переживаниям. при этом умеет скрывать собственные истинные чувства за артистической натурой.\n\n• Характер и внутренняя опора\nпривлекает своей кажущейся беззащитностью, но обладает храбрым сердцем и жаждой приключений. очень трудолюбива — просто не демонстрирует это окружающим. любит искусство, имеет богатую фантазию.\n\n• Отношение к помощи и ожидания от других\nпринимает помощь с изяществом, не теряя достоинства. сама помогает тонко и ненавязчиво — без демонстрации. от окружающих ожидает чуткости и умения замечать детали. грубость и прямолинейность воспринимает болезненно.",
+
+"Сирень": "• Социальное поведение\nбольшую часть времени пребывает в состоянии влюблённости или предвкушения чего-то хорошего. несёт радость окружающим — рядом с таким человеком становится светлее. не слишком чувствителен к жизненным испытаниям — умеет быстро восстанавливаться.\n\n• Имидж и самопрезентация\nвсегда молод душой, что отражается во внешнем виде и поведении. создаёт вокруг себя атмосферу свежести и лёгкости. выглядит оптимистично и открыто — это притягивает людей.\n\n• Отношение к людям\nочень влюбчив и раним в любви — отдаётся чувству целиком. уверен, что у него нет врагов, хотя это не всегда так. простодушен и наивен, но точно знает чего хочет и использует все возможности чтобы этого достичь.\n\n• Характер и внутренняя опора\nнесмотря на наивность — умеет справляться с неприятностями без надрыва. радуется жизни как бы ни складывались обстоятельства. внутренняя уверенность в собственном успехе практически непоколебима.\n\n• Отношение к помощи и ожидания от других\nпринимает помощь легко и с благодарностью. сам помогает искренне, без скрытых мотивов. от окружающих ожидает позитива и лёгкости — тяжёлые, давящие отношения быстро истощают и гасят внутренний свет.",
+
+"Фрезия": "• Социальное поведение\nнастойчива, бесстрашна, обладает завидной работоспособностью. карьера на первом месте — иногда настолько, что личная жизнь остаётся на втором плане на долгие годы. стремится стать профессионалом своего дела и передавать мастерство другим.\n\n• Имидж и самопрезентация\nпроизводит впечатление человека, с которым лучше не спорить. уверена в себе, держится с достоинством. слово и дело не расходятся — это считывается и вызывает уважение.\n\n• Отношение к людям\nумеет манипулировать чужим мнением — иногда делает это своей профессией. устоять перед её аргументами сложно, переубедить невозможно. в споре ловко использует тактику оппонента против него самого, но никогда не унижает побеждённого.\n\n• Характер и внутренняя опора\nберёт на себя обязательства и выполняет их — даже если это причиняет неудобства. упряма настолько, что иногда причиняет боль себе и другим ради доказательства своей правоты. именно поэтому её уважают, хотя порой и побаиваются.\n\n• Отношение к помощи и ожидания от других\nредко просит о помощи — считает это уступкой. от окружающих ожидает профессионализма и серьёзного отношения к делу. ценит людей, которые держат слово. не прощает необязательности и пустых обещаний.",
+
+"Орхидея": "• Социальное поведение\nтаинственна и загадочна — не раскрывается сразу, держит дистанцию. строит серьёзные и доверительные отношения, поверхностных связей избегает. в каждой встрече и событии склонна видеть скрытый смысл или знак.\n\n• Имидж и самопрезентация\nследит за собой тщательно — при правильном образе жизни сохраняет привлекательность до преклонных лет. любит тепло и комфорт, окружает себя красивыми и качественными вещами. производит впечатление человека с внутренней глубиной.\n\n• Отношение к людям\nчувствительна к настроениям других, часто считывает состояние человека раньше, чем тот сам это осознаёт. собственные переживания предпочитает держать в секрете или окрашивать романтическим флёром. очень суеверна — каждый пустяк может стать приметой.\n\n• Характер и внутренняя опора\nверит во всё таинственное и мистическое. при этом практична и целеустремлённа — умеет добиваться своего, не привлекая лишнего внимания. страсть и чувствительность сочетаются с внутренней дисциплиной.\n\n• Отношение к помощи и ожидания от других\nпреданный и внимательный партнёр — умеет хранить тайны и быть опорой. но требует того же взамен — доверие для неё абсолютная ценность. предательство или утечка личной информации разрушают отношения безвозвратно.",
+
+"Пион": "• Социальное поведение\nкомпанейский и весёлый, легко находит общий язык с самыми разными людьми. с удовольствием принимает гостей и сам любит бывать в гостях. любит природу, туристические походы и путешествия — активный образ жизни необходим для внутреннего баланса.\n\n• Имидж и самопрезентация\nпроизводит впечатление физически сильного и здорового человека. выглядит бодро и жизнерадостно. добродушие и щедрость считываются сразу — рядом с таким человеком чувствуешь себя комфортно.\n\n• Отношение к людям\nщедр и открыт — делится временем, вниманием и ресурсами без счёта. добродушен, не склонен к зависти или мелочности. в любви непостоянен — слишком много соблазнов вокруг. но если сделал выбор осознанно — остаётся верен долгие годы.\n\n• Характер и внутренняя опора\nфеноменальное здоровье и физическая выносливость — способен справляться с экстремальными нагрузками. при этом довольно ленив и склонен к лёгким радостям жизни. особенно счастлив когда занимается ручным трудом — это восстанавливает и наполняет.\n\n• Отношение к помощи и ожидания от других\nпомогает легко и без условий. не требует взаимности, но замечает когда её нет. от окружающих ожидает такого же добродушия и открытости. закрытость и расчётливость в людях воспринимает с недоумением.",
+
+"Гладиолус": "• Социальное поведение\nлёгкий на подъём мечтатель и романтик — обожает путешествия, иностранные культуры и всё новое. надёжен и исполнителен в работе. всё время занят поисками себя и смысла — это не слабость, а способ жить.\n\n• Имидж и самопрезентация\nвыглядит последовательно и аккуратно. производит впечатление дисциплинированного и пунктуального человека. романтическая натура проявляется в деталях — в выборе мест, слов, подарков.\n\n• Отношение к людям\nчувствителен к несправедливости — как к своей, так и к чужой. не умеет молчать, когда видит неправду, что нередко создаёт конфликты. в личной жизни любит глубоко и преданно, хотя на первый взгляд кажется сухим и сдержанным.\n\n• Характер и внутренняя опора\nдобивается результата через трудолюбие и упорство, а не через талант. лучше раскрывается под руководством опытного наставника — первопроходца из него не получится, зато исполнитель и соратник — превосходный. способен обуздывать свои чувства и эмоции.\n\n• Отношение к помощи и ожидания от других\nнуждается в поддержке и ориентире — это не зависимость, а особенность. порой пытается избавиться от опеки, потом возвращается, понимая что без неё теряет направление. от окружающих ожидает наставничества и честной обратной связи.",
+
+"Одуванчик": "• Социальное поведение\nобщителен и открыт — охотно делится временем, знаниями и ресурсами. нуждается в обществе друзей для душевного равновесия. в городской среде чувствует себя хуже — тянется к природе и открытым пространствам.\n\n• Имидж и самопрезентация\nвыглядит тепло и по-домашнему. не стремится к статусности или показному успеху. производит впечатление человека искреннего и без двойного дна — и это соответствует реальности.\n\n• Отношение к людям\nпрямолинеен в дружбе и откровенен в любви. лёгко и полностью отдаётся чувству, пока не потеряет интерес. не умеет и не хочет притворяться — говорит то, что думает. при этом сам с трудом принимает помощь — независимость важнее комфорта.\n\n• Характер и внутренняя опора\nпостоянный искатель и инноватор — не устаёт генерировать новые идеи. непостоянен в привязанностях, но стабилен в ценностях. нуждается в движении и переменах — застой угнетает и гасит энергию.\n\n• Отношение к помощи и ожидания от других\nпомогает легко и без расчёта. сам редко просит — предпочитает справляться своими силами. от окружающих ожидает честности и уважения к его независимости. попытки привязать или удержать воспринимает как ограничение свободы.",
+
+"Лотос": "• Социальное поведение\nдержится с достоинством и благородством, не опускается до мелких интриг или манипуляций. в любом обществе остаётся собой — не подстраивается под настроение толпы. окружающие чувствуют внутреннюю честность этого человека и тянутся к нему.\n\n• Имидж и самопрезентация\nвыглядит спокойно и уверенно — без показного лоска, но с ощущением внутренней наполненности. не стремится произвести впечатление, но оно складывается само. в образе нет фальши — что внутри, то и снаружи.\n\n• Отношение к людям\nчестен и откровенен — не умеет лгать даже из вежливости. интуитивно понимает людей, легко отличает искренность от притворства. влюбляется один раз и на всю жизнь — поверхностные увлечения не его история. ищет родственную душу и умеет ждать.\n\n• Характер и внутренняя опора\nморальные принципы абсолютны и непоколебимы — никогда не совершит подлости или предательства, даже если это было бы выгодно. слово даёт редко, но выполняет всегда. именно поэтому его уважают даже те, кто с ним не согласен.\n\n• Отношение к помощи и ожидания от других\nпомогает бескорыстно и без условий — благородство не показное, а естественное. сам за помощью обращается крайне редко. от окружающих ожидает честности и соответствия базовым моральным нормам. двуличие и беспринципность воспринимает как личное оскорбление.",
+
+"Эдельвейс": "• Социальное поведение\nсвободолюбив и стремителен — не задерживается там, где стало скучно или тесно. пользуется любым шансом изменить свою жизнь, не задумываясь о последствиях. вызывает крайние реакции — им либо восхищаются, либо его не переносят. равнодушных почти нет.\n\n• Имидж и самопрезентация\nобладает редкой харизмой, которую невозможно сымитировать. выглядит как человек, живущий по собственным правилам. не подстраивается под чужие ожидания — и это одновременно притягивает и раздражает.\n\n• Отношение к людям\nширокие жесты, импульсивные решения, неожиданные поступки — всё это делает его непредсказуемым партнёром и другом. врагов и завистников много — именно потому что живёт ярко и не скрывает этого. но и преданных поклонников не меньше.\n\n• Характер и внутренняя опора\nприрождённый авантюрист — создан для риска, открытий и перемен. не любит рутины, не умеет и не хочет жить по расписанию. уверен, что с ним не случится ничего плохого — эта вера защищает и одновременно подводит. рутинная, предсказуемая жизнь буквально гасит его изнутри.\n\n• Отношение к помощи и ожидания от других\nпомогает широко и щедро — когда захочет и когда это красиво выглядит. не любит брать на себя системные обязательства. от окружающих ожидает принятия его непоследовательности и свободы. попытки встроить его в жёсткие рамки заканчиваются одним — он уходит."
+};
+
+        function getFlowerByDate(day, month) {
+          for (var i = 0; i < FLOWERS.length; i++) {
+            var f = FLOWERS[i];
+            var fStart = f.f[1] * 100 + f.f[0];
+            var fEnd   = f.t[1] * 100 + f.t[0];
+            var date   = month * 100 + day;
+            // Диапазон в пределах одного месяца
+            if (fStart <= fEnd) {
+              if (date >= fStart && date <= fEnd) return f;
+            } else {
+              // Диапазон пересекает месяц (напр. 24.07 → 02.08)
+              if (date >= fStart || date <= fEnd) return f;
+            }
+          }
+          return null;
+        }
+
+        window.showFlower = function showFlower(day, month) {
+          var flower = getFlowerByDate(day, month);
+          var block = document.getElementById('flowerBlock');
+          if (!flower || !block) return;
+
+          document.getElementById('flowerEmoji').textContent = flower.e;
+          document.getElementById('flowerName').textContent = flower.name;
+          document.getElementById('flowerPeriod').textContent =
+            (flower.f[0] < 10 ? '0' : '') + flower.f[0] + '.' +
+            (flower.f[1] < 10 ? '0' : '') + flower.f[1] + ' — ' +
+            (flower.t[0] < 10 ? '0' : '') + flower.t[0] + '.' +
+            (flower.t[1] < 10 ? '0' : '') + flower.t[1];
+
+          var tagsEl = document.getElementById('flowerTags');
+          tagsEl.innerHTML = flower.tags.map(function(t) {
+            return '<span style="background:rgba(196,126,158,.15);border:1px solid rgba(196,126,158,.3);color:#b09ed4;padding:3px 10px;border-radius:20px;font-size:12px;">' + t + '</span>';
+          }).join('');
+
+          // Красивый рендер текста с заголовками разделов
+          var raw = FLOWER_DESC[flower.name] || '';
+          var descEl = document.getElementById('flowerDesc');
+          var html = '';
+          var sections = raw.split('\n\n');
+          for (var s = 0; s < sections.length; s++) {
+            var sec = sections[s].trim();
+            if (!sec) continue;
+            var lines = sec.split('\n');
+            var heading = lines[0].replace(/^•\s*/, '').trim();
+            var body = lines.slice(1).join(' ').trim();
+            html += '<div style="margin-bottom:20px;">' +
+              '<div class="flower-section-heading-el" style="color:#1a1a2e;font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid rgba(0,0,0,0.1);padding-bottom:6px;margin-bottom:8px;text-align:center;">' + heading + '</div>' +
+              '<p style="color:#1a1a2e;font-size:15px;line-height:1.75;margin:0;">' + body + '</p>' +
+              '</div>';
+          }
+          descEl.innerHTML = html;
+          block.style.display = 'block';
+        }
+      });
+    </script>
+
+  
+  <!-- Lunar mini calculator for index page -->
+  <script>
+  (function(){
+    var KNOWN_NEW_MOON = new Date(Date.UTC(2000,0,6,18,14,0));
+    var LUNAR_CYCLE = 29.53058867;
+    var UTC_OFFSET = (new Date().getTimezoneOffset() === -180) ? 3 : 2; // Kyiv: летом UTC+3, зимой UTC+2
+
+    var LUNAR_NAMES = {1:'Лампада',2:'Рог изобилия',3:'Барс',4:'Древо Познания',5:'Единорог',6:'Журавль',7:'Петух',8:'Феникс',9:'Летучая мышь',10:'Фонтан',11:'Огненный меч',12:'Чаша Грааля',13:'Колесо',14:'Труба',15:'Змей',16:'Голубь',17:'Виноград',18:'Зеркало',19:'Краб',20:'Орёл',21:'Конь',22:'Слон',23:'Крокодил',24:'Медведь',25:'Черепаха',26:'Жаба',27:'Корабль',28:'Лотос',29:'Спрут',30:'Золотой лебедь'};
+    var LUNAR_RATING = {1:'neutral',2:'good',3:'good',4:'good',5:'good',6:'good',7:'good',8:'neutral',9:'bad',10:'good',11:'good',12:'neutral',13:'good',14:'good',15:'bad',16:'good',17:'good',18:'bad',19:'neutral',20:'good',21:'good',22:'good',23:'bad',24:'neutral',25:'good',26:'bad',27:'good',28:'good',29:'bad',30:'good'};
+    var ZODIAC = {0:{n:'Овен',i:'♈',e:'Огонь',p:'Марс'},1:{n:'Телец',i:'♉',e:'Земля',p:'Венера'},2:{n:'Близнецы',i:'♊',e:'Воздух',p:'Меркурий'},3:{n:'Рак',i:'♋',e:'Вода',p:'Луна'},4:{n:'Лев',i:'♌',e:'Огонь',p:'Солнце'},5:{n:'Дева',i:'♍',e:'Земля',p:'Меркурий'},6:{n:'Весы',i:'♎',e:'Воздух',p:'Венера'},7:{n:'Скорпион',i:'♏',e:'Вода',p:'Плутон'},8:{n:'Стрелец',i:'♐',e:'Огонь',p:'Юпитер'},9:{n:'Козерог',i:'♑',e:'Земля',p:'Сатурн'},10:{n:'Водолей',i:'♒',e:'Воздух',p:'Уран'},11:{n:'Рыбы',i:'♓',e:'Вода',p:'Нептун'}};
+
+    function getLunarAge(d){ return (((d - KNOWN_NEW_MOON)/86400000) % LUNAR_CYCLE + LUNAR_CYCLE) % LUNAR_CYCLE; }
+    function getLunarDay(d){ return Math.min(Math.max(Math.floor(getLunarAge(d))+1,1),30); }
+    function getPhase(age){
+      var p = age/LUNAR_CYCLE;
+      if(p<0.03||p>=0.97) return {n:'Новолуние',i:'🌑'};
+      if(p<0.22) return {n:'Растущий серп',i:'🌒'};
+      if(p<0.28) return {n:'Первая четверть',i:'🌓'};
+      if(p<0.47) return {n:'Растущая луна',i:'🌔'};
+      if(p<0.53) return {n:'Полнолуние',i:'🌕'};
+      if(p<0.72) return {n:'Убывающая луна',i:'🌖'};
+      if(p<0.78) return {n:'Последняя четверть',i:'🌗'};
+      return {n:'Убывающий серп',i:'🌘'};
+    }
+    function getZodiac(d){
+      var jd = (d - new Date(Date.UTC(2000,0,1,12)))/86400000 + 2451545;
+      var L = (218.316 + 13.176396*(jd-2451545))%360;
+      var M = (134.963 + 13.064993*(jd-2451545))%360;
+      var lon = (L + 6.289*Math.sin(M*Math.PI/180)+360)%360;
+      return Math.floor(((lon%360)+360)%360/30);
+    }
+
+    var now = new Date();
+    var utcNoon = new Date(Date.UTC(now.getFullYear(),now.getMonth(),now.getDate(), 12-UTC_OFFSET,0,0));
+    var age = getLunarAge(utcNoon);
+    var ld  = getLunarDay(utcNoon);
+    var ph  = getPhase(age);
+    var zi  = getZodiac(utcNoon);
+    var z   = ZODIAC[zi];
+    var rating = LUNAR_RATING[ld];
+
+    var ratingText = rating==='good' ? '✦ Благоприятный' : rating==='bad' ? '✖ Неблагоприятный' : '◈ Нейтральный';
+    var ratingColor = rating==='good' ? '#4ade80' : rating==='bad' ? '#fb7185' : '#fbbf24';
+
+    document.getElementById('lm-moon-icon').textContent = ph.i;
+    document.getElementById('lm-title').textContent = ld + '-й лунный день — ' + LUNAR_NAMES[ld];
+    document.getElementById('lm-subtitle').textContent = ph.n + ' · ' + z.i + ' Луна в ' + z.n;
+    document.getElementById('lm-day').textContent = ld + '-й';
+    document.getElementById('lm-zodiac').textContent = z.i + ' ' + z.n;
+    document.getElementById('lm-phase').textContent = ph.n;
+    document.getElementById('lm-rating').textContent = ratingText;
+    document.getElementById('lm-rating').style.color = ratingColor;
+    document.getElementById('lm-element').textContent = z.e;
+    document.getElementById('lm-planet').textContent = z.p;
+  })();
+  </script>
+<!-- Sticky bottom CTA -->
+<a
+  id="sticky-cta"
+  href="https://spisok-voprosov-vikram.netlify.app/"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Выбрать темы для консультации с Викрамом"
+  style="
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    background: linear-gradient(135deg, #7b2cff, #ff3b6b);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 16px 32px;
+    border-radius: 50px;
+    box-shadow: 0 4px 24px rgba(123,44,255,0.5), 0 2px 8px rgba(0,0,0,0.3);
+    white-space: nowrap;
+    animation: glowBtn 2.5s infinite;
+  "
+>
+  Выбрать темы для консультации
+</a>
+
+<script>
+(function() {
+  var stickyCta = document.getElementById('sticky-cta');
+  var stickyTimer = null;
+
+  // Показываем через 30 сек после calculate()
+  window.showStickyAfterDelay = function() {
+    if (stickyTimer) clearTimeout(stickyTimer);
+    stickyCta.style.display = 'none';
+    stickyTimer = setTimeout(function() {
+      stickyCta.style.display = 'block';
+    }, 30000);
+  };
+
+  // Скрываем когда пользователь взаимодействует с формой
+  ['day', 'month', 'year'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('focus', function() {
+        stickyCta.style.display = 'none';
+        if (stickyTimer) clearTimeout(stickyTimer);
+      });
+      el.addEventListener('change', function() {
+        stickyCta.style.display = 'none';
+        if (stickyTimer) clearTimeout(stickyTimer);
+      });
+    }
+  });
+})();
+</script>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECRET CHOICE MENU                          -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="secretMenu" style="
+  display:none;position:fixed;inset:0;z-index:99998;
+  background:rgba(10,8,20,0.82);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  align-items:center;justify-content:center;
+">
+  <div style="
+    background:linear-gradient(145deg,#16102a,#1e1535);
+    border:1px solid rgba(123,44,255,0.3);
+    border-radius:20px;padding:32px 28px;
+    max-width:300px;width:88%;
+    box-shadow:0 20px 60px rgba(0,0,0,0.7);
+    text-align:center;font-family:'Inter',sans-serif;
+  ">
+    <div style="font-size:28px;margin-bottom:12px;">⚙️</div>
+    <h3 style="color:#e8e0f8;font-size:16px;font-weight:700;margin:0 0 20px;letter-spacing:.05em;">
+      Выберите раздел
+    </h3>
+    <button onclick="window.openCrm();document.getElementById('secretMenu').style.display='none';" style="
+      width:100%;padding:13px;border-radius:10px;margin-bottom:10px;
+      border:1px solid rgba(201,168,76,0.35);cursor:pointer;
+      background:rgba(201,168,76,0.08);
+      color:#c9a84c;font-size:14px;font-weight:700;
+      font-family:'Inter',sans-serif;
+    ">📋 Контакты (CRM)</button>
+    <button onclick="document.getElementById('secretMenu').style.display='none';window.showVipModal();" style="
+      width:100%;padding:13px;border-radius:10px;margin-bottom:10px;
+      border:none;cursor:pointer;
+      background:linear-gradient(135deg,#7b2cff,#c83bff);
+      color:#fff;font-size:14px;font-weight:700;
+      font-family:'Inter',sans-serif;
+      box-shadow:0 4px 20px rgba(123,44,255,0.35);
+    ">🔮 VIP — Base Theory</button>
+    <button onclick="document.getElementById('secretMenu').style.display='none';" style="
+      width:100%;padding:10px;border-radius:10px;
+      border:1px solid rgba(255,255,255,0.1);cursor:pointer;
+      background:transparent;color:#6a5a8a;
+      font-size:13px;font-family:'Inter',sans-serif;
+    ">Отмена</button>
+  </div>
+</div>
+
+<script>
+window.showSecretMenu = function(){
+  var m = document.getElementById('secretMenu');
+  m.style.display = 'flex';
+  m.addEventListener('click', function(e){ if(e.target===m) m.style.display='none'; }, {once:false});
+};
+</script>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- VIP ACCESS MODAL                            -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="vipModal" style="
+  display:none;
+  position:fixed;inset:0;z-index:99999;
+  background:rgba(10,8,20,0.88);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  align-items:center;justify-content:center;
+">
+  <div style="
+    background:linear-gradient(145deg,#16102a,#1e1535);
+    border:1px solid rgba(123,44,255,0.35);
+    border-radius:20px;
+    padding:36px 32px;
+    max-width:360px;width:90%;
+    box-shadow:0 20px 60px rgba(0,0,0,0.7),0 0 40px rgba(123,44,255,0.15);
+    text-align:center;
+    font-family:'Inter',sans-serif;
+  ">
+    <!-- блок ввода кода — скрывается после успешного входа -->
+    <div id="vipInputArea">
+      <div style="font-size:34px;margin-bottom:14px;">🔐</div>
+      <h3 style="color:#e8e0f8;font-size:17px;font-weight:700;letter-spacing:.05em;margin:0 0 6px;">
+        VIP доступ
+      </h3>
+      <p style="color:#9880c8;font-size:12px;margin:0 0 20px;line-height:1.6;">
+        Введите код для доступа к материалам
+      </p>
+      <input
+        id="vipCodeInput"
+        type="password"
+        placeholder="Код доступа"
+        autocomplete="off"
+        style="
+          width:100%;box-sizing:border-box;
+          background:rgba(255,255,255,0.06);
+          border:1px solid rgba(123,44,255,0.4);
+          border-radius:10px;
+          color:#fff;font-size:18px;
+          letter-spacing:.2em;text-align:center;
+          padding:13px 16px;outline:none;
+          font-family:'Inter',sans-serif;
+          transition:border-color .2s;
+        "
+      />
+      <p id="vipError" style="color:#ff4d6d;font-size:12px;min-height:16px;margin:6px 0 0;display:none;">
+        Неверный код. Попробуйте ещё раз.
+      </p>
+      <div style="display:flex;gap:10px;margin-top:18px;">
+        <button onclick="window.closeVipModal()" style="
+          flex:1;padding:11px;border-radius:10px;
+          border:1px solid rgba(255,255,255,0.12);
+          background:transparent;color:#9880c8;
+          font-size:13px;font-weight:600;cursor:pointer;
+          font-family:'Inter',sans-serif;
+        ">Отмена</button>
+        <button id="vipEnterBtn" onclick="window.submitVipCode()" style="
+          flex:2;padding:11px;border-radius:10px;
+          border:none;cursor:pointer;
+          background:linear-gradient(135deg,#7b2cff,#c83bff);
+          color:#fff;font-size:13px;font-weight:700;
+          font-family:'Inter',sans-serif;letter-spacing:.04em;
+          box-shadow:0 4px 20px rgba(123,44,255,0.4);
+        ">Войти</button>
+      </div>
+    </div>
+
+    <!-- панель после верного кода -->
+    <div id="vipPanel" style="display:none;margin-top:20px;">
+
+      <!-- таймер -->
+      <div style="
+        background:rgba(80,200,120,0.08);
+        border:1px solid rgba(80,200,120,0.25);
+        border-radius:10px;padding:10px 14px;
+        color:#50c878;font-size:12px;font-weight:600;
+        margin-bottom:14px;
+      ">
+        ✦ Доступ активен · осталось: <span id="vipCountdown">—</span>
+      </div>
+
+      <!-- кнопка Base Theory -->
+      <button onclick="window.openVipPage()" style="
+        width:100%;padding:13px;border-radius:10px;
+        border:none;cursor:pointer;margin-bottom:10px;
+        background:linear-gradient(135deg,#7b2cff,#c83bff);
+        color:#fff;font-size:14px;font-weight:700;
+        font-family:'Inter',sans-serif;letter-spacing:.04em;
+        box-shadow:0 4px 20px rgba(123,44,255,0.4);
+      ">🔮 Открыть Base Theory</button>
+
+      <!-- кнопка CRM (старый функционал) -->
+      <button onclick="window.openCrm()" style="
+        width:100%;padding:13px;border-radius:10px;
+        border:1px solid rgba(201,168,76,0.35);cursor:pointer;
+        background:rgba(201,168,76,0.08);
+        color:#c9a84c;font-size:14px;font-weight:700;
+        font-family:'Inter',sans-serif;letter-spacing:.04em;
+      ">📋 Контакты (CRM)</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var VIP_CODE    = '2027';
+  var ACCESS_MS   = 2 * 60 * 60 * 1000; // 2 часа в мс
+  var STORE_KEY   = 'vip_access_until';
+  var TOKEN_KEY   = 'vip_token';
+  var VIP_BASE    = './vip/human-design-diagram.html';
+  var CRM_URL     = './crm.html';
+  var cdInterval  = null;
+
+  /* ── утилиты ── */
+  function hasAccess(){ return Date.now() < +( localStorage.getItem(STORE_KEY)||0 ); }
+  function getRemaining(){ return Math.max(0, (+localStorage.getItem(STORE_KEY)||0) - Date.now()); }
+  function formatTime(ms){
+    var s=Math.floor(ms/1000), h=Math.floor(s/3600),
+        m=Math.floor((s%3600)/60), sc=s%60;
+    return (h?h+'ч ':'')+('0'+m).slice(-2)+'м '+('0'+sc).slice(-2)+'с';
+  }
+  function makeToken(){
+    return Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2);
+  }
+
+  /* ── отсчёт времени ── */
+  function startCountdown(){
+    clearInterval(cdInterval);
+    cdInterval = setInterval(function(){
+      var r = getRemaining();
+      var el = document.getElementById('vipCountdown');
+      if(!r){ clearInterval(cdInterval); if(el) el.textContent='истёк'; return; }
+      if(el) el.textContent = formatTime(r);
+    }, 1000);
+  }
+
+  /* ── открыть модалку ── */
+  window.showVipModal = function(){
+    var m = document.getElementById('vipModal');
+    m.style.display = 'flex';
+    document.getElementById('vipError').style.display = 'none';
+    document.getElementById('vipCodeInput').value = '';
+
+    if(hasAccess()){
+      document.getElementById('vipInputArea').style.display = 'none';
+      showPanel();
+    } else {
+      document.getElementById('vipPanel').style.display = 'none';
+      document.getElementById('vipInputArea').style.display = 'block';
+      setTimeout(function(){ document.getElementById('vipCodeInput').focus(); }, 100);
+    }
+  };
+
+  /* ── показать панель управления ── */
+  function showPanel(){
+    document.getElementById('vipInputArea').style.display = 'none';
+    document.getElementById('vipPanel').style.display = 'block';
+    document.getElementById('vipCountdown').textContent = formatTime(getRemaining());
+    startCountdown();
+  }
+
+  /* ── закрыть модалку ── */
+  window.closeVipModal = function(){
+    document.getElementById('vipModal').style.display = 'none';
+    clearInterval(cdInterval);
+  };
+
+  /* ── Enter в поле ── */
+  document.getElementById('vipCodeInput').addEventListener('keydown', function(e){
+    if(e.key === 'Enter') window.submitVipCode();
+  });
+
+  /* ── клик на фон ── */
+  document.getElementById('vipModal').addEventListener('click', function(e){
+    if(e.target === this) window.closeVipModal();
+  });
+
+  /* ── проверка кода ── */
+  window.submitVipCode = function(){
+    var inp   = document.getElementById('vipCodeInput');
+    var err   = document.getElementById('vipError');
+    var code  = inp.value.trim();
+
+    if(code === VIP_CODE){
+      var until = Date.now() + ACCESS_MS;
+      var token = makeToken();
+      localStorage.setItem(STORE_KEY, until.toString());
+      localStorage.setItem(TOKEN_KEY, token + ':' + until);
+      err.style.display = 'none';
+      showPanel();
+    } else {
+      err.style.display = 'block';
+      inp.value = '';
+      inp.style.borderColor = '#ff4d6d';
+      inp.style.animation = 'shake .3s ease';
+      setTimeout(function(){
+        inp.style.borderColor = 'rgba(123,44,255,0.4)';
+        inp.style.animation = '';
+        inp.focus();
+      }, 400);
+    }
+  };
+
+  /* ── открыть Base Theory с токеном ── */
+  window.openVipPage = function(){
+    var raw   = localStorage.getItem(TOKEN_KEY) || '';
+    var parts = raw.split(':');
+    var token = parts[0] || makeToken();
+    var exp   = parts[1] || (Date.now() + ACCESS_MS);
+    var url   = VIP_BASE + '?t=' + token + '&e=' + exp;
+    window.open(url, '_blank');
+    window.closeVipModal();
+  };
+
+  /* ── открыть CRM (старый функционал) ── */
+  window.openCrm = function(){
+    window.open(CRM_URL, '_blank');
+    window.closeVipModal();
+  };
+
+  /* ── анимация тряски ── */
+  var s = document.createElement('style');
+  s.textContent = '@keyframes shake{0%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}100%{transform:translateX(0)}}';
+  document.head.appendChild(s);
+
+  var showAllAspectsBtn = document.getElementById('showAllAspects');
+  if (showAllAspectsBtn) {
+    showAllAspectsBtn.addEventListener('click', function () {
+      document.querySelectorAll('.survival-insights-grid .hidden-aspect').forEach(function (el) {
+        el.classList.remove('hidden-aspect');
+      });
+
+      this.style.display = 'none';
+    });
+  }
+
+})();
+</script>
+
+</body>
+</html>

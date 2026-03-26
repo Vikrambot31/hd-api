@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \":*)",
+      "Bash(where python:*)",
+      "Bash(python replace_lines.py)",
+      "Bash(del:*)",
+      "Bash(python -c \":*)"
+    ]
+  }
+}

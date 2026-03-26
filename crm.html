@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Быстрая связь с клиентом</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Unbounded:wght@300;700&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface2: #1a1a26;
+    --border: #1e1e2e;
+    --accent: #00ff88;
+    --accent2: #00b8ff;
+    --warn: #ff6b35;
+    --danger: #ff4466;
+    --text: #e2e2f0;
+    --muted: #555570;
+    --wa: #25D366;
+    --vb: #7360F2;
+    --tg: #2AABEE;
+    --fb: #1877F2;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 20px;
+    background-image:
+      radial-gradient(ellipse 60% 40% at 20% 20%, rgba(0,255,136,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 80% 80%, rgba(0,184,255,0.04) 0%, transparent 60%);
+  }
+
+  .layout {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 20px;
+    align-items: start;
+  }
+
+  @media (max-width: 720px) {
+    .layout { grid-template-columns: 1fr; }
+  }
+
+  /* === HEADER === */
+  .header {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    grid-column: 1 / -1;
+  }
+
+  .header::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  /* === BLOCKS === */
+  .block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 12px;
+    transition: border-color 0.2s;
+  }
+
+  .block:focus-within { border-color: rgba(0,255,136,0.3); }
+
+  .block-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .input-row { display: flex; gap: 10px; align-items: center; }
+
+  input[type="tel"], input[type="text"], textarea {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    width: 100%;
+  }
+
+  input[type="tel"] { font-size: 20px; font-weight: 600; letter-spacing: 1px; }
+  input[type="text"] { font-size: 14px; }
+  textarea { font-size: 13px; resize: none; height: 58px; line-height: 1.6; }
+  input::placeholder, textarea::placeholder { color: var(--muted); font-weight: 400; }
+
+  .btn-small {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 10px;
+    cursor: pointer;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .btn-small:hover { border-color: var(--warn); color: var(--warn); }
+
+  /* === LAUNCH BUTTON === */
+  .launch-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border: none;
+    border-radius: 10px;
+    color: #000;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-bottom: 16px;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .launch-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+  .launch-btn:active { transform: translateY(0); }
+
+  /* === CHANNELS === */
+  .channels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.3s;
+    pointer-events: none;
+  }
+  .channels.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
+
+  .ch-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.2s;
+  }
+  .ch-btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--ch);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4), inset 0 0 0 1px var(--ch);
+  }
+
+  .ch-icon {
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    background: color-mix(in srgb, var(--ch) 15%, transparent);
+    font-size: 16px; flex-shrink: 0;
+  }
+
+  .ch-name {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--ch);
+    margin-bottom: 2px;
+  }
+  .ch-sub { font-size: 9px; color: var(--muted); }
+  .ch-arrow { margin-left: auto; color: var(--muted); font-size: 12px; transition: transform 0.2s; }
+  .ch-btn:hover .ch-arrow { transform: translateX(3px); color: var(--ch); }
+
+  .wa  { --ch: #25D366; }
+  .vb  { --ch: #7360F2; }
+  .tg  { --ch: #2AABEE; }
+  .fb  { --ch: #1877F2; }
+  .sms { --ch: #ff6b35; }
+  .tel { --ch: #00ff88; }
+  .mail { --ch: #f5a623; }
+
+  /* === HISTORY PANEL === */
+  .history-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    position: sticky;
+    top: 20px;
+  }
+
+  .history-header {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .history-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .history-count {
+    font-size: 10px;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .history-list {
+    max-height: 520px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  .history-empty {
+    padding: 40px 16px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 2;
+  }
+
+  .history-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .history-item:hover { background: var(--surface2); }
+  .history-item:last-child { border-bottom: none; }
+
+  .hi-avatar {
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 11px; font-weight: 700;
+    color: #000; flex-shrink: 0;
+  }
+
+  .hi-info { flex: 1; min-width: 0; }
+  .hi-name { font-size: 12px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
+  .hi-phone { font-size: 10px; color: var(--accent); letter-spacing: 0.5px; }
+  .hi-date { font-size: 9px; color: var(--muted); margin-top: 2px; }
+
+  .hi-del {
+    background: none; border: none;
+    color: var(--muted); font-size: 14px;
+    cursor: pointer; padding: 4px;
+    border-radius: 4px; transition: color 0.2s;
+    line-height: 1;
+  }
+  .hi-del:hover { color: var(--danger); }
+
+  .history-footer {
+    padding: 10px 16px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .clear-history {
+    font-size: 10px; color: var(--muted);
+    background: none; border: none;
+    cursor: pointer; font-family: 'JetBrains Mono', monospace;
+    transition: color 0.2s; letter-spacing: 0.5px;
+  }
+  .clear-history:hover { color: var(--danger); }
+
+  /* === STATUS === */
+  .status-bar {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 11px;
+    color: var(--muted);
+    display: none;
+    align-items: center;
+    gap: 8px;
+  }
+  .status-bar.show { display: flex; }
+  .s-dot { width: 5px; height: 5px; background: var(--accent); border-radius: 50%; }
+  .s-phone { color: var(--accent); font-weight: 600; }
+
+  /* === TOOLTIP (интеграция) === */
+  .integration-tip {
+    margin-top: 12px;
+    padding: 14px;
+    background: rgba(0,184,255,0.05);
+    border: 1px solid rgba(0,184,255,0.15);
+    border-radius: 8px;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .integration-tip code {
+    background: rgba(255,255,255,0.06);
+    padding: 1px 6px;
+    border-radius: 4px;
+    color: var(--accent2);
+    font-size: 11px;
+  }
+  /* === PIN OVERLAY === */
+  .pin-overlay {
+    position: fixed; inset: 0;
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 9999;
+    background-image:
+      radial-gradient(ellipse 60% 40% at 30% 30%, rgba(0,255,136,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 70% 70%, rgba(0,184,255,0.06) 0%, transparent 60%);
+  }
+  .pin-box {
+    text-align: center;
+    width: 280px;
+  }
+  .pin-logo {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 10px; letter-spacing: 4px;
+    color: var(--muted); text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+  .pin-logo span { color: var(--accent); }
+  .pin-dots {
+    display: flex; justify-content: center; gap: 14px;
+    margin-bottom: 28px;
+  }
+  .pin-dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    transition: all 0.15s;
+  }
+  .pin-dot.filled { background: var(--accent); border-color: var(--accent); }
+  .pin-dot.error  { background: var(--danger); border-color: var(--danger); }
+  .pin-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 10px; margin-bottom: 16px;
+  }
+  .pin-key {
+    padding: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 16px; font-weight: 700;
+    color: var(--text); cursor: pointer;
+    transition: all 0.15s; user-select: none;
+  }
+  .pin-key:hover { border-color: var(--accent); color: var(--accent); transform: scale(1.05); }
+  .pin-key:active { transform: scale(0.97); }
+  .pin-key.del { font-size: 18px; color: var(--muted); }
+  .pin-error-msg {
+    font-size: 11px; color: var(--danger);
+    letter-spacing: 1px; height: 16px;
+    transition: opacity 0.3s;
+  }
+</style>
+</head>
+<body>
+
+<!-- PIN OVERLAY -->
+<div class="pin-overlay" id="pinOverlay">
+  <div class="pin-box">
+    <div class="pin-logo">Vikram <span>//</span> CRM</div>
+    <div class="pin-dots">
+      <div class="pin-dot" id="d0"></div>
+      <div class="pin-dot" id="d1"></div>
+      <div class="pin-dot" id="d2"></div>
+      <div class="pin-dot" id="d3"></div>
+    </div>
+    <div class="pin-grid">
+      <div class="pin-key" onclick="pinPress('1')">1</div>
+      <div class="pin-key" onclick="pinPress('2')">2</div>
+      <div class="pin-key" onclick="pinPress('3')">3</div>
+      <div class="pin-key" onclick="pinPress('4')">4</div>
+      <div class="pin-key" onclick="pinPress('5')">5</div>
+      <div class="pin-key" onclick="pinPress('6')">6</div>
+      <div class="pin-key" onclick="pinPress('7')">7</div>
+      <div class="pin-key" onclick="pinPress('8')">8</div>
+      <div class="pin-key" onclick="pinPress('9')">9</div>
+      <div class="pin-key" style="visibility:hidden"></div>
+      <div class="pin-key" onclick="pinPress('0')">0</div>
+      <div class="pin-key del" onclick="pinDel()">⌫</div>
+    </div>
+    <div class="pin-error-msg" id="pinError"></div>
+  </div>
+</div>
+
+<div class="layout">
+
+  <div class="header">Панель быстрой связи с клиентом</div>
+
+  <!-- ЛЕВАЯ КОЛОНКА — форма -->
+  <div class="left-col">
+
+    <div class="block">
+      <div class="block-label">Имя клиента (необязательно)</div>
+      <div class="input-row">
+        <input type="text" id="nameInput" placeholder="Иван Петров">
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Email клиента (необязательно)</div>
+      <div class="input-row">
+        <input type="text" id="emailInput" placeholder="client@example.com">
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Телефон клиента</div>
+      <div class="input-row">
+        <input type="tel" id="phoneInput" placeholder="+7 XXX XXX XX XX" autocomplete="off">
+        <button class="btn-small" onclick="clearAll()">сброс</button>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Сообщение</div>
+      <textarea id="msgInput" placeholder="Текст сообщения...">Добрый день. Это Викрам (Аналитик/Астрогид). Вы заполнили заявку на получение разбора у меня лично. Верно? скажите вы можете мне написать в телеграм https://t.me/Vikram_2027 ?</textarea>
+    </div>
+
+    <button class="launch-btn" onclick="launch()">⚡ Открыть каналы связи</button>
+
+    <div class="channels" id="channels">
+      <a class="ch-btn wa" id="wa-link" href="#" target="_blank">
+        <div class="ch-icon">💬</div>
+        <div><div class="ch-name">WhatsApp</div><div class="ch-sub">Открыть чат</div></div>
+        <div class="ch-arrow">→</div>
+      </a>
+      <a class="ch-btn vb" id="vb-link" href="#" target="_blank">
+        <div class="ch-icon">📳</div>
+        <div><div class="ch-name">Viber</div><div class="ch-sub">Открыть чат</div></div>
+        <div class="ch-arrow">→</div>
+      </a>
+      <a class="ch-btn tg" id="tg-link" href="#" target="_blank">
+        <div class="ch-icon">✈️</div>
+        <div><div class="ch-name">Telegram</div><div class="ch-sub">Найти по номеру</div></div>
+        <div class="ch-arrow">→</div>
+      </a>
+      <a class="ch-btn fb" id="fb-link" href="#" target="_blank">
+        <div class="ch-icon">👥</div>
+        <div><div class="ch-name">Facebook</div><div class="ch-sub">Поиск профиля</div></div>
+        <div class="ch-arrow">→</div>
+      </a>
+      <a class="ch-btn sms" id="sms-link" href="#">
+        <div class="ch-icon">💌</div>
+        <div><div class="ch-name">SMS</div><div class="ch-sub">Отправить SMS</div></div>
+        <div class="ch-arrow">→</div>
+      </a>
+      <a class="ch-btn tel" id="tel-link" href="#">
+        <div class="ch-icon">📞</div>
+        <div><div class="ch-name">Звонок</div><div class="ch-sub">Позвонить</div></div>
+        <div class="ch-arrow">→</div>
+      </a>
+      <a class="ch-btn mail" id="mail-link" href="#" style="grid-column: 1 / -1; display:none;">
+        <div class="ch-icon">✉️</div>
+        <div><div class="ch-name">Email</div><div class="ch-sub">Открыть письмо</div></div>
+        <div class="ch-arrow">→</div>
+      </a>
+    </div>
+
+    <div class="status-bar" id="statusBar">
+      <div class="s-dot"></div>
+      <span>Готово для связи с</span>
+      <span class="s-phone" id="phoneDisplay"></span>
+    </div>
+
+
+
+  </div>
+
+  <!-- ПРАВАЯ КОЛОНКА — история -->
+  <div class="history-panel">
+    <div class="history-header">
+      <span class="history-title">История клиентов</span>
+      <span class="history-count" id="histCount">0</span>
+    </div>
+    <div class="history-list" id="historyList">
+      <div class="history-empty">Нет клиентов в истории.<br>После запуска — автосохранение.</div>
+    </div>
+    <div class="history-footer">
+      <button class="clear-history" onclick="clearHistory()">Очистить историю</button>
+      <span style="font-size:10px;color:var(--muted)">localStorage</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const STORAGE_KEY = 'contactLauncherHistory';
+
+// ── AUTO-FILL from form page ──
+const autoPhone = localStorage.getItem('autoFillPhone');
+if (autoPhone) {
+  document.getElementById('phoneInput').value = autoPhone;
+  localStorage.removeItem('autoFillPhone');
+  setTimeout(launch, 200);
+}
+
+// ── HISTORY ──
+function getHistory() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+  catch { return []; }
+}
+
+function saveHistory(data) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function addToHistory(phone, name) {
+  const hist = getHistory();
+  const existing = hist.findIndex(h => h.phone === phone);
+  const entry = {
+    phone,
+    name: name || phone,
+    date: new Date().toLocaleString('ru-RU', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' }),
+    ts: Date.now()
+  };
+  if (existing >= 0) hist.splice(existing, 1);
+  hist.unshift(entry);
+  if (hist.length > 50) hist.pop();
+  saveHistory(hist);
+  renderHistory();
+}
+
+function renderHistory() {
+  const hist = getHistory();
+  const list = document.getElementById('historyList');
+  document.getElementById('histCount').textContent = hist.length;
+
+  if (!hist.length) {
+    list.innerHTML = '<div class="history-empty">Нет клиентов в истории.<br>После запуска — автосохранение.</div>';
+    return;
+  }
+
+  list.innerHTML = hist.map((h, i) => `
+    <div class="history-item" onclick="loadClient('${h.phone}','${(h.name||'').replace(/'/g,"\\'")}')">
+      <div class="hi-avatar">${(h.name || h.phone).charAt(0).toUpperCase()}</div>
+      <div class="hi-info">
+        <div class="hi-name">${h.name || h.phone}</div>
+        <div class="hi-phone">${h.phone}</div>
+        <div class="hi-date">${h.date}</div>
+      </div>
+      <button class="hi-del" onclick="event.stopPropagation(); deleteClient(${i})" title="Удалить">×</button>
+    </div>
+  `).join('');
+}
+
+function loadClient(phone, name) {
+  document.getElementById('phoneInput').value = phone;
+  if (name) document.getElementById('nameInput').value = name;
+  launch();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function deleteClient(index) {
+  const hist = getHistory();
+  hist.splice(index, 1);
+  saveHistory(hist);
+  renderHistory();
+}
+
+function clearHistory() {
+  if (!confirm('Очистить всю историю?')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  renderHistory();
+}
+
+// ── LAUNCH ──
+function launch() {
+  const raw = document.getElementById('phoneInput').value.trim();
+  const phone = raw.replace(/\D/g, '');
+
+  const email = document.getElementById('emailInput').value.trim();
+
+  if ((!phone || phone.length < 10) && !email) {
+    document.getElementById('phoneInput').style.color = '#ff4466';
+    setTimeout(() => document.getElementById('phoneInput').style.color = '', 800);
+    return;
+  }
+
+  const msg = encodeURIComponent(document.getElementById('msgInput').value.trim());
+  const name = document.getElementById('nameInput').value.trim();
+
+  document.getElementById('wa-link').href  = `https://wa.me/${phone}?text=${msg}`;
+  document.getElementById('vb-link').href  = `viber://chat?number=%2B${phone}`;
+  document.getElementById('tg-link').href  = `https://t.me/+${phone}`;
+  document.getElementById('fb-link').href  = `https://www.facebook.com/search/top/?q=${phone}`;
+  document.getElementById('sms-link').href = `sms:+${phone}?body=${msg}`;
+  document.getElementById('tel-link').href = `tel:+${phone}`;
+
+  // Email
+  const mailBtn = document.getElementById('mail-link');
+  if (email && email.includes('@')) {
+    const subject = encodeURIComponent('По вашей заявке — Викрам (Аналитик/Астрогид)');
+    const body = encodeURIComponent(document.getElementById('msgInput').value.trim());
+    mailBtn.href = `mailto:${email}?subject=${subject}&body=${body}`;
+    mailBtn.style.display = 'flex';
+  } else {
+    mailBtn.style.display = 'none';
+  }
+
+  document.getElementById('channels').classList.add('visible');
+  document.getElementById('statusBar').classList.add('show');
+  document.getElementById('phoneDisplay').textContent = `+${phone}`;
+
+  addToHistory(phone, name);
+}
+
+function clearAll() {
+  document.getElementById('phoneInput').value = '';
+  document.getElementById('nameInput').value = '';
+  document.getElementById('channels').classList.remove('visible');
+  document.getElementById('statusBar').classList.remove('show');
+}
+
+// ── KEYBOARD ──
+document.getElementById('phoneInput').addEventListener('keydown', e => { if (e.key === 'Enter') launch(); });
+document.getElementById('phoneInput').addEventListener('paste', () => setTimeout(launch, 100));
+
+// ── PIN ──
+const PIN_CODE = '2027'; // ← твой PIN, меняй здесь
+let pinEntered = '';
+
+function pinPress(digit) {
+  if (pinEntered.length >= 4) return;
+  pinEntered += digit;
+  updateDots();
+  if (pinEntered.length === 4) setTimeout(checkPin, 150);
+}
+
+function pinDel() {
+  pinEntered = pinEntered.slice(0, -1);
+  updateDots();
+  document.getElementById('pinError').textContent = '';
+}
+
+function updateDots() {
+  for (let i = 0; i < 4; i++) {
+    const d = document.getElementById('d' + i);
+    d.classList.toggle('filled', i < pinEntered.length);
+    d.classList.remove('error');
+  }
+}
+
+function checkPin() {
+  if (pinEntered === PIN_CODE) {
+    document.getElementById('pinOverlay').style.opacity = '0';
+    document.getElementById('pinOverlay').style.transition = 'opacity 0.3s';
+    setTimeout(() => document.getElementById('pinOverlay').style.display = 'none', 300);
+  } else {
+    for (let i = 0; i < 4; i++) document.getElementById('d' + i).classList.add('error');
+    document.getElementById('pinError').textContent = 'Неверный PIN';
+    setTimeout(() => { pinEntered = ''; updateDots(); document.getElementById('pinError').textContent = ''; }, 800);
+  }
+}
+
+// Клавиатура для PIN
+document.addEventListener('keydown', e => {
+  if (document.getElementById('pinOverlay').style.display === 'none') return;
+  if (e.key >= '0' && e.key <= '9') pinPress(e.key);
+  if (e.key === 'Backspace') pinDel();
+});
+
+// ── INIT ──
+renderHistory();
+</script>
+</body>
+</html>

@@ -1,0 +1,950 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Landing (Figma)</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      /* Header background fix — blend with hero cosmic bg */
+      .site-header {
+        background: linear-gradient(135deg, rgba(20, 10, 40, 0.92), rgba(30, 15, 55, 0.88)) !important;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(123, 44, 255, 0.15);
+      }
+
+      #resultImage {
+        width: 100%;
+        max-width: 260px;
+        height: auto;
+        display: none;
+        margin: 20px auto;
+        border-radius: 12px;
+        object-fit: cover;
+      }
+
+      @keyframes glowBtn {
+        0% { box-shadow: 0 0 10px rgba(123,44,255,0.4); }
+        50% { box-shadow: 0 0 20px rgba(255,59,107,0.6); }
+        100% { box-shadow: 0 0 10px rgba(123,44,255,0.4); }
+      }
+
+      #moreBtn {
+        margin-top: 20px;
+        padding: 14px 22px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        color: white;
+        background: linear-gradient(135deg, #7b2cff, #ff3b6b);
+        transition: all 0.3s ease;
+        animation: glowBtn 2.5s infinite;
+      }
+
+      #moreBtn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 20px rgba(255,59,107,0.6);
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#hero">Перейти к контенту</a>
+
+    <header id="header" class="site-header" aria-label="Site header">
+      <div class="container header-inner">
+        <a class="logo" href="#hero" aria-label="Logo">
+          <img class="logo-img" src="./foto/logo.png" alt="Logo" />
+        </a>
+
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a class="nav-link" href="#hero">Главная</a>
+          <a class="nav-link" href="#section-2">Консультации</a>
+          <a class="nav-link" href="reference.html">Большой справочник понятий</a>
+        </nav>
+
+        <a class="btn btn-primary header-btn" href="#about-section">Получить 3D-разбор</a>
+      </div>
+    </header>
+
+    <main>
+      <section id="hero" class="hero" aria-label="Hero section">
+        <div class="container hero-inner">
+          <div class="hero-content" data-reveal>
+            <p class="eyebrow">Human Design — Гештальт - Астрология</p>
+            <h1 class="hero-title">
+              Расшифруй свою уникальность
+            </h1>
+            <p class="hero-subtitle">
+              Отлично! Давай начнём с простого и дойдём до более сложного разбора
+            </p>
+
+            <div class="hero-actions">
+              <div style="display: inline-flex; align-items: center; gap: 12px;">
+                <a class="btn btn-primary" href="#psychotype" style="font-size: 1.1em; padding: 16px 32px;">Быстрый разбор</a>
+                <img src="./foto/arrow_shining.svg" alt="" style="width: 104px; height: auto; flex-shrink: 0;">
+              </div>
+            </div>
+            <div style="margin-top: 16px; max-width: 600px;">
+              <div id="psychotype" class="psychotype-block">
+                <div class="form-card">
+                  <span class="form-label">Узнай свой энергетический психотип</span>
+                  <div class="date-row">
+                    <div class="field-group">
+                      <label for="day">День</label>
+                      <select id="day">
+                        <option value="">—</option>
+                      </select>
+                    </div>
+                    <div class="field-group">
+                      <label for="month">Месяц</label>
+                      <select id="month">
+                        <option value="">—</option>
+                        <option value="1">Январь</option>
+                        <option value="2">Февраль</option>
+                        <option value="3">Март</option>
+                        <option value="4">Апрель</option>
+                        <option value="5">Май</option>
+                        <option value="6">Июнь</option>
+                        <option value="7">Июль</option>
+                        <option value="8">Август</option>
+                        <option value="9">Сентябрь</option>
+                        <option value="10">Октябрь</option>
+                        <option value="11">Ноябрь</option>
+                        <option value="12">Декабрь</option>
+                      </select>
+                    </div>
+                    <div class="field-group">
+                      <label for="year">Год</label>
+                      <input type="number" id="year" placeholder="1990" min="1900" max="2026">
+                    </div>
+                  </div>
+                  <div class="error-msg" id="error"></div>
+                  <button class="btn-calc" onclick="calculate()">Рассчитать</button>
+                </div>
+                <div class="result-panel" id="resultPanel">
+                  <div class="result-card" id="resultCard">
+                    <div class="result-icon" id="resultIcon"></div>
+                    <div class="result-number" id="resultNumber"></div>
+                    <div class="type-badge" id="typeBadge"></div>
+                    <div class="result-type" id="resultType"></div>
+                    <img id="resultImage" src="" alt="Психотип" style="display: none;" />
+                    <div class="result-title" id="resultTitle"></div>
+                    <div class="result-text" id="resultText"></div>
+                    <div class="result-minus" id="resultMinus"></div>
+                    <div class="result-plus" id="resultPlus"></div>
+                    <button id="read-more-btn" class="read-more-btn" style="display: none;">Почитать подробнее</button>
+                    <div id="full-description" class="full-description" hidden></div>
+                    <div class="result-desc" id="resultDesc"></div>
+                    <div class="calc-steps" id="calcSteps"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <section id="section-2" class="photo-section" style="--photo-url: url('./foto/book1.JPG');" aria-label="Section-2">
+        <div class="container">
+          <div class="consult-card" style="text-align: center;">
+          <header class="section-header" data-reveal>
+            <h2 class="section-title" style="color: #fff; font-weight: 700;">Глубинные консультации по:</h2>
+          </header>
+
+          <div class="hero-image-block">
+            <img src="foto/3potoka1.png" alt="" class="hero-image" style="display: block; margin: 20px auto 0;">
+          </div>
+          </div>
+        </div>
+
+        <div class="how-it-works" style="padding: 40px 0 80px;">
+          <div class="container">
+            <header class="photo-section-header" data-reveal>
+              <h2 class="photo-title">Как проходит разбор (личная консультация)</h2>
+              <p class="photo-subtitle">
+                3 шага к результату
+              </p>
+            </header>
+
+            <ol class="steps-grid" role="list">
+            <li class="step-card" data-reveal>
+              <img class="step-img" src="./foto/1s.png" alt="Шаг 1" />
+              <div class="step-number">1</div>
+            </li>
+
+            <li class="step-card" data-reveal>
+              <img class="step-img" src="./foto/2s.png" alt="Шаг 2" />
+              <div class="step-number">2</div>
+            </li>
+
+            <li class="step-card" data-reveal>
+              <img class="step-img" src="./foto/3s.png" alt="Шаг 3" />
+              <div class="step-number">3</div>
+            </li>
+          </ol>
+        </div>
+      </div>
+      </section>
+
+      <section
+        class="photo-section results"
+        style="--photo-url: url('./foto/book2.JPG')"
+        aria-label="Результаты и отзывы"
+      >
+        <div class="container">
+          <!-- Заголовок по центру, крупный, жирный -->
+          <div style="text-align: center; margin-bottom: 48px;" data-reveal>
+            <h2 style="
+              color: #fff;
+              font-size: clamp(1.8rem, 4.5vw, 3rem);
+              font-weight: 900;
+              text-transform: uppercase;
+              line-height: 1.2;
+              letter-spacing: 0.02em;
+              margin: 0;
+            ">ПОНИМАНИЕ,<br>КОТОРОЕ ВЫ ПОЛУЧИТЕ В РЕЗУЛЬТАТЕ</h2>
+          </div>
+
+          <!-- Два столбца: текст слева, картинка справа -->
+          <div style="
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
+            max-width: 960px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+          " data-reveal>
+            <!-- Левая колонка — текст -->
+            <div style="flex: 1 1 400px; min-width: 280px;">
+              <ul class="results-list">
+                <li class="result-item">Про отношения</li>
+                <li class="result-item">Про деньги</li>
+                <li class="result-item">Где жить</li>
+                <li class="result-item">Страхи и меланхолия</li>
+                <li class="result-item">Питание</li>
+              </ul>
+
+              <button id="showAllBtn" class="btn btn-primary" style="margin-top: 20px;">
+                Посмотреть все аспекты
+              </button>
+
+              <div id="allAspects" style="display:none; margin-top:20px;">
+                <ul class="results-list">
+                  <li class="result-item">Предназначение</li>
+                  <li class="result-item">Карма</li>
+                  <li class="result-item">Реализация</li>
+                  <li class="result-item">Слабые места</li>
+                  <li class="result-item">Сильные стороны</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Правая колонка — картинка -->
+            <div style="flex: 0 0 auto; max-width: 300px; width: 100%; align-self: center;">
+              <img src="foto/serce.png" alt="Как понять свою генетическую травму" style="
+                width: 100%;
+                height: auto;
+                border-radius: 12px;
+                display: block;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+              ">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="about-section"
+        class="photo-section about-guide"
+        style="--photo-url: url('./foto/cards.JPG')"
+        aria-label="About и справочник"
+      >
+        <div class="container">
+          <div class="about-grid">
+            <div class="about-left" data-reveal>
+              <img
+                class="about-photo"
+                src="./foto/myfoto.jpg"
+                alt="Викрам"
+              />
+              <p class="about-text">
+                <strong>Викрам</strong> — аналитик системы Дизайна Человека, гештальт-психолог
+              </p>
+              <p class="about-text about-text--muted">
+                Опыт работы более 15 лет
+              </p>
+            </div>
+
+            <div class="about-right" data-reveal style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+              <p style="color: #fff; font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 800; font-style: italic; margin: 0; text-align: center;">ПРОСТО НАЖМИ ТУТ<br><span style="font-size: 0.65em; font-weight: 600; opacity: 0.8;">(мой телеграм)</span></p>
+              <a class="btn btn-primary" href="https://t.me/Vikram_2027" target="_blank" rel="noopener">Получить 3D-разбор</a>
+              <a class="btn btn-primary" href="https://spisok-voprosov-vikram.netlify.app/" target="_blank" rel="noopener" style="margin-top: 8px;">ВЫБРАТЬ ТЕМУ ДЛЯ КОНСУЛЬТАЦИИ</a>
+              <p style="color: rgba(255,255,255,0.75); font-size: 0.9rem; margin: 0; text-align: center;">Полный список вопросов</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contacts" class="section contacts" aria-label="Контакты">
+        <div class="container">
+          <div class="contacts-card" style="background: rgba(20, 12, 40, 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(123, 44, 255, 0.2); border-radius: 16px; padding: 40px 32px; max-width: 600px; margin: 0 auto; text-align: center;">
+            <header class="section-header" data-reveal>
+              <h2 class="section-title" style="color: #fff;">Контакты</h2>
+              <p class="section-subtitle" style="color: rgba(255,255,255,0.8); font-size: 1.1rem;">
+                Пиши — отвечу быстро
+              </p>
+            </header>
+
+            <div class="contacts-grid" role="list" style="margin-top: 24px;">
+              <a class="contact-link" href="https://t.me/Vikram_2027" target="_blank" rel="noopener">
+                <span class="contact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M22 2L11 13" />
+                    <path d="M22 2L15 22l-4-9-9-4L22 2z" />
+                  </svg>
+                </span>
+                <span class="contact-text">Telegram</span>
+              </a>
+
+              <a class="contact-link" href="https://www.instagram.com/vikram_hd_2027?igsh=MTFuem4xbm45NWg0bw==" target="_blank" rel="noopener">
+                <span class="contact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="3" width="18" height="18" rx="5" ry="5" />
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                    <path d="M17.5 6.5h.01" />
+                  </svg>
+                </span>
+                <span class="contact-text">Instagram</span>
+              </a>
+
+              <a class="contact-link" href="mailto:vikramsave@ukr.net">
+                <span class="contact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4 4h16v16H4z" opacity="0" />
+                    <path d="M4 6h16v12H4z" />
+                    <path d="M4 6l8 7 8-7" />
+                  </svg>
+                </span>
+                <span class="contact-text">Email</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      (function () {
+        const reducedMotion =
+          window.matchMedia &&
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (reducedMotion) return;
+
+        const items = document.querySelectorAll("[data-reveal]");
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { threshold: 0.12 }
+        );
+
+        items.forEach((el) => io.observe(el));
+      })();
+    </script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var daySelect = document.getElementById('day');
+        if (daySelect) {
+          daySelect.innerHTML = '<option value="">\u2014</option>';
+          for (var i = 1; i <= 31; i++) {
+            var opt = document.createElement('option');
+            opt.value = i;
+            opt.textContent = i;
+            daySelect.appendChild(opt);
+          }
+        }
+
+      });
+    </script>
+
+    <script>
+      // База данных психотипов и калькулятор
+
+      // База данных психотипов
+      var psychotypes = {
+        1: {
+          type: 'Эмоциональный вампир',
+          icon: '🌑',
+          badge: 'type-vampire',
+          image: './foto/1t.png',
+          title: 'Эмоциональный вампир',
+          text: 'Ты входишь в контакт глубже, чем большинство людей. После общения с тобой люди могут чувствовать усталость, а ты — прилив энергии. Это происходит неосознанно: ты считываешь эмоции и включаешься в них. В плюсе ты создаёшь глубокую связь и очищаешь пространство, в минусе — усиливаешь напряжение ради ощущения жизни.',
+          full: '<p>Ты просто сидишь в кафе, пьёшь капучино, общаешься. Но после разговора людям рядом с тобой становится тяжелее, а тебе легче.</p> <p>Знакомо состояние, когда после глубокого разговора ты словно наполняешься. Ты не делаешь это специально, это происходит само.</p> <p>Ты умеешь входить в контакт глубже, точнее и ближе к чувствам. Ты словно видишь, где у человека настоящие эмоции, и интуитивно туда идёшь.</p> <p>Иногда это обычный разговор, а иногда ты задаёшь вопросы, возвращаешь к важным темам и вытягиваешь то, что человек прятал. В этот момент между вами появляется энергия, и именно она тебя наполняет.</p> <p>Но есть тонкая грань. Когда внутри пусто, ты начинаешь искать это состояние чаще. Становится важно, чтобы тебя слушали, реагировали и чтобы всё было по-настоящему.</p> <p>Тогда ты можешь не замечать, как усиливаешь эмоции, втягиваешь людей в переживания или создаёшь напряжение. Потому что именно там ощущается жизнь.</p> <p><strong>⚡ Твоя сила</strong></p> <p>Ты умеешь идти в глубину, чувствуешь людей, видишь их боль и достаёшь настоящие эмоции. Если ты осознаёшь это, ты не забираешь энергию, а очищаешь пространство. После общения с тобой становится легче, глубже и честнее.</p> <p><strong>🔻 Проявления в минусе</strong></p> <ul> <li>зависимость от внимания и эмоций других</li> <li>ощущение пустоты без общения</li> <li>провокация конфликтов или напряжённых разговоров</li> <li>обесценивание простых лёгких контактов</li> <li>втягивание людей в свои переживания</li> <li>эмоциональное давление</li> <li>трудность быть наедине с собой</li> </ul> <p><strong>🔺 Проявления в плюсе</strong></p> <ul> <li>глубокая эмпатия и чувствительность к людям</li> <li>умение создавать настоящий эмоциональный контакт</li> <li>способность помогать другим проживать чувства</li> <li>сильная интуиция в общении</li> <li>умение очищать напряжение в разговоре</li> <li>харизма и притягательность</li> <li>способность трансформировать негатив в ресурс</li> </ul>',
+          plus: [
+            'Высокая активность и энергичность',
+            'Способность к быстрому восстановлению в общении',
+            'Интуитивное понимание энергии других людей'
+          ],
+          minus: [
+            'Неосознанное поглощение чужой энергии',
+            'Риск истощить окружающих',
+            'Зависимость от внешних источников энергии'
+          ],
+          desc: 'Ты входишь в контакт глубже, чем большинство людей. После общения с тобой люди могут чувствовать усталость, а ты — прилив энергии. Это происходит неосознанно: ты считываешь эмоции и включаешься в них. В плюсе ты создаёшь глубокую связь и очищаешь пространство, в минусе — усиливаешь напряжение ради ощущения жизни.'
+        },
+        2: {
+          type: 'Эмоциональный вампир',
+          icon: '🌑',
+          badge: 'type-vampire',
+          image: './foto/1t.png',
+          title: 'Эмоциональный вампир',
+          text: 'Ты входишь в контакт глубже, чем большинство людей. После общения с тобой люди могут чувствовать усталость, а ты — прилив энергии. Это происходит неосознанно: ты считываешь эмоции и включаешься в них. В плюсе ты создаёшь глубокую связь и очищаешь пространство, в минусе — усиливаешь напряжение ради ощущения жизни.',
+          full: '<p>Ты просто сидишь в кафе, пьёшь капучино, общаешься. Но после разговора людям рядом с тобой становится тяжелее, а тебе легче.</p> <p>Знакомо состояние, когда после глубокого разговора ты словно наполняешься. Ты не делаешь это специально, это происходит само.</p> <p>Ты умеешь входить в контакт глубже, точнее и ближе к чувствам. Ты словно видишь, где у человека настоящие эмоции, и интуитивно туда идёшь.</p> <p>Иногда это обычный разговор, а иногда ты задаёшь вопросы, возвращаешь к важным темам и вытягиваешь то, что человек прятал. В этот момент между вами появляется энергия, и именно она тебя наполняет.</p> <p>Но есть тонкая грань. Когда внутри пусто, ты начинаешь искать это состояние чаще. Становится важно, чтобы тебя слушали, реагировали и чтобы всё было по-настоящему.</p> <p>Тогда ты можешь не замечать, как усиливаешь эмоции, втягиваешь людей в переживания или создаёшь напряжение. Потому что именно там ощущается жизнь.</p> <p><strong>⚡ Твоя сила</strong></p> <p>Ты умеешь идти в глубину, чувствуешь людей, видишь их боль и достаёшь настоящие эмоции. Если ты осознаёшь это, ты не забираешь энергию, а очищаешь пространство. После общения с тобой становится легче, глубже и честнее.</p> <p><strong>🔻 Проявления в минусе</strong></p> <ul> <li>зависимость от внимания и эмоций других</li> <li>ощущение пустоты без общения</li> <li>провокация конфликтов или напряжённых разговоров</li> <li>обесценивание простых лёгких контактов</li> <li>втягивание людей в свои переживания</li> <li>эмоциональное давление</li> <li>трудность быть наедине с собой</li> </ul> <p><strong>🔺 Проявления в плюсе</strong></p> <ul> <li>глубокая эмпатия и чувствительность к людям</li> <li>умение создавать настоящий эмоциональный контакт</li> <li>способность помогать другим проживать чувства</li> <li>сильная интуиция в общении</li> <li>умение очищать напряжение в разговоре</li> <li>харизма и притягательность</li> <li>способность трансформировать негатив в ресурс</li> </ul>',
+          plus: [
+            'Быстрое восстановление после пассивности',
+            'Высокая социальная активность',
+            'Способность оживить скучную обстановку'
+          ],
+          minus: [
+            'Истощение окружающих людей',
+            'Сложность в построении долгосрочных отношений',
+            'Необходимость постоянного общения'
+          ],
+          desc: 'Ты входишь в контакт глубже, чем большинство людей. После общения с тобой люди могут чувствовать усталость, а ты — прилив энергии. Это происходит неосознанно: ты считываешь эмоции и включаешься в них. В плюсе ты создаёшь глубокую связь и очищаешь пространство, в минусе — усиливаешь напряжение ради ощущения жизни.'
+        },
+        3: {
+          type: 'Neutral',
+          icon: '⚖️',
+          badge: 'type-neutral',
+          image: './foto/4t.png',
+          title: 'Нейтрал',
+          text: 'Вы обладаете сильным и защищённым энергетическим полем. Вы не забираете чужую энергию и не отдаёте свою — ваш баланс стабилен.',
+          plus: [
+            'Внутренняя устойчивость и независимость',
+            'Стабильное энергетическое состояние',
+            'Защита от манипуляций и влияния'
+          ],
+          minus: [
+            'Сложность в глубоком эмоциональном контакте',
+            'Восприятие других как излишне зависимых',
+            'Возможная отчуждённость'
+          ],
+          desc: 'Вы обладаете сильным и защищённым энергетическим полем. Вы не забираете чужую энергию и не отдаёте свою — ваш баланс стабилен. Это даёт вам внутреннюю устойчивость и независимость от энергетического состояния окружающих. Вы часто находитесь в хорошем тонусе и редко подвержены влиянию эмоциональных манипуляций.'
+        },
+        4: {
+          type: 'Dark Mage',
+          icon: '🔮',
+          badge: 'type-black-mage',
+          image: './foto/2t.png',
+          title: 'Чёрный маг',
+          text: 'Вы обладаете редкой способностью переключаться между энергетическими состояниями. В благоприятных условиях вы действуете как нейтрал, при дефиците сил — собираете энергию окружающих.',
+          plus: [
+            'Редкая адаптивная способность',
+            'Управление энергетическим полем',
+            'Гибкость в различных ситуациях'
+          ],
+          minus: [
+            'Риск злоупотребления способностью',
+            'Сложность осознания своего истинного состояния',
+            'Необходимость постоянной саморегуляции'
+          ],
+          desc: 'Вы обладаете редкой способностью переключаться между энергетическими состояниями. В благоприятных условиях вы действуете как нейтрал, но при дефиците жизненных сил можете начать заряжаться энергией окружающих. Вы умеете управлять своим энергетическим полем и приспосабливаться к ситуации, но важно не злоупотреблять этой способностью.'
+        },
+        5: {
+          type: 'Donor',
+          icon: '☀️',
+          badge: 'type-donor',
+          image: './foto/3t.png',
+          title: 'Донор',
+          text: 'Вы — источник жизненных сил для окружающих. Ваше биополе щедро делится энергией, и люди рядом с вами чувствуют прилив сил и вдохновения.',
+          plus: [
+            'Способность вдохновлять других',
+            'Натуральная щедрость и открытость',
+            'Позитивное влияние на окружающих'
+          ],
+          minus: [
+            'Уязвимость перед вампирами',
+            'Риск истощения собственных ресурсов',
+            'Сложность в установлении границ'
+          ],
+          desc: 'Вы — источник жизненных сил для окружающих. Ваше биополе щедро делится энергией, и люди рядом с вами чувствуют прилив сил и вдохновения. Однако вы уязвимы перед энергетическими вампирами, поэтому важно контролировать свои ресурсы и не позволять другим опустошать вас. Найдите свой источник восполнения — природа, вода, медитация.'
+        },
+        6: {
+          type: 'Neutral',
+          icon: '⚖️',
+          badge: 'type-neutral',
+          image: './foto/4t.png',
+          title: 'Нейтрал',
+          text: 'Ваше энергетическое поле крепкое и самодостаточное. Вы не нуждаетесь в чужой энергии и не отдаёте свою.',
+          plus: [
+            'Полная независимость от других',
+            'Стабильное здоровье и благополучие',
+            'Надёжность в отношениях'
+          ],
+          minus: [
+            'Сложность в близких контактах',
+            'Риск быть воспринятым как холодный',
+            'Ограниченная способность к поддержке'
+          ],
+          desc: 'Ваше энергетическое поле крепкое и самодостаточное. Вы не нуждаетесь в чужой энергии и редко отдаёте свою. Это делает вас устойчивым к негативным влияниям и позволяет сохранять эмоциональный баланс в любых ситуациях. Вы — надёжный и стабильный партнёр, который не создаёт дисбаланса в отношениях.'
+        },
+        7: {
+          type: 'Donor',
+          icon: '☀️',
+          badge: 'type-donor',
+          image: './foto/3t.png',
+          title: 'Донор',
+          text: 'Вы обладаете мощной энергетикой, которую щедро раздаёте окружающим. Люди тянутся к вам, чувствуя ваш позитивный заряд.',
+          plus: [
+            'Мощная и привлекательная энергетика',
+            'Способность зарядить группу людей',
+            'Естественное лидерство'
+          ],
+          minus: [
+            'Неспособность восполняться от других',
+            'Быстрое истощение вблизи вампиров',
+            'Необходимость частого восстановления'
+          ],
+          desc: 'Вы обладаете мощной энергетикой, которую щедро раздаёте окружающим. Люди тянутся к вам, чувствуя ваш позитивный заряд. При этом вы не способны поглощать чужую энергию, поэтому при частом контакте с вампирами ваши силы могут истощаться. Берегите себя — ищите источники подзарядки и не бойтесь ставить границы.'
+        },
+        8: {
+          type: 'Neutral',
+          icon: '⚖️',
+          badge: 'type-neutral',
+          image: './foto/4t.png',
+          title: 'Нейтрал',
+          text: 'Вы наделены стабильным энергетическим полем, которое обеспечивает постоянный тонус и защиту от внешних воздействий.',
+          plus: [
+            'Постоянный стабильный тонус',
+            'Успешность и здоровье',
+            'Уравновешенность в любых ситуациях'
+          ],
+          minus: [
+            'Склонность к изоляции',
+            'Сложность в сопереживании',
+            'Восприятие других как менее независимых'
+          ],
+          desc: 'Вы наделены стабильным энергетическим полем, которое обеспечивает постоянный тонус и защиту от внешних воздействий. Вы не забираете и не отдаёте энергию — ваш внутренний ресурс самодостаточен. Благодаря этому вы успешны, здоровы и уравновешены. Ваше присутствие не истощает и не перегружает окружающих.'
+        },
+        9: {
+          type: 'Light Mage',
+          icon: '✨',
+          badge: 'type-white-mage',
+          image: './foto/5t.png',
+          title: 'Белый маг',
+          text: 'Вы обладаете мощной позитивной энергетикой и способностью управлять своим полем. Вы можете осознанно делиться энергией, защищая себя от вампиров.',
+          plus: [
+            'Осознанное управление энергией',
+            'Защита от негативных влияний',
+            'Способность помогать другим без истощения'
+          ],
+          minus: [
+            'Необходимость постоянного осознания',
+            'Риск чрезмерной ответственности',
+            'Сложность в расслаблении'
+          ],
+          desc: 'Вы обладаете мощной позитивной энергетикой и способностью управлять своим полем. В отличие от обычного донора, вы можете осознанно делиться энергией, при этом защищая себя от вампиров. Развивая свои способности, вы можете стать практически неуязвимым для негативных влияний и помогать окружающим восстанавливать баланс.'
+        }
+      };
+
+      function digitSum(n) {
+        while (n > 9) {
+          var s = 0;
+          while (n > 0) { s += n % 10; n = Math.floor(n / 10); }
+          n = s;
+        }
+        return n;
+      }
+
+      window.calculate = function () {
+        var day = parseInt(document.getElementById('day').value);
+        var month = parseInt(document.getElementById('month').value);
+        var year = parseInt(document.getElementById('year').value);
+        var errorEl = document.getElementById('error');
+        var panel = document.getElementById('resultPanel');
+
+        panel.classList.remove('visible');
+        errorEl.textContent = '';
+
+        if (!day || !month || !year || year < 1900 || year > 2026) {
+          errorEl.textContent = 'Пожалуйста, заполните все поля корректно';
+          return;
+        }
+
+        var testDate = new Date(year, month - 1, day);
+        if (testDate.getDate() !== day || testDate.getMonth() !== month - 1) {
+          errorEl.textContent = 'Указана некорректная дата';
+          return;
+        }
+
+        var dateStr = '' + day + month + year;
+        var totalSum = 0;
+        for (var j = 0; j < dateStr.length; j++) {
+          totalSum += parseInt(dateStr[j]);
+        }
+
+        var firstSum = totalSum;
+        var energyNumber = digitSum(totalSum);
+        var info = psychotypes[energyNumber];
+
+        window.calculatedResult = energyNumber;
+
+        if (!info) return;
+
+        var digits = dateStr.split('').join(' + ');
+        var stepsHtml = '<strong>Расчёт:</strong> ' + digits + ' = ' + firstSum;
+        if (firstSum > 9) {
+          var firstSumDigits = String(firstSum).split('').join(' + ');
+          stepsHtml += '<br>' + firstSumDigits + ' = ' + energyNumber;
+        }
+        stepsHtml += '<br><strong>Энергетическое число:</strong> ' + energyNumber;
+
+        // Update legacy elements for compatibility
+        document.getElementById('resultIcon').textContent = info.icon;
+        document.getElementById('resultNumber').textContent = 'Число ' + energyNumber;
+        document.getElementById('resultType').textContent = info.type;
+        document.getElementById('calcSteps').innerHTML = stepsHtml;
+
+        var badge = document.getElementById('typeBadge');
+        badge.className = 'type-badge ' + info.badge;
+        badge.textContent = info.type;
+
+        // Update new structured elements
+        var resultImage = document.getElementById('resultImage');
+        if (info.image) {
+          resultImage.src = info.image;
+          resultImage.style.display = 'block';
+        } else {
+          resultImage.style.display = 'none';
+        }
+
+        document.getElementById('resultTitle').textContent = info.title;
+        document.getElementById('resultText').innerHTML = info.text;
+
+        // Generate minus list
+        var minusHtml = '<strong>Риски и вызовы:</strong><ul>';
+        for (var i = 0; i < info.minus.length; i++) {
+          minusHtml += '<li>' + info.minus[i] + '</li>';
+        }
+        minusHtml += '</ul>';
+        document.getElementById('resultMinus').innerHTML = minusHtml;
+
+        // Generate plus list
+        var plusHtml = '<strong>Сильные стороны:</strong><ul>';
+        for (var k = 0; k < info.plus.length; k++) {
+          plusHtml += '<li>' + info.plus[k] + '</li>';
+        }
+        plusHtml += '</ul>';
+        document.getElementById('resultPlus').innerHTML = plusHtml;
+
+        var btn = document.getElementById('read-more-btn');
+        var fullBlock = document.getElementById('full-description');
+        btn.style.display = 'inline-block';
+        btn.textContent = 'Почитать подробнее';
+        fullBlock.innerHTML = '';
+        fullBlock.setAttribute('hidden', 'hidden');
+
+        var card = document.getElementById('resultCard');
+        card.classList.remove('glow');
+        setTimeout(function () {
+          panel.classList.add('visible');
+          setTimeout(function () { card.classList.add('glow'); }, 100);
+        }, 100);
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        const psychotypeMap = {
+          1: 'vampire',
+          2: 'vampire',
+          3: 'neutral',
+          4: 'dark',
+          5: 'donor',
+          6: 'neutral',
+          7: 'donor',
+          8: 'neutral',
+          9: 'light'
+        };
+
+        const psychotypeFull = {
+          vampire: `<span class="psychotype-icon" aria-hidden="true">🌑</span>
+        <h2>Эмоциональный вампир</h2>
+        <p class="subtitle">Energy Vampire · числа 1 и 2</p>
+
+        <div class="main-text">
+          <p>Ты просто сидишь в кафе, пьёшь капучино, общаешься. Но после разговора людям рядом с тобой становится тяжелее, а тебе легче.</p>
+          <p>Знакомо состояние, когда после глубокого разговора ты словно наполняешься. Ты не делаешь это специально, это происходит само.</p>
+          <p>Ты умеешь входить в контакт глубже, точнее и ближе к чувствам. Ты словно видишь, где у человека настоящие эмоции, и интуитивно туда идёшь.</p>
+          <p>Иногда это обычный разговор, а иногда ты задаёшь вопросы, возвращаешь к важным темам и вытягиваешь то, что человек прятал. В этот момент между вами появляется энергия, и именно она тебя наполняет.</p>
+          <p>Но есть тонкая грань. Когда внутри пусто, ты начинаешь искать это состояние чаще. Становится важно, чтобы тебя слушали, реагировали и чтобы всё было по-настоящему.</p>
+          <p>Тогда ты можешь не замечать, как усиливаешь эмоции, втягиваешь людей в переживания или создаёшь напряжение. Потому что именно там ощущается жизнь.</p>
+        </div>
+
+        <div class="power-block">
+          <h3>Твоя сила</h3>
+          <p>Ты умеешь идти в глубину, чувствуешь людей, видишь их боль и достаёшь настоящие эмоции. Если ты осознаёшь это, ты не забираешь энергию, а очищаешь пространство. После общения с тобой становится легче, глубже и честнее.</p>
+        </div>
+
+        <div class="blocks-row">
+          <div class="minus-block">
+            <h3>Проявления в минусе</h3>
+            <ul>
+              <li>зависимость от внимания и эмоций других</li>
+              <li>ощущение пустоты без общения</li>
+              <li>провокация конфликтов или напряжённых разговоров</li>
+              <li>обесценивание простых лёгких контактов</li>
+              <li>втягивание людей в свои переживания</li>
+              <li>эмоциональное давление</li>
+              <li>трудность быть наедине с собой</li>
+            </ul>
+          </div>
+
+          <div class="plus-block">
+            <h3>Проявления в плюсе</h3>
+            <ul>
+              <li>глубокая эмпатия и чувствительность к людям</li>
+              <li>умение создавать настоящий эмоциональный контакт</li>
+              <li>способность помогать другим проживать чувства</li>
+              <li>сильная интуиция в общении</li>
+              <li>умение очищать напряжение в разговоре</li>
+              <li>харизма и притягательность</li>
+              <li>способность трансформировать негатив в ресурс</li>
+            </ul>
+          </div>
+        </div>`,
+          neutral: `<span class="psychotype-icon" aria-hidden="true">⚖️</span>
+        <h2>Нейтрал</h2>
+        <p class="subtitle">Neutral · числа 3, 6 и 8</p>
+
+        <div class="main-text">
+          <p>Ты заходишь в пространство — и там становится спокойно. Не потому что ты что-то делаешь, а потому что ты сама по себе стабильность. Люди рядом могут переживать, суетиться, конфликтовать, но тебя это будто не задевает. Ты не втягиваешься, не проваливаешься и не теряешь себя.</p>
+          <p>Знакомо ощущение, что тебя сложно вывести из равновесия, ты не любишь лишнюю драму и часто смотришь на ситуации со стороны. Ты не холодная. Ты просто не зависишь от чужих эмоций.</p>
+          <p>Ты не из тех, кто цепляется за внимание, втягивается в конфликты или растворяется в других людях. У тебя есть свой внутренний центр, и ты в нём. Поэтому рядом с тобой кто-то успокаивается, кто-то чувствует опору, а кто-то не может тебя задеть и начинает злиться, потому что ты не включаешься в чужие игры.</p>
+          <p>Но есть и другая сторона. Иногда ты настолько привыкаешь держать дистанцию, что перестаёшь пускать людей по-настоящему близко. Ты можешь не говорить о своих чувствах, не просить помощи и делать вид, что всё нормально, даже когда это не так. Ты сильная, но иногда слишком одна внутри этой силы.</p>
+        </div>
+
+        <div class="power-block">
+          <h3>Твоя сила</h3>
+          <p>Ты — тихая точка опоры. Ты не теряешь себя, даже когда вокруг хаос. Ты умеешь сохранять ясность, принимать решения без лишней паники и не зависеть от чужих состояний. Именно это делает тебя человеком, на которого можно опереться.</p>
+        </div>
+
+        <div class="blocks-row">
+          <div class="minus-block">
+            <h3>Проявления в минусе</h3>
+            <ul>
+              <li>эмоциональная закрытость</li>
+              <li>ощущение «мне никто не нужен»</li>
+              <li>трудности с близостью и доверием</li>
+              <li>игнорирование своих чувств</li>
+              <li>избегание вовлечённости</li>
+              <li>холодность в отношениях</li>
+              <li>уход от ответственности через дистанцию</li>
+            </ul>
+          </div>
+
+          <div class="plus-block">
+            <h3>Проявления в плюсе</h3>
+            <ul>
+              <li>внутренняя устойчивость и спокойствие</li>
+              <li>независимость от чужого мнения</li>
+              <li>умение сохранять ясность в стрессе</li>
+              <li>чёткие личные границы</li>
+              <li>способность быть опорой для других</li>
+              <li>рациональность и взвешенность</li>
+              <li>эмоциональная стабильность</li>
+            </ul>
+          </div>
+        </div>`,
+          dark: `<span class="psychotype-icon" aria-hidden="true">🔮</span>
+        <h2>Чёрный маг</h2>
+        <p class="subtitle">Dark Mage · число 4</p>
+
+        <div class="main-text">
+          <p>Ты не просто чувствуешь людей. Ты их видишь насквозь. Ты заходишь в разговор и уже через пару минут понимаешь, кто слабый, кто врёт, кем можно управлять, а с кем лучше не связываться. И самое интересное — ты умеешь этим пользоваться.</p>
+          <p>Ты не всегда действуешь прямо. Иногда мягко, иногда тонко, иногда очень точно. Слово, взгляд, пауза — и человек уже ведёт себя так, как тебе нужно. Знакомо это ощущение контроля, когда ты понимаешь, что можешь повернуть ситуацию в свою сторону.</p>
+          <p>Ты не из тех, кто плывёт по течению. Ты та, кто может это течение менять. Но иногда это превращается в игру, где люди становятся инструментами, эмоции — рычагами, а отношения — полем для влияния. Тогда ты можешь не замечать, как начинаешь давить, проверять людей на прочность или брать больше, чем отдаёшь. Потому что ты можешь.</p>
+          <p>И в этом твоя опасность. Не для других — для себя. Когда контроль становится привычкой, теряется искренность, близость и настоящее доверие.</p>
+        </div>
+
+        <div class="power-block">
+          <h3>Твоя сила</h3>
+          <p>У тебя есть то, чего нет у большинства — сила влияния. Ты быстро считываешь людей, видишь скрытые мотивы, умеешь управлять ситуациями и не боишься брать своё. Если ты направляешь это осознанно, ты становишься сильным лидером, стратегом и человеком, который действительно меняет реальность. Ты не разрушаешь, а управляешь энергией и направляешь её.</p>
+        </div>
+
+        <div class="blocks-row">
+          <div class="minus-block">
+            <h3>Проявления в минусе</h3>
+            <ul>
+              <li>манипуляции и скрытое давление</li>
+              <li>использование людей в своих целях</li>
+              <li>отсутствие доверия к окружающим</li>
+              <li>стремление всё контролировать</li>
+              <li>эмоциональная холодность</li>
+              <li>склонность к обману или игре во влияние</li>
+              <li>трудности с искренней близостью</li>
+            </ul>
+          </div>
+
+          <div class="plus-block">
+            <h3>Проявления в плюсе</h3>
+            <ul>
+              <li>сильная воля и внутренний стержень</li>
+              <li>умение влиять и вести за собой</li>
+              <li>развитая интуиция в людях</li>
+              <li>стратегическое мышление</li>
+              <li>способность принимать сложные решения</li>
+              <li>контроль над эмоциями</li>
+              <li>лидерство и харизма</li>
+            </ul>
+          </div>
+        </div>`,
+          donor: `<span class="psychotype-icon" aria-hidden="true">☀️</span>
+        <h2>Донор</h2>
+        <p class="subtitle">Donor · числа 5 и 7</p>
+
+        <div class="main-text">
+          <p>Ты из тех, кто всегда рядом, когда кому-то плохо. Тебе не нужно просить — ты сама чувствуешь, кому тяжело, кому нужна поддержка и кому важно не остаться одной. И ты идёшь, помогаешь, поддерживаешь, вкладываешься, иногда даже тогда, когда тебя об этом не просили.</p>
+          <p>Ты умеешь быть тёплой, внимательной и настоящей. С тобой можно выговориться, поплакать и быть собой. Люди это чувствуют, поэтому к тебе тянутся снова и снова.</p>
+          <p>Но есть момент, который ты можешь не замечать. Ты часто отдаёшь больше, чем получаешь. И внутри может появляться усталость, лёгкая обида или ощущение, что тебя не ценят так, как ты того заслуживаешь. Но ты продолжаешь, потому что иначе не можешь.</p>
+          <p>Иногда помощь становится способом почувствовать свою значимость. Как будто внутри есть мысль: если я полезна — значит, я нужна. И тогда ты включаешься даже там, где не просят, берёшь на себя чужие проблемы и забываешь спросить себя, как ты сама себя чувствуешь.</p>
+        </div>
+
+        <div class="power-block">
+          <h3>Твоя сила</h3>
+          <p>Ты обладаешь огромным сердцем. Ты умеешь поддерживать, согревать и быть рядом по-настоящему. Ты тот человек, после которого становится легче. Если ты в балансе, твоя помощь действительно меняет жизни. Ты не просто даёшь — ты наполняешь.</p>
+        </div>
+
+        <div class="blocks-row">
+          <div class="minus-block">
+            <h3>Проявления в минусе</h3>
+            <ul>
+              <li>помощь без запроса</li>
+              <li>эмоциональное выгорание</li>
+              <li>игнорирование своих потребностей</li>
+              <li>обида из-за недооценённости</li>
+              <li>стремление быть хорошей для всех</li>
+              <li>трудности с отказом</li>
+              <li>зависимость от роли нужной</li>
+            </ul>
+          </div>
+
+          <div class="plus-block">
+            <h3>Проявления в плюсе</h3>
+            <ul>
+              <li>искренняя забота и эмпатия</li>
+              <li>способность глубоко поддерживать</li>
+              <li>умение создавать тёплые отношения</li>
+              <li>чувствительность к состоянию других</li>
+              <li>готовность помогать осознанно</li>
+              <li>внутренняя доброта и человечность</li>
+              <li>способность вдохновлять через поддержку</li>
+            </ul>
+          </div>
+        </div>`,
+          light: `<span class="psychotype-icon" aria-hidden="true">✨</span>
+        <h2>Светлый маг</h2>
+        <p class="subtitle">Light Mage · число 9</p>
+
+        <div class="main-text">
+          <p>С тобой рядом становится легче, спокойнее и теплее. Иногда люди даже не понимают почему, но после общения с тобой у них появляется энергия, приходят решения и всё начинает складываться.</p>
+          <p>Ты не давишь, не тянешь на себя и не забираешь. Ты отдаёшь, но не из слабости, а из внутреннего изобилия.</p>
+          <p>Ты умеешь чувствовать, где человек сейчас, и точно даёшь то, что нужно: слово, поддержку, направление или просто присутствие. Поэтому рядом с тобой кто-то начинает верить в себя, кто-то выходит из сложного состояния, а у кого-то открываются новые возможности. Как будто ты запускаешь процессы.</p>
+          <p>Но есть тонкая грань. Иногда ты можешь слишком много отдавать, забывать про себя или пытаться спасти тех, кто не готов меняться. Тогда энергия начинает утекать и появляется усталость.</p>
+          <p>Ты не обязана спасать всех. Твоя сила не в жертве, а в умении приумножать.</p>
+        </div>
+
+        <div class="power-block">
+          <h3>Твоя сила</h3>
+          <p>Ты — источник. Ты умеешь наполнять, вдохновлять и усиливать людей и процессы. У тебя есть редкое качество — делать пространство вокруг себя живым. Если ты в балансе, рядом с тобой растут люди, приходят деньги и открываются новые возможности. Ты не просто даёшь энергию, ты запускаешь рост.</p>
+        </div>
+
+        <div class="blocks-row">
+          <div class="minus-block">
+            <h3>Проявления в минусе</h3>
+            <ul>
+              <li>переотдача и эмоциональное выгорание</li>
+              <li>стремление спасти всех подряд</li>
+              <li>игнорирование собственных потребностей</li>
+              <li>чувство вины, если не помогла</li>
+              <li>зависимость от роли полезной</li>
+              <li>потеря энергии через неэкологичное окружение</li>
+              <li>разочарование в людях при отсутствии отдачи</li>
+            </ul>
+          </div>
+
+          <div class="plus-block">
+            <h3>Проявления в плюсе</h3>
+            <ul>
+              <li>способность вдохновлять и поддерживать</li>
+              <li>естественная притягательность и тепло</li>
+              <li>умение усиливать других людей</li>
+              <li>создание возможностей и роста вокруг себя</li>
+              <li>развитая интуиция и чувствительность</li>
+              <li>баланс между отдачей и восстановлением</li>
+              <li>внутренняя наполненность и гармония</li>
+            </ul>
+          </div>
+        </div>`
+        };
+
+        var readMoreBtn = document.getElementById("read-more-btn");
+        if (readMoreBtn) {
+          readMoreBtn.addEventListener('click', function () {
+            const typeId = psychotypeMap[window.calculatedResult];
+            if (!typeId) return;
+
+            const output = document.getElementById('full-description');
+            output.innerHTML = psychotypeFull[typeId] || '';
+            output.hidden = false;
+            output.style.display = 'block';
+
+            // Таймер 30 сек → переход в Telegram
+            var timerDiv = document.getElementById('tg-timer');
+            if (!timerDiv) {
+              timerDiv = document.createElement('div');
+              timerDiv.id = 'tg-timer';
+              timerDiv.style.cssText = 'margin-top:24px;text-align:center;padding:16px;background:rgba(20,12,40,0.85);border-radius:12px;border:1px solid rgba(123,44,255,0.3);';
+              output.after(timerDiv);
+            }
+
+            var seconds = 60;
+            timerDiv.innerHTML = '<div style="background:rgba(255,255,255,0.1);border-radius:8px;height:6px;overflow:hidden;"><div id="timer-bar" style="height:100%;width:100%;background:linear-gradient(135deg,#ff7a18,#ff3366,#8a2be2);transition:width 1s linear;"></div></div>';
+
+            var interval = setInterval(function () {
+              seconds--;
+              var bar = document.getElementById('timer-bar');
+              if (bar) bar.style.width = (seconds / 60 * 100) + '%';
+              if (seconds <= 0) {
+                clearInterval(interval);
+                var msg = encodeURIComponent('Да, я прошел быстрый разбор спасибо Викрам');
+                window.open('https://t.me/Vikram_2027?text=' + msg, '_blank');
+                timerDiv.innerHTML = '<a href="https://t.me/Vikram_2027?text=' + msg + '" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top:8px;">Написать Викраму в Telegram</a>';
+              }
+            }, 1000);
+          });
+        }
+
+        var yearInput = document.getElementById('year');
+        if (yearInput) {
+          yearInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') calculate();
+          });
+        }
+
+        document.getElementById('showAllBtn').addEventListener('click', function () {
+          const block = document.getElementById('allAspects');
+          block.style.display = block.style.display === 'none' ? 'block' : 'none';
+        });
+      });
+    </script>
+  </body>
+</html>
