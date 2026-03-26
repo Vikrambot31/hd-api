@@ -12,9 +12,6 @@ import json
 import os
 import bisect
 
-app = Flask(__name__)
-CORS(app)
-
 # ─── Load FullHD Gate-Line Lookup Table ───────────────────────────────────────
 GL_LOOKUP = []  # [[lon_start, gate, line, color, tone], ...]
 
@@ -25,6 +22,11 @@ def load_lookup():
         GL_LOOKUP = json.load(f)
     # GL_LOOKUP is sorted by lon_start
     print(f"Loaded {len(GL_LOOKUP)} gate-line-color-tone entries")
+
+app = Flask(__name__)
+CORS(app)
+
+load_lookup()
 
 # ─── Gate/Line/Color/Tone lookup ─────────────────────────────────────────────
 def lookup_gate_data(lon):
@@ -500,10 +502,6 @@ def calculate():
 @app.route("/")
 def home():
     return "OK"
-
-
-# Загрузка при старте (для Gunicorn)
-load_lookup()
 
 if __name__ == '__main__':
     print("Human Design API starting on port 8080...")
