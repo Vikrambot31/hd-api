@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Human Design Calculator</title>
+<style>
+:root {
+  --bg: #0f1117;
+  --card: #1a1d2e;
+  --card2: #21253a;
+  --accent: #7c6af7;
+  --accent2: #f7a26a;
+  --text: #e8eaf6;
+  --muted: #888aaa;
+  --red:   #e05c7a;
+  --green: #4caf7d;
+  --border: #2d3154;
+  --pers-col: #9b8ff5;
+  --des-col:  #f5a26a;
+  --defined:  #f5c842;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+/* ── Header ─────────────────────────────────────────── */
+header {
+  background: linear-gradient(135deg, #1a1d2e 0%, #12142a 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.logo { font-size: 2rem; }
+header h1 { font-size: 1.4rem; font-weight: 700; letter-spacing: .03em; }
+header span { font-size: .85rem; color: var(--muted); display: block; margin-top: 2px; }
+
+/* ── Layout ─────────────────────────────────────────── */
+.main { max-width: 1100px; margin: 0 auto; padding: 28px 16px; }
+
+/* ── Form card ──────────────────────────────────────── */
+.form-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px 28px;
+  margin-bottom: 24px;
+}
+.form-card h2 { font-size: 1rem; color: var(--muted); margin-bottom: 18px; letter-spacing: .05em; text-transform: uppercase; font-weight: 600; }
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.field label { display: block; font-size: .78rem; color: var(--muted); margin-bottom: 5px; letter-spacing: .04em; text-transform: uppercase; }
+.field input, .field select {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  padding: 10px 12px;
+  font-size: .95rem;
+  transition: border-color .2s;
+}
+.field input:focus, .field select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.field select option { background: #1a1d2e; }
+
+.btn-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+.btn {
+  padding: 11px 28px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: .03em;
+  transition: opacity .2s, transform .1s;
+}
+.btn:active { transform: scale(.97); }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-secondary { background: var(--card2); color: var(--muted); border: 1px solid var(--border); }
+.btn:hover { opacity: .88; }
+
+/* ── Loading ────────────────────────────────────────── */
+#loadingBar {
+  display: none;
+  text-align: center;
+  padding: 40px;
+  color: var(--muted);
+  font-size: .95rem;
+}
+.spinner {
+  display: inline-block;
+  width: 32px; height: 32px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+  margin-bottom: 12px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Result section ─────────────────────────────────── */
+#result { display: none; }
+
+.result-header {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+.rh-item { }
+.rh-item .rh-label { font-size: .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; }
+.rh-item .rh-value { font-size: 1.2rem; font-weight: 700; color: var(--text); }
+.rh-item .rh-value.accent { color: var(--accent); }
+
+/* ── Tables ─────────────────────────────────────────── */
+.tables-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+@media(max-width:720px){ .tables-row { grid-template-columns: 1fr; } }
+
+.planet-table {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.pt-header {
+  padding: 12px 16px;
+  font-size: .85rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+}
+.pt-header.pers { background: linear-gradient(90deg, rgba(124,106,247,.2), transparent); color: var(--pers-col); }
+.pt-header.des  { background: linear-gradient(90deg, rgba(245,162,106,.2), transparent); color: var(--des-col); }
+
+.pt-header .pt-dates { font-size: .72rem; font-weight: 400; color: var(--muted); margin-top: 3px; text-transform: none; letter-spacing: 0; }
+
+table { width: 100%; border-collapse: collapse; }
+th {
+  padding: 7px 10px;
+  font-size: .72rem;
+  color: var(--muted);
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  border-bottom: 1px solid var(--border);
+  background: rgba(0,0,0,.15);
+}
+td { padding: 8px 10px; font-size: .9rem; border-bottom: 1px solid rgba(45,49,84,.5); }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(124,106,247,.06); }
+
+.sym { font-size: 1.1rem; width: 28px; }
+.planet-name { color: var(--text); font-weight: 500; }
+.gate-line { font-weight: 700; font-size: 1rem; }
+.gate-line.pers { color: var(--pers-col); }
+.gate-line.des  { color: var(--des-col); }
+.ctb { font-size: .78rem; color: var(--muted); }
+
+/* ── Centers row ────────────────────────────────────── */
+.centers-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.center-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  transition: border-color .2s;
+}
+.center-card.defined {
+  border-color: var(--defined);
+  background: rgba(245,200,66,.06);
+}
+.cc-name { font-size: .85rem; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
+.center-card.defined .cc-name { color: var(--defined); }
+.cc-status {
+  font-size: .72rem;
+  padding: 2px 8px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+.cc-status.def { background: rgba(245,200,66,.15); color: var(--defined); }
+.cc-status.undef { background: rgba(136,138,170,.1); color: var(--muted); }
+.cc-gates { font-size: .78rem; color: var(--muted); }
+.cc-gates .pg { color: var(--pers-col); }
+.cc-gates .dg { color: var(--des-col); }
+
+/* ── Channels ───────────────────────────────────────── */
+.channels-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+}
+.channels-card h3 { font-size: .85rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 12px; font-weight: 600; }
+.channel-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.channel-tag {
+  background: rgba(124,106,247,.12);
+  color: var(--accent);
+  border: 1px solid rgba(124,106,247,.3);
+  border-radius: 8px;
+  padding: 4px 12px;
+  font-size: .85rem;
+  font-weight: 600;
+}
+.no-channels { color: var(--muted); font-size: .9rem; }
+
+/* ── Accuracy note ──────────────────────────────────── */
+.accuracy-note {
+  text-align: center;
+  color: var(--muted);
+  font-size: .78rem;
+  margin-top: 8px;
+  padding: 10px;
+}
+
+/* ── Error ──────────────────────────────────────────── */
+.error-box {
+  background: rgba(224,92,122,.1);
+  border: 1px solid rgba(224,92,122,.4);
+  border-radius: 12px;
+  padding: 16px 20px;
+  color: var(--red);
+  margin-bottom: 16px;
+  font-size: .95rem;
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+@media(max-width:480px){
+  .form-card { padding: 16px; }
+  .result-header { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">☯</div>
+  <div>
+    <h1>Human Design Calculator</h1>
+    <span>Точный расчёт по таблице FullHD · Без установки программ</span>
+  </div>
+</header>
+
+<div class="main">
+
+  <!-- Input form -->
+  <div class="form-card">
+    <h2>Дата и время рождения</h2>
+    <div class="form-row">
+      <div class="field">
+        <label>День</label>
+        <input type="number" id="day" min="1" max="31" value="31" placeholder="дд">
+      </div>
+      <div class="field">
+        <label>Месяц</label>
+        <input type="number" id="month" min="1" max="12" value="1" placeholder="мм">
+      </div>
+      <div class="field">
+        <label>Год</label>
+        <input type="number" id="year" min="1900" max="2100" value="1984" placeholder="гггг">
+      </div>
+      <div class="field">
+        <label>Часы</label>
+        <input type="number" id="hour" min="0" max="23" value="7" placeholder="чч">
+      </div>
+      <div class="field">
+        <label>Минуты</label>
+        <input type="number" id="minute" min="0" max="59" value="25" placeholder="мм">
+      </div>
+      <div class="field">
+        <label>Секунды</label>
+        <input type="number" id="second" min="0" max="59" value="0" placeholder="сс">
+      </div>
+      <div class="field">
+        <label>Часовой пояс</label>
+        <select id="tz">
+          <option value="-12">UTC−12</option>
+          <option value="-11">UTC−11</option>
+          <option value="-10">UTC−10</option>
+          <option value="-9">UTC−9</option>
+          <option value="-8">UTC−8</option>
+          <option value="-7">UTC−7</option>
+          <option value="-6">UTC−6</option>
+          <option value="-5">UTC−5</option>
+          <option value="-4">UTC−4</option>
+          <option value="-3">UTC−3</option>
+          <option value="-2">UTC−2</option>
+          <option value="-1">UTC−1</option>
+          <option value="0">UTC 0</option>
+          <option value="1">UTC+1</option>
+          <option value="2">UTC+2</option>
+          <option value="3" selected>UTC+3 (МСК)</option>
+          <option value="4">UTC+4</option>
+          <option value="5">UTC+5</option>
+          <option value="5.5">UTC+5:30</option>
+          <option value="6">UTC+6</option>
+          <option value="7">UTC+7</option>
+          <option value="8">UTC+8</option>
+          <option value="9">UTC+9</option>
+          <option value="10">UTC+10</option>
+          <option value="11">UTC+11</option>
+          <option value="12">UTC+12</option>
+        </select>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="calculate()">⚡ Рассчитать</button>
+      <button class="btn btn-secondary" onclick="loadExample()">★ Пример</button>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div id="loadingBar">
+    <div class="spinner"></div>
+    <div>Вычисление планетарных позиций…</div>
+  </div>
+
+  <!-- Error -->
+  <div id="errorBox" class="error-box" style="display:none"></div>
+
+  <!-- Result -->
+  <div id="result">
+
+    <!-- Summary row -->
+    <div class="result-header" id="summaryRow"></div>
+
+    <!-- Planet tables -->
+    <div class="tables-row">
+      <div class="planet-table">
+        <div class="pt-header pers">
+          🟣 Личность (Сознательное)
+          <div class="pt-dates" id="persDates"></div>
+        </div>
+        <table>
+          <thead><tr>
+            <th></th><th>Планета</th><th>Врата.Линия</th><th>Цв/Тн</th><th>Долгота</th>
+          </tr></thead>
+          <tbody id="persBody"></tbody>
+        </table>
+      </div>
+      <div class="planet-table">
+        <div class="pt-header des">
+          🟠 Дизайн (Бессознательное)
+          <div class="pt-dates" id="desDates"></div>
+        </div>
+        <table>
+          <thead><tr>
+            <th></th><th>Планета</th><th>Врата.Линия</th><th>Цв/Тн</th><th>Долгота</th>
+          </tr></thead>
+          <tbody id="desBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Centers -->
+    <div class="channels-card">
+      <h3>Определённые каналы (<span id="channelCount">0</span>)</h3>
+      <div class="channel-list" id="channelList"></div>
+    </div>
+
+    <div class="centers-row" id="centersRow"></div>
+
+    <div class="accuracy-note">
+      Расчёт на основе алгоритма Moshier · Таблица FullHD (13 824 записи) · Точность ±0.003°
+    </div>
+  </div>
+
+</div>
+
+<!-- Load FullHD table -->
+<script src="fullhd_data.js"></script>
+<!-- Load engine -->
+<script src="hd_engine.js"></script>
+
+<script>
+// Channel name map (for display)
+const CHANNEL_NAMES = {
+  '1-8':  'Вдохновения', '2-14': 'Пульс', '3-60': 'Мутации',
+  '4-63': 'Логики',      '5-15': 'Ритма', '6-59': 'Спаривания',
+  '7-31': 'Альфы',       '9-52': 'Концентрации', '10-20': 'Пробуждения',
+  '10-34':'Исследования','10-57':'Совершенного',  '11-56':'Любопытства',
+  '12-22':'Открытости',  '13-33':'Блудного Сына', '14-2': 'Пульса',
+  '15-5': 'Ритма',       '16-48':'Таланта',       '17-62':'Принятия',
+  '18-58':'Суждения',    '19-49':'Синтеза',        '20-34':'Харизмы',
+  '20-57':'Архангела',   '21-45':'Денег',          '22-12':'Открытости',
+  '23-43':'Структурации','24-61':'Осведомлённости','25-51':'Посвящения',
+  '26-44':'Сдачи',       '27-50':'Хранителя',      '28-38':'Борьбы',
+  '29-46':'Открытия',    '30-41':'Фантазии',        '31-7': 'Альфы',
+  '32-54':'Преобразования','33-13':'Свидетеля',    '34-20':'Харизмы',
+  '34-57':'Силы',        '35-36':'Переходности',    '36-35':'Кризиса',
+  '37-40':'Общины',      '38-28':'Борьбы',          '39-55':'Эмоций',
+  '40-37':'Общины',      '41-30':'Фантазии',        '42-53':'Созревания',
+  '43-23':'Структурации','44-26':'Сдачи',            '45-21':'Денег',
+  '46-29':'Открытия',    '47-64':'Абстракции',       '48-16':'Таланта',
+  '49-19':'Синтеза',     '50-27':'Хранителя',        '51-25':'Посвящения',
+  '52-9': 'Концентрации','53-42':'Созревания',        '54-32':'Преобразования',
+  '55-39':'Эмоций',      '56-11':'Любопытства',       '57-10':'Совершенного',
+  '57-20':'Архангела',   '57-34':'Силы',              '58-18':'Суждения',
+  '59-6': 'Спаривания',  '60-3': 'Мутации',           '61-24':'Осведомлённости',
+  '62-17':'Принятия',    '63-4': 'Логики',             '64-47':'Абстракции',
+};
+
+function chName(a, b) {
+  const key = `${Math.min(a,b)}-${Math.max(a,b)}`;
+  return CHANNEL_NAMES[key] || '';
+}
+
+function loadExample() {
+  document.getElementById('day').value    = 31;
+  document.getElementById('month').value  = 1;
+  document.getElementById('year').value   = 1984;
+  document.getElementById('hour').value   = 7;
+  document.getElementById('minute').value = 25;
+  document.getElementById('second').value = 0;
+  document.getElementById('tz').value     = 3;
+}
+
+function calculate() {
+  const day    = parseInt(document.getElementById('day').value);
+  const month  = parseInt(document.getElementById('month').value);
+  const year   = parseInt(document.getElementById('year').value);
+  const hour   = parseInt(document.getElementById('hour').value);
+  const minute = parseInt(document.getElementById('minute').value);
+  const second = parseInt(document.getElementById('second').value) || 0;
+  const tz     = parseFloat(document.getElementById('tz').value);
+
+  // Validate
+  if (isNaN(day)||isNaN(month)||isNaN(year)||isNaN(hour)||isNaN(minute)) {
+    showError('Пожалуйста, заполните все поля даты и времени.');
+    return;
+  }
+  if (year < 1800 || year > 2100) {
+    showError('Год должен быть в диапазоне 1800–2100.');
+    return;
+  }
+
+  hideError();
+  document.getElementById('loadingBar').style.display = 'block';
+  document.getElementById('result').style.display = 'none';
+
+  // Small delay to allow UI to update before heavy computation
+  setTimeout(() => {
+    try {
+      const res = calculateHumanDesign(year, month, day, hour, minute, second, tz);
+      renderResult(res);
+      document.getElementById('loadingBar').style.display = 'none';
+      document.getElementById('result').style.display = 'block';
+      document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } catch(e) {
+      document.getElementById('loadingBar').style.display = 'none';
+      showError('Ошибка расчёта: ' + e.message);
+      console.error(e);
+    }
+  }, 60);
+}
+
+function showError(msg) {
+  const eb = document.getElementById('errorBox');
+  eb.textContent = '⚠ ' + msg;
+  eb.style.display = 'block';
+}
+function hideError() {
+  document.getElementById('errorBox').style.display = 'none';
+}
+
+function renderResult(r) {
+  // Summary
+  document.getElementById('summaryRow').innerHTML = `
+    <div class="rh-item"><div class="rh-label">Тип</div><div class="rh-value accent">${r.type}</div></div>
+    <div class="rh-item"><div class="rh-label">Профиль</div><div class="rh-value">${r.profile}</div></div>
+    <div class="rh-item"><div class="rh-label">Авторитет</div><div class="rh-value">${r.authority}</div></div>
+    <div class="rh-item"><div class="rh-label">Определённость</div><div class="rh-value">${r.definition}</div></div>
+    <div class="rh-item"><div class="rh-label">Дата рождения UTC</div><div class="rh-value" style="font-size:.95rem">${r.birthDateStr}</div></div>
+    <div class="rh-item"><div class="rh-label">Дата дизайна UTC</div><div class="rh-value" style="font-size:.95rem">${r.designDateStr}</div></div>
+  `;
+
+  // Planet rows
+  document.getElementById('persBody').innerHTML = r.persPlanets.map(p => planetRow(p, 'pers')).join('');
+  document.getElementById('desBody').innerHTML  = r.desPlanets.map(p => planetRow(p, 'des')).join('');
+  document.getElementById('persDates').textContent = r.birthDateStr;
+  document.getElementById('desDates').textContent  = r.designDateStr;
+
+  // Channels
+  const chDiv = document.getElementById('channelList');
+  document.getElementById('channelCount').textContent = r.definedChannels.length;
+  if (r.definedChannels.length === 0) {
+    chDiv.innerHTML = '<span class="no-channels">Нет определённых каналов (Рефлектор)</span>';
+  } else {
+    chDiv.innerHTML = r.definedChannels.map(([a,b]) => {
+      const nm = chName(a, b);
+      return `<span class="channel-tag">${a}-${b}${nm ? ' · ' + nm : ''}</span>`;
+    }).join('');
+  }
+
+  // Centers
+  const centerOrder = ['Head','Ajna','Throat','G-Center','Heart','Sacral','Solar Plexus','Spleen','Root'];
+  const cenDiv = document.getElementById('centersRow');
+  cenDiv.innerHTML = centerOrder.map(cn => {
+    const ci = r.centersInfo[cn];
+    const def = ci.defined;
+    const pgHtml = ci.persGates.length ? `<span class="pg">П: ${ci.persGates.join(', ')}</span>` : '';
+    const dgHtml = ci.desGates.length  ? `<span class="dg">Д: ${ci.desGates.join(', ')}</span>` : '';
+    return `<div class="center-card${def?' defined':''}">
+      <div class="cc-name">${ci.nameRu}</div>
+      <span class="cc-status ${def?'def':'undef'}">${def?'Определён':'Открыт'}</span>
+      <div class="cc-gates">${pgHtml}${pgHtml&&dgHtml?' · ':''}${dgHtml}</div>
+    </div>`;
+  }).join('');
+}
+
+function planetRow(p, cls) {
+  const lon = p.longitude.toFixed(4);
+  return `<tr>
+    <td class="sym">${p.symbol}</td>
+    <td class="planet-name">${p.name}</td>
+    <td class="gate-line ${cls}">${p.gate}.${p.line}</td>
+    <td class="ctb">Ц${p.color}/Т${p.tone}</td>
+    <td class="ctb">${lon}°</td>
+  </tr>`;
+}
+
+// Auto-run example on load (optional)
+// loadExample();
+</script>
+</body>
+</html>
