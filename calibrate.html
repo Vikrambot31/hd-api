@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Калибровка бодиграфа</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #1e293b; color: #f1f5f9; font-family: sans-serif; display: flex; gap: 16px; padding: 16px; }
+#wrap { position: relative; flex-shrink: 0; }
+#bg { display: block; width: 512px; height: 512px; }
+.dot {
+  position: absolute;
+  width: 28px; height: 28px;
+  border-radius: 4px;
+  border: 2px solid #fff;
+  background: rgba(124,106,247,0.7);
+  cursor: grab;
+  transform: translate(-50%, -50%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: bold; color: #fff; text-align: center;
+  user-select: none;
+  z-index: 10;
+}
+.dot:active { cursor: grabbing; background: rgba(245,200,66,0.9); }
+#panel { width: 280px; }
+h2 { font-size: 1rem; margin-bottom: 12px; color: #7c6af7; }
+p { font-size: .8rem; color: #888aaa; margin-bottom: 12px; line-height: 1.5; }
+#output {
+  background: #0f1117;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: .75rem;
+  font-family: monospace;
+  white-space: pre;
+  color: #4caf7d;
+  min-height: 300px;
+}
+button {
+  margin-top: 12px;
+  padding: 10px 20px;
+  background: #7c6af7;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: .9rem;
+  width: 100%;
+}
+button:hover { opacity: .85; }
+</style>
+</head>
+<body>
+
+<div id="wrap">
+  <img id="bg" src="bodygraph_base.png">
+</div>
+
+<div id="panel">
+  <h2>🎯 Калибровка центров</h2>
+  <p>Перетащи каждый центр точно на его место в бодиграфе.<br>Нажми <strong>Скопировать</strong> — вставь координаты в calculator_web.html</p>
+  <div id="output"></div>
+  <button onclick="copyCoords()">📋 Скопировать координаты</button>
+</div>
+
+<script>
+const CENTERS = [
+  { key: 'Head',         label: 'Голова',    x: 256, y: 60,  shape: 'triangle' },
+  { key: 'Ajna',         label: 'Аджна',     x: 256, y: 155, shape: 'triangle' },
+  { key: 'Throat',       label: 'Горло',     x: 256, y: 270, shape: 'rect' },
+  { key: 'G-Center',     label: 'G',         x: 256, y: 370, shape: 'diamond' },
+  { key: 'Heart',        label: 'Эго',       x: 340, y: 330, shape: 'triangle' },
+  { key: 'Sacral',       label: 'Сакрал',    x: 256, y: 470, shape: 'rect' },
+  { key: 'Solar Plexus', label: 'Эмоц.',     x: 370, y: 430, shape: 'triangle' },
+  { key: 'Spleen',       label: 'Селез.',    x: 140, y: 430, shape: 'triangle' },
+  { key: 'Root',         label: 'Корень',    x: 256, y: 570, shape: 'rect' },
+];
+
+const wrap = document.getElementById('wrap');
+const dots = [];
+
+CENTERS.forEach((c, i) => {
+  const dot = document.createElement('div');
+  dot.className = 'dot';
+  dot.textContent = c.label;
+  dot.style.left = c.x + 'px';
+  dot.style.top  = c.y + 'px';
+  dot.title = c.key;
+  wrap.appendChild(dot);
+  dots.push({ el: dot, data: c });
+
+  let dragging = false, ox, oy;
+  dot.addEventListener('mousedown', e => {
+    dragging = true;
+    ox = e.clientX - dot.offsetLeft;
+    oy = e.clientY - dot.offsetTop;
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    const rect = wrap.getBoundingClientRect();
+    let nx = e.clientX - rect.left;
+    let ny = e.clientY - rect.top;
+    nx = Math.max(0, Math.min(512, nx));
+    ny = Math.max(0, Math.min(512, ny));
+    dot.style.left = nx + 'px';
+    dot.style.top  = ny + 'px';
+    c.x = Math.round(nx);
+    c.y = Math.round(ny);
+    updateOutput();
+  });
+  document.addEventListener('mouseup', () => dragging = false);
+});
+
+function updateOutput() {
+  // Масштаб: canvas в calculator_web.html = 356x604, изображение здесь 512x512
+  // Изображение bodygraph_base.png = 1024x1024, показываем в 512x512
+  const scaleX = 356 / 512;
+  const scaleY = 604 / 512;
+  let out = 'const CENTERS = {\n';
+  dots.forEach(({data: c}) => {
+    const cx = Math.round(c.x * scaleX);
+    const cy = Math.round(c.y * scaleY);
+    out += `  '${c.key}': {x:${cx}, y:${cy}, `;
+    if (c.shape === 'rect')     out += `w:60, h:44, shape:'rect'},\n`;
+    if (c.shape === 'diamond')  out += `r:40, shape:'diamond'},\n`;
+    if (c.shape === 'triangle') out += `r:32, shape:'triangle'},\n`;
+  });
+  out += '};';
+  document.getElementById('output').textContent = out;
+}
+
+function copyCoords() {
+  const text = document.getElementById('output').textContent;
+  navigator.clipboard.writeText(text).then(() => alert('Скопировано!'));
+}
+
+updateOutput();
+</script>
+</body>
+</html>

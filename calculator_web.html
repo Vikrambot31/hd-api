@@ -393,12 +393,30 @@ tr:hover td { background: rgba(124,106,247,.06); }
     </div>
   </div>
 
+  <div id="bodygraphWrap" style="display:none; margin-bottom:16px;">
+    <div class="planet-table" style="padding:16px;">
+      <div class="pt-header pers" style="color:var(--text)">Бодиграф</div>
+      <canvas id="bodygraphCanvas" width="356" height="604"
+        style="width:100%;max-width:500px;display:block;margin:0 auto;">
+      </canvas>
+    </div>
+  </div>
+
 </div>
 
-<!-- Load FullHD table -->
-<script src="fullhd_data.js"></script>
-<!-- Load engine -->
-<script src="hd_engine.js"></script>
+<!-- Load FullHD lookup table -->
+<script>
+let FULL_HD_LOOKUP = [];
+fetch('fullhd_lookup.json')
+  .then(res => res.json())
+  .then(data => {
+    FULL_HD_LOOKUP = data;
+    console.log('lookup готов, записей:', FULL_HD_LOOKUP.length);
+  })
+  .catch(err => {
+    console.error('Ошибка загрузки lookup:', err);
+  });
+</script>
 
 <script>
 // Channel name map (for display)
@@ -428,6 +446,34 @@ const CHANNEL_NAMES = {
   '62-17':'Принятия',    '63-4': 'Логики',             '64-47':'Абстракции',
 };
 
+const PLANET_SYMBOLS = {
+Sun: '☉',
+Moon: '☽',
+Mercury: '☿',
+Venus: '♀',
+Mars: '♂',
+Jupiter: '♃',
+Saturn: '♄',
+Uranus: '♅',
+Neptune: '♆',
+Pluto: '♇',
+Node: '☊'
+};
+
+const PLANET_ORDER = [
+'Sun',
+'Moon',
+'Mercury',
+'Venus',
+'Mars',
+'Jupiter',
+'Saturn',
+'Uranus',
+'Neptune',
+'Pluto',
+'Node'
+];
+
 function chName(a, b) {
   const key = `${Math.min(a,b)}-${Math.max(a,b)}`;
   return CHANNEL_NAMES[key] || '';
@@ -443,7 +489,7 @@ function loadExample() {
   document.getElementById('tz').value     = 3;
 }
 
-function calculate() {
+async function calculate() {
   const day    = parseInt(document.getElementById('day').value);
   const month  = parseInt(document.getElementById('month').value);
   const year   = parseInt(document.getElementById('year').value);
@@ -463,23 +509,19 @@ function calculate() {
   }
 
   hideError();
-  document.getElementById('loadingBar').style.display = 'block';
-  document.getElementById('result').style.display = 'none';
-
-  // Small delay to allow UI to update before heavy computation
-  setTimeout(() => {
-    try {
-      const res = calculateHumanDesign(year, month, day, hour, minute, second, tz);
-      renderResult(res);
-      document.getElementById('loadingBar').style.display = 'none';
-      document.getElementById('result').style.display = 'block';
-      document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } catch(e) {
-      document.getElementById('loadingBar').style.display = 'none';
-      showError('Ошибка расчёта: ' + e.message);
-      console.error(e);
-    }
-  }, 60);
+  try {
+    showLoading(true);
+    const data = await calculateHD(year, month, day, hour, minute, second, tz);
+    renderResult(mapApiResult(data));
+    renderBodygraph(data);
+    document.getElementById('result').style.display = 'block';
+    document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch(e) {
+    showError(e.message);
+    console.error(e);
+  } finally {
+    showLoading(false);
+  }
 }
 
 function showError(msg) {
@@ -489,6 +531,363 @@ function showError(msg) {
 }
 function hideError() {
   document.getElementById('errorBox').style.display = 'none';
+}
+
+function showLoading(isLoading) {
+  document.getElementById('loadingBar').style.display = isLoading ? 'block' : 'none';
+  if (isLoading) {
+    document.getElementById('result').style.display = 'none';
+  }
+}
+
+function transformData(data) {
+
+const persPlanets = Object.entries(data.rawPlanets)
+.sort(([a],[b]) => PLANET_ORDER.indexOf(a) - PLANET_ORDER.indexOf(b))
+.map(([name, val]) => {
+const gateData = getGateLineByLongitude(val);
+
+return {
+  name: name,
+  symbol: PLANET_SYMBOLS[name] || '',
+  gate: gateData.gate,
+  line: gateData.line,
+  color: gateData.color,
+  tone: gateData.tone,
+  longitude: val
+};
+
+});
+
+const channels = getDefinedChannels(persPlanets, data.rawDesignPlanets);
+
+return {
+type: detectType(persPlanets, data.rawDesignPlanets),
+profile: detectProfile(persPlanets, data.rawDesignPlanets),
+authority: detectAuthority(persPlanets, data.rawDesignPlanets),
+definition: detectDefinition(persPlanets, data.rawDesignPlanets),
+birthDateStr: formatDateUTC(data.rawPlanetsDate),
+designDateStr: formatDateUTC(data.rawDesignDate),
+persPlanets: persPlanets,
+desPlanets: Object.entries(data.rawDesignPlanets)
+.sort(([a],[b]) => PLANET_ORDER.indexOf(a) - PLANET_ORDER.indexOf(b))
+.map(([name, val]) => {
+const gateData = getGateLineByLongitude(val);
+
+return {
+name: name,
+symbol: PLANET_SYMBOLS[name] || '',
+gate: gateData.gate,
+line: gateData.line,
+color: gateData.color,
+tone: gateData.tone,
+longitude: val
+};
+}),
+definedChannels: channels,
+centersInfo: getCenters(persPlanets, data.rawDesignPlanets)
+};
+}
+
+function getGateLineByLongitude(lon) {
+  // Check lookup structure
+  console.log('lookup length:', FULL_HD_LOOKUP.length);
+  console.log('degree:', lon);
+  console.log(FULL_HD_LOOKUP[0]);
+
+  let value = Number(lon);
+  value = (value % 360 + 360) % 360;
+  console.log('lon raw:', value);
+  
+  // Use the binary search function from hd_engine.js
+  const gateLineData = getGateLine(value, FULL_HD_LOOKUP);
+  
+  return {
+    gate: gateLineData.gate,
+    line: gateLineData.line,
+    color: 0,
+    tone: 0
+  };
+}
+
+function detectType(planets, des) {
+
+const channels = getDefinedChannels(planets, des);
+
+const hasSacral = channels.some(([a,b]) =>
+[3,5,9,14,27,29,34,42,59].includes(a) ||
+[3,5,9,14,27,29,34,42,59].includes(b)
+);
+
+const motorToThroat = channels.some(([a,b]) => {
+const pair = [a,b];
+return (
+(pair.includes(34) && pair.includes(20)) ||
+(pair.includes(21) && pair.includes(45)) ||
+(pair.includes(12) && pair.includes(22)) ||
+(pair.includes(35) && pair.includes(36))
+);
+});
+
+if (channels.length === 0) return 'Рефлектор';
+
+if (hasSacral && motorToThroat) return 'Манифестирующий генератор';
+if (hasSacral) return 'Генератор';
+if (motorToThroat) return 'Манифестор';
+
+return 'Проектор';
+}
+
+function detectProfile(pers, des) {
+
+const sunPers = pers.find(p => p.name === 'Sun');
+const sunDesLon = des.Sun;
+
+if (!sunPers || !sunDesLon) return '0/0';
+
+const desGate = getGateLineByLongitude(sunDesLon);
+
+const linePers = sunPers.line || 0;
+const lineDes = desGate.line || 0;
+
+return `${linePers}/${lineDes}`;
+}
+
+function detectAuthority(planets, des) {
+
+const channels = getDefinedChannels(planets, des);
+
+const definedCenters = new Set();
+
+const CENTER_BY_GATE = {
+64:'Head',61:'Head',63:'Head',
+47:'Ajna',24:'Ajna',4:'Ajna',17:'Ajna',11:'Ajna',43:'Ajna',
+62:'Throat',23:'Throat',56:'Throat',16:'Throat',20:'Throat',35:'Throat',12:'Throat',45:'Throat',33:'Throat',8:'Throat',31:'Throat',
+1:'G-Center',2:'G-Center',7:'G-Center',10:'G-Center',13:'G-Center',15:'G-Center',25:'G-Center',46:'G-Center',
+21:'Heart',26:'Heart',40:'Heart',51:'Heart',
+3:'Sacral',5:'Sacral',9:'Sacral',14:'Sacral',27:'Sacral',29:'Sacral',34:'Sacral',42:'Sacral',59:'Sacral',
+6:'Solar Plexus',22:'Solar Plexus',30:'Solar Plexus',36:'Solar Plexus',37:'Solar Plexus',49:'Solar Plexus',55:'Solar Plexus',
+18:'Spleen',28:'Spleen',32:'Spleen',44:'Spleen',48:'Spleen',50:'Spleen',57:'Spleen',
+19:'Root',38:'Root',39:'Root',41:'Root',52:'Root',53:'Root',54:'Root',58:'Root',60:'Root'
+};
+
+channels.forEach(([a,b]) => {
+definedCenters.add(CENTER_BY_GATE[a]);
+definedCenters.add(CENTER_BY_GATE[b]);
+});
+
+if (definedCenters.has('Solar Plexus')) return 'Эмоциональный';
+if (definedCenters.has('Sacral')) return 'Сакральный';
+if (definedCenters.has('Spleen')) return 'Селезёночный';
+if (definedCenters.has('Heart')) return 'Эго';
+if (definedCenters.has('G-Center')) return 'Самоидентичность';
+
+return 'Нет';
+}
+
+function detectDefinition(pers, des) {
+
+const channels = getDefinedChannels(pers, des);
+
+if (channels.length === 0) return 'Нет определения';
+
+const CENTER_BY_GATE = {
+64:'Head',61:'Head',63:'Head',
+47:'Ajna',24:'Ajna',4:'Ajna',17:'Ajna',11:'Ajna',43:'Ajna',
+62:'Throat',23:'Throat',56:'Throat',16:'Throat',20:'Throat',35:'Throat',12:'Throat',45:'Throat',33:'Throat',8:'Throat',31:'Throat',
+1:'G-Center',2:'G-Center',7:'G-Center',10:'G-Center',13:'G-Center',15:'G-Center',25:'G-Center',46:'G-Center',
+21:'Heart',26:'Heart',40:'Heart',51:'Heart',
+3:'Sacral',5:'Sacral',9:'Sacral',14:'Sacral',27:'Sacral',29:'Sacral',34:'Sacral',42:'Sacral',59:'Sacral',
+6:'Solar Plexus',22:'Solar Plexus',30:'Solar Plexus',36:'Solar Plexus',37:'Solar Plexus',49:'Solar Plexus',55:'Solar Plexus',
+18:'Spleen',28:'Spleen',32:'Spleen',44:'Spleen',48:'Spleen',50:'Spleen',57:'Spleen',
+19:'Root',38:'Root',39:'Root',41:'Root',52:'Root',53:'Root',54:'Root',58:'Root',60:'Root'
+};
+
+const graph = {};
+
+channels.forEach(([a,b]) => {
+const c1 = CENTER_BY_GATE[a];
+const c2 = CENTER_BY_GATE[b];
+
+if (!graph[c1]) graph[c1] = new Set();
+if (!graph[c2]) graph[c2] = new Set();
+
+graph[c1].add(c2);
+graph[c2].add(c1);
+});
+
+const visited = new Set();
+let components = 0;
+
+function dfs(node) {
+if (visited.has(node)) return;
+visited.add(node);
+(graph[node] || []).forEach(n => dfs(n));
+}
+
+Object.keys(graph).forEach(node => {
+if (!visited.has(node)) {
+components++;
+dfs(node);
+}
+});
+
+if (components === 1) return 'Одиночная';
+if (components === 2) return 'Разделённая';
+if (components === 3) return 'Тройная';
+
+return 'Множественная';
+}
+
+function getAllGates(pers, des) {
+const gates = new Set();
+
+pers.forEach(p => gates.add(p.gate));
+Object.values(des).forEach(lon => {
+const g = getGateLineByLongitude(lon).gate;
+gates.add(g);
+});
+
+return gates;
+}
+
+function getDefinedChannels(pers, des) {
+
+const gatesPers = new Set(pers.map(p => p.gate));
+
+const gatesDes = new Set(
+Object.values(des).map(lon => getGateLineByLongitude(lon).gate)
+);
+
+const gates = new Set([...gatesPers, ...gatesDes]);
+
+const CHANNELS = [
+[1,8],[2,14],[3,60],[4,63],[5,15],[6,59],[7,31],[9,52],[10,20],
+[10,34],[10,57],[11,56],[12,22],[13,33],[16,48],[17,62],[18,58],
+[19,49],[20,34],[20,57],[21,45],[23,43],[24,61],[25,51],[26,44],
+[27,50],[28,38],[29,46],[30,41],[31,7],[32,54],[33,13],[34,57],
+[35,36],[37,40],[38,28],[39,55],[40,37],[41,30],[42,53],[43,23],
+[44,26],[45,21],[46,29],[47,64],[48,16],[49,19],[50,27],[51,25],
+[52,9],[53,42],[54,32],[55,39],[56,11],[57,10],[57,20],[57,34],
+[58,18],[59,6],[60,3],[61,24],[62,17],[63,4],[64,47]
+];
+
+return CHANNELS.filter(([a,b]) => {
+
+const hasPersA = gatesPers.has(a);
+const hasPersB = gatesPers.has(b);
+
+const hasDesA = gatesDes.has(a);
+const hasDesB = gatesDes.has(b);
+
+return (hasPersA || hasDesA) && (hasPersB || hasDesB);
+
+});
+}
+
+function getCenters(pers, des) {
+
+const channels = getDefinedChannels(pers, des);
+
+const CENTER_BY_GATE = {
+64:'Head',61:'Head',63:'Head',
+47:'Ajna',24:'Ajna',4:'Ajna',17:'Ajna',11:'Ajna',43:'Ajna',
+62:'Throat',23:'Throat',56:'Throat',16:'Throat',20:'Throat',35:'Throat',12:'Throat',45:'Throat',33:'Throat',8:'Throat',31:'Throat',
+1:'G-Center',2:'G-Center',7:'G-Center',10:'G-Center',13:'G-Center',15:'G-Center',25:'G-Center',46:'G-Center',
+21:'Heart',26:'Heart',40:'Heart',51:'Heart',
+3:'Sacral',5:'Sacral',9:'Sacral',14:'Sacral',27:'Sacral',29:'Sacral',34:'Sacral',42:'Sacral',59:'Sacral',
+6:'Solar Plexus',22:'Solar Plexus',30:'Solar Plexus',36:'Solar Plexus',37:'Solar Plexus',49:'Solar Plexus',55:'Solar Plexus',
+18:'Spleen',28:'Spleen',32:'Spleen',44:'Spleen',48:'Spleen',50:'Spleen',57:'Spleen',
+19:'Root',38:'Root',39:'Root',41:'Root',52:'Root',53:'Root',54:'Root',58:'Root',60:'Root'
+};
+
+const definedCenters = new Set();
+
+channels.forEach(([a,b]) => {
+definedCenters.add(CENTER_BY_GATE[a]);
+definedCenters.add(CENTER_BY_GATE[b]);
+});
+
+const CENTER_MAP = {
+'Head': [64,61,63],
+'Ajna': [47,24,4,17,11,43],
+'Throat': [62,23,56,16,20,35,12,45,33,8,31],
+'G-Center': [1,2,7,10,13,15,25,46],
+'Heart': [21,26,40,51],
+'Sacral': [3,5,9,14,27,29,34,42,59],
+'Solar Plexus': [6,22,30,36,37,49,55],
+'Spleen': [18,28,32,44,48,50,57],
+'Root': [19,38,39,41,52,53,54,58,60]
+};
+
+const result = {};
+
+Object.entries(CENTER_MAP).forEach(([key, list]) => {
+
+const persGates = list.filter(g => pers.some(p => p.gate === g));
+
+const desGates = list.filter(g =>
+Object.values(des).some(lon => getGateLineByLongitude(lon).gate === g)
+);
+
+result[key] = {
+nameRu: translateCenter(key),
+defined: definedCenters.has(key),
+persGates: persGates,
+desGates: desGates
+};
+
+});
+
+return result;
+}
+
+function translateCenter(key) {
+const map = {
+'Head': 'Голова',
+'Ajna': 'Аджна',
+'Throat': 'Горло',
+'G-Center': 'G-центр',
+'Heart': 'Эго',
+'Sacral': 'Сакрал',
+'Solar Plexus': 'Эмоц. центр',
+'Spleen': 'Селезёнка',
+'Root': 'Корень'
+};
+
+return map[key] || key;
+}
+
+function mapApiResult(data) {
+  const mapPlanet = p => ({
+    symbol: p.symbol,
+    name: p.planet,
+    gate: p.gate,
+    line: p.line,
+    color: p.color,
+    tone: p.tone,
+    longitude: p.longitude
+  });
+
+  return {
+    type: data.type,
+    profile: data.profile,
+    authority: data.authority,
+    definition: data.definition,
+    birthDateStr: data.birth_date_utc,
+    designDateStr: data.design_date_utc,
+    persPlanets: data.personality_planets.map(mapPlanet),
+    desPlanets: data.design_planets.map(mapPlanet),
+    definedChannels: data.defined_channels,
+    centersInfo: Object.fromEntries(
+      Object.entries(data.centers).map(([k, v]) => [k, {
+        nameRu: v.name_ru,
+        defined: v.defined,
+        persGates: v.personality_gates,
+        desGates: v.design_gates
+      }])
+    )
+  };
 }
 
 function renderResult(r) {
@@ -549,6 +948,190 @@ function planetRow(p, cls) {
 
 // Auto-run example on load (optional)
 // loadExample();
+
+async function calculateHD(year, month, day, hour, minute, second, tz) {
+  const resp = await fetch('/api/calculate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      year, month, day, hour, minute, second, tz_offset: tz
+    })
+  });
+  if (!resp.ok) throw new Error('API error ' + resp.status);
+  const data = await resp.json();
+  if (!data.success) throw new Error(data.error || 'Calculation failed');
+  return data;
+}
+
+function formatDateUTC(obj) {
+
+if (!obj) return '-';
+
+if (obj.year) {
+return `${obj.year}-${String(obj.month).padStart(2,'0')}-${String(obj.day).padStart(2,'0')} ${String(obj.hour).padStart(2,'0')}:${String(obj.minute).padStart(2,'0')}`;
+}
+
+if (obj.jd) {
+return '−88 дней';
+}
+
+return '-';
+}
+
+const BG = {
+  centers: {
+    'Head':         [380, 83,  'triangle-down', 'Голова'],
+    'Ajna':         [380, 175, 'triangle-down', 'Аджна'],
+    'Throat':       [380, 278, 'rect',          'Горло'],
+    'G-Center':     [380, 378, 'diamond',       'G-Центр'],
+    'Heart':        [470, 335, 'triangle-up',   'Эго'],
+    'Sacral':       [380, 488, 'rect',          'Сакрал'],
+    'Solar Plexus': [475, 440, 'triangle-up',   'Эмоц.'],
+    'Spleen':       [285, 400, 'triangle-up',   'Селезёнка'],
+    'Root':         [380, 595, 'rect',          'Корень'],
+  },
+  channels: [
+    [64,47,'Head','Ajna'],[61,24,'Head','Ajna'],[63,4,'Head','Ajna'],
+    [17,62,'Ajna','Throat'],[43,23,'Ajna','Throat'],[11,56,'Ajna','Throat'],
+    [16,48,'Throat','Spleen'],[20,57,'Throat','Spleen'],
+    [20,34,'Throat','Sacral'],[20,10,'Throat','G-Center'],
+    [31,7,'Throat','G-Center'],[8,1,'Throat','G-Center'],[33,13,'Throat','G-Center'],
+    [45,21,'Throat','Heart'],[35,36,'Throat','Solar Plexus'],[12,22,'Throat','Solar Plexus'],
+    [25,51,'G-Center','Heart'],[2,14,'G-Center','Sacral'],
+    [5,15,'G-Center','Sacral'],[29,46,'G-Center','Sacral'],[10,34,'G-Center','Sacral'],
+    [10,57,'G-Center','Spleen'],
+    [3,60,'Sacral','Root'],[9,52,'Sacral','Root'],[42,53,'Sacral','Root'],
+    [27,50,'Sacral','Spleen'],[59,6,'Sacral','Solar Plexus'],
+    [26,44,'Heart','Spleen'],
+    [19,49,'Root','Solar Plexus'],[38,28,'Root','Spleen'],
+    [39,55,'Root','Solar Plexus'],[41,30,'Root','Solar Plexus'],
+    [53,42,'Root','Sacral'],[60,3,'Root','Sacral'],[54,32,'Root','Spleen'],
+    [58,18,'Root','Spleen'],
+    [37,40,'Solar Plexus','Heart'],[6,59,'Solar Plexus','Sacral'],
+    [22,12,'Solar Plexus','Throat'],[49,19,'Solar Plexus','Root'],
+    [55,39,'Solar Plexus','Root'],[30,41,'Solar Plexus','Root'],
+    [36,35,'Solar Plexus','Throat'],
+    [32,54,'Spleen','Root'],[28,38,'Spleen','Root'],[18,58,'Spleen','Root'],
+    [48,16,'Spleen','Throat'],[57,34,'Spleen','Sacral'],[57,20,'Spleen','Throat'],
+    [44,26,'Spleen','Heart'],[50,27,'Spleen','Sacral'],
+  ]
+};
+
+function getCenterXY(name) {
+  const c = BG.centers[name];
+  return { x: c[0], y: c[1] };
+}
+
+function renderBodygraph(data) {
+  const canvas = document.getElementById('bodygraphCanvas');
+  const ctx = canvas.getContext('2d');
+  const persGates = new Set(data.personality_gates);
+  const desGates  = new Set(data.design_gates);
+  const definedCh = new Set(
+    data.defined_channels.map(([a,b]) => `${Math.min(a,b)}-${Math.max(a,b)}`)
+  );
+  const definedCenters = new Set(data.defined_centers);
+
+  const CENTERS = {
+    'Head':         {x:183, y:59,  r:32, shape:'triangle'},
+    'Ajna':         {x:184, y:122, r:32, shape:'triangle'},
+    'Throat':       {x:182, y:230, w:60, h:44, shape:'rect'},
+    'G-Center':     {x:183, y:321, r:40, shape:'diamond'},
+    'Heart':        {x:223, y:362, r:32, shape:'triangle'},
+    'Sacral':       {x:183, y:475, w:60, h:44, shape:'rect'},
+    'Solar Plexus': {x:278, y:449, r:32, shape:'triangle'},
+    'Spleen':       {x:86,  y:452, r:32, shape:'triangle'},
+    'Root':         {x:184, y:564, w:60, h:44, shape:'rect'},
+  };
+
+  const CENTER_LABELS = {
+    'Root':'Корень','Sacral':'Сакрал','Spleen':'Селезёнка',
+    'Solar Plexus':'Эмоц.','Heart':'Эго','G-Center':'G',
+    'Throat':'Горло','Ajna':'Аджна','Head':'Голова'
+  };
+
+  const CHANNELS = [
+    [64,47,'Head','Ajna'],[61,24,'Head','Ajna'],[63,4,'Head','Ajna'],
+    [17,62,'Ajna','Throat'],[43,23,'Ajna','Throat'],[11,56,'Ajna','Throat'],
+    [16,48,'Throat','Spleen'],[20,57,'Throat','Spleen'],
+    [20,34,'Throat','Sacral'],[20,10,'Throat','G-Center'],
+    [31,7,'Throat','G-Center'],[8,1,'Throat','G-Center'],[33,13,'Throat','G-Center'],
+    [45,21,'Throat','Heart'],[35,36,'Throat','Solar Plexus'],[12,22,'Throat','Solar Plexus'],
+    [25,51,'G-Center','Heart'],[2,14,'G-Center','Sacral'],
+    [5,15,'G-Center','Sacral'],[29,46,'G-Center','Sacral'],[10,34,'G-Center','Sacral'],
+    [10,57,'G-Center','Spleen'],
+    [3,60,'Sacral','Root'],[9,52,'Sacral','Root'],[42,53,'Sacral','Root'],
+    [27,50,'Sacral','Spleen'],[59,6,'Sacral','Solar Plexus'],
+    [26,44,'Heart','Spleen'],
+    [19,49,'Root','Solar Plexus'],[38,28,'Root','Spleen'],
+    [39,55,'Root','Solar Plexus'],[41,30,'Root','Solar Plexus'],
+    [53,42,'Root','Sacral'],[60,3,'Root','Sacral'],[54,32,'Root','Spleen'],
+    [58,18,'Root','Spleen'],
+    [37,40,'Solar Plexus','Heart'],[6,59,'Solar Plexus','Sacral'],
+    [49,19,'Solar Plexus','Root'],[55,39,'Solar Plexus','Root'],[30,41,'Solar Plexus','Root'],
+    [32,54,'Spleen','Root'],[28,38,'Spleen','Root'],[18,58,'Spleen','Root'],
+    [48,16,'Spleen','Throat'],[57,34,'Spleen','Sacral'],[57,20,'Spleen','Throat'],
+    [44,26,'Spleen','Heart'],[50,27,'Spleen','Sacral'],
+  ];
+
+  const img = new Image();
+  img.src = 'bodygraph_base.png';
+  img.onload = () => {
+    ctx.clearRect(0, 0, 356, 604);
+    ctx.drawImage(img, 0, 0, 356, 604);
+
+    CHANNELS.forEach(([ga, gb, ca, cb]) => {
+      const key = `${Math.min(ga,gb)}-${Math.max(ga,gb)}`;
+      if (!definedCh.has(key)) return;
+      const c1 = CENTERS[ca], c2 = CENTERS[cb];
+      const hasDes  = desGates.has(ga)  && desGates.has(gb);
+      const hasPers = persGates.has(ga) && persGates.has(gb);
+      ctx.beginPath();
+      ctx.moveTo(c1.x, c1.y);
+      ctx.lineTo(c2.x, c2.y);
+      ctx.strokeStyle = hasDes ? '#e05c7a' : hasPers ? '#9b8ff5' : '#c084fc';
+      ctx.lineWidth = 7;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+    });
+
+    Object.entries(CENTERS).forEach(([name, c]) => {
+      const isDef = definedCenters.has(name);
+      ctx.fillStyle   = isDef ? '#f5c842' : 'rgba(15,17,23,0.92)';
+      ctx.strokeStyle = isDef ? '#f5c842' : '#475569';
+      ctx.lineWidth = 2;
+
+      if (c.shape === 'rect') {
+        ctx.beginPath();
+        ctx.roundRect(c.x - c.w/2, c.y - c.h/2, c.w, c.h, 6);
+        ctx.fill(); ctx.stroke();
+      } else if (c.shape === 'diamond') {
+        ctx.beginPath();
+        ctx.moveTo(c.x, c.y - c.r);
+        ctx.lineTo(c.x + c.r, c.y);
+        ctx.lineTo(c.x, c.y + c.r);
+        ctx.lineTo(c.x - c.r, c.y);
+        ctx.closePath();
+        ctx.fill(); ctx.stroke();
+      } else if (c.shape === 'triangle') {
+        ctx.beginPath();
+        ctx.moveTo(c.x, c.y - c.r);
+        ctx.lineTo(c.x + c.r, c.y + c.r);
+        ctx.lineTo(c.x - c.r, c.y + c.r);
+        ctx.closePath();
+        ctx.fill(); ctx.stroke();
+      }
+
+      ctx.fillStyle = isDef ? '#1a1d2e' : '#888aaa';
+      ctx.font = 'bold 10px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(CENTER_LABELS[name], c.x, c.y);
+    });
+  };
+
+  document.getElementById('bodygraphWrap').style.display = 'block';
+}
 </script>
 </body>
 </html>
