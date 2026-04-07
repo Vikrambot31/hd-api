@@ -6,30 +6,28 @@
 <title>Human Design Calculator</title>
 <style>
 :root {
-  --bg: #0f1117;
-  --card: #1a1d2e;
-  --card2: #21253a;
-  --accent: #7c6af7;
-  --accent2: #f7a26a;
-  --text: #e8eaf6;
-  --muted: #888aaa;
-  --red:   #e05c7a;
-  --green: #4caf7d;
-  --border: #2d3154;
-  --pers-col: #9b8ff5;
-  --des-col:  #f5a26a;
-  --defined:  #f5c842;
+  --bg: #0a0c18; --card: #13162a; --card2: #1c2040;
+  --accent: #7c6af7; --text: #e8eaf6; --muted: #888aaa;
+  --red: #e05c7a; --border: #2a2e55;
+  --pers-col: #9b8ff5; --des-col: #f5a26a; --defined: #f5c842;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
+<<<<<<< HEAD
 body {
   background: var(--bg);
   color: var(--text);
   font-family: 'Segoe UI', system-ui, sans-serif;
   min-height: 100vh;
 }
+=======
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
+
+/* HEADER */
+>>>>>>> 656cd33 (update)
 header {
-  background: linear-gradient(135deg, #1a1d2e 0%, #12142a 100%);
+  background: linear-gradient(135deg,#13162a,#0d0f20);
   border-bottom: 1px solid var(--border);
+<<<<<<< HEAD
   padding: 20px 24px;
   display: flex;
   justify-content: center;
@@ -62,67 +60,152 @@ header span { font-size: .85rem; color: var(--muted); display: block; margin-top
 }
 .main { max-width: 1100px; margin: 0 auto; padding: 28px 16px; }
 .form-card {
+=======
+  padding: 16px 24px;
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  text-align: center;
+}
+.logo { font-size: 1.8rem; }
+header h1 { font-size: 1.3rem; font-weight: 700; }
+header span { font-size: .8rem; color: var(--muted); display: block; margin-top: 2px; }
+
+/* THREE-COLUMN LAYOUT */
+.main { max-width: 1300px; margin: 0 auto; padding: 24px 16px; }
+.three-col {
+  display: grid;
+  grid-template-columns: 280px 1fr 280px;
+  gap: 20px;
+  align-items: start;
+}
+
+/* DESKTOP: 1000px+ */
+@media(min-width:1001px) {
+  .welcome-container {
+    min-height: 320px;
+    gap: 28px;
+    padding: 40px 24px;
+  }
+  .welcome-quote {
+    font-size: 2rem;
+  }
+  .welcome-arrow {
+    font-size: 2.4rem;
+  }
+}
+
+/* TABLET/MOBILE: below 1000px */
+@media(max-width:1000px){
+  .three-col { grid-template-columns: 1fr 1fr; }
+  .col-center { grid-column: 1 / -1; order: -1; }
+  .form-grid { grid-template-columns: 1fr; }
+}
+
+/* CARDS */
+.card {
+>>>>>>> 656cd33 (update)
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 24px 28px;
-  margin-bottom: 24px;
+  padding: 20px;
+  margin-bottom: 14px;
 }
-.form-card h2 { font-size: 1rem; color: var(--muted); margin-bottom: 18px; letter-spacing: .05em; text-transform: uppercase; font-weight: 600; }
-.form-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  gap: 12px;
-  margin-bottom: 12px;
+.card h3 {
+  font-size: .78rem; color: var(--muted);
+  text-transform: uppercase; font-weight: 600;
+  margin-bottom: 14px; letter-spacing: .05em;
 }
-.field label { display: block; font-size: .78rem; color: var(--muted); margin-bottom: 5px; letter-spacing: .04em; text-transform: uppercase; }
+
+/* FORM */
+.field { margin-bottom: 10px; }
+.field label { display: block; font-size: .72rem; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; }
 .field input, .field select {
-  width: 100%;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--text);
-  padding: 10px 12px;
-  font-size: .95rem;
-  transition: border-color .2s;
+  width: 100%; background: var(--bg); border: 1px solid var(--border);
+  border-radius: 8px; color: var(--text); padding: 9px 12px; font-size: .92rem;
 }
+<<<<<<< HEAD
 .field input:focus, .field select:focus {
   outline: none;
   border-color: var(--accent);
 }
 .field select option { background: #1a1d2e; }
 .btn-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+=======
+.field input:focus, .field select:focus { outline: none; border-color: var(--accent); }
+.field select option { background: #13162a; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+>>>>>>> 656cd33 (update)
 .btn {
-  padding: 11px 28px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: .03em;
-  transition: opacity .2s, transform .1s;
+  width: 100%; padding: 11px; border-radius: 10px; border: none;
+  cursor: pointer; font-size: .95rem; font-weight: 600;
+  transition: opacity .2s, box-shadow .2s; margin-top: 8px;
 }
+<<<<<<< HEAD
 .btn:active { transform: scale(.97); }
 .btn-primary { background: var(--accent); color: #fff; }
 .btn-secondary { background: var(--card2); color: var(--muted); border: 1px solid var(--border); }
 .btn:hover { opacity: .88; }
 #loadingBar {
-  display: none;
-  text-align: center;
-  padding: 40px;
-  color: var(--muted);
-  font-size: .95rem;
+=======
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), #5b4ed4);
+  color: #fff;
+  box-shadow: 0 0 18px rgba(124,106,247,.4);
 }
+.btn-secondary { background: var(--card2); color: var(--muted); border: 1px solid var(--border); margin-top: 6px; }
+.btn-export {
+  margin-top: 6px;
+  background: linear-gradient(135deg, #2f9cff, #1768d8);
+  color: #f8fbff;
+  border: 1px solid rgba(117, 197, 255, .45);
+  box-shadow: 0 0 18px rgba(47, 156, 255, .24);
+}
+.btn-export:hover {
+  box-shadow: 0 0 22px rgba(47, 156, 255, .34);
+}
+.btn-consult {
+  margin-top: 6px;
+  background: linear-gradient(135deg, #39c96b, #179a49);
+  color: #f7fff9;
+  border: 1px solid rgba(106, 255, 156, .45);
+  box-shadow: 0 0 18px rgba(57, 201, 107, .35), 0 0 34px rgba(57, 201, 107, .16);
+  animation: consultGlow 3.2s ease-in-out infinite;
+}
+.btn-consult:hover {
+  box-shadow: 0 0 22px rgba(57, 201, 107, .44), 0 0 44px rgba(57, 201, 107, .2);
+}
+.btn-consult:focus-visible {
+  outline: 2px solid rgba(168, 255, 194, .75);
+  outline-offset: 2px;
+}
+.btn-consult.hidden-until-result {
+>>>>>>> 656cd33 (update)
+  display: none;
+}
+.hidden-until-result {
+  display: none;
+}
+.btn-link { display: block; text-align: center; text-decoration: none; }
+.btn:hover { opacity: .88; }
+.btn[disabled] {
+  cursor: wait;
+  opacity: .72;
+}
+
+@keyframes consultGlow {
+  0% { box-shadow: 0 0 14px rgba(57, 201, 107, .28), 0 0 24px rgba(57, 201, 107, .12); }
+  50% { box-shadow: 0 0 22px rgba(57, 201, 107, .44), 0 0 42px rgba(57, 201, 107, .2); }
+  100% { box-shadow: 0 0 14px rgba(57, 201, 107, .28), 0 0 24px rgba(57, 201, 107, .12); }
+}
+
+/* LOADING */
+#loadingBar { display: none; text-align: center; padding: 40px; color: var(--muted); }
 .spinner {
-  display: inline-block;
-  width: 32px; height: 32px;
-  border: 3px solid var(--border);
-  border-top-color: var(--accent);
-  border-radius: 50%;
-  animation: spin .8s linear infinite;
-  margin-bottom: 12px;
+  display: inline-block; width: 32px; height: 32px;
+  border: 3px solid var(--border); border-top-color: var(--accent);
+  border-radius: 50%; animation: spin .8s linear infinite; margin-bottom: 12px;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
+<<<<<<< HEAD
 #result { display: none; }
 .result-header {
   background: var(--card);
@@ -146,18 +229,64 @@ header span { font-size: .85rem; color: var(--muted); display: block; margin-top
 @media(max-width:720px){ .tables-row { grid-template-columns: 1fr; } }
 .planet-table {
   background: var(--card);
+=======
+
+/* ERROR */
+.error-box {
+  background: rgba(224,92,122,.1); border: 1px solid rgba(224,92,122,.4);
+  border-radius: 12px; padding: 14px 18px; color: var(--red);
+  margin-bottom: 14px; font-size: .9rem;
+}
+
+.server-launch-card {
+  display: none;
+  background: linear-gradient(180deg, rgba(28,32,64,.95), rgba(19,22,42,.95));
+}
+.server-launch-card.visible {
+  display: block;
+}
+.server-launch-card p {
+  color: var(--muted);
+  font-size: .86rem;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+.server-launch-note {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: .75rem;
+  line-height: 1.45;
+}
+
+/* BODYGRAPH CONTAINER */
+#bodygraphContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at 50% 30%, #1a1060 0%, #0a0c18 70%);
+  border-radius: 16px;
+  padding: 16px;
+>>>>>>> 656cd33 (update)
   border: 1px solid var(--border);
-  border-radius: 14px;
+  min-height: 640px;
+  position: relative;
   overflow: hidden;
 }
-.pt-header {
-  padding: 12px 16px;
-  font-size: .85rem;
-  font-weight: 700;
-  letter-spacing: .05em;
-  text-transform: uppercase;
-  border-bottom: 1px solid var(--border);
+#bodygraphContainer::before {
+  content: '';
+  position: absolute;
+  inset: 16px;
+  border-radius: 10px;
+  background-image:
+    linear-gradient(180deg, rgba(10,12,24,.58), rgba(10,12,24,.58)),
+    url('bodyfon.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100% 100%;
+  opacity: .30;
+  pointer-events: none;
 }
+<<<<<<< HEAD
 .pt-header.pers { background: linear-gradient(90deg, rgba(124,106,247,.2), transparent); color: var(--pers-col); }
 .pt-header.des  { background: linear-gradient(90deg, rgba(245,162,106,.2), transparent); color: var(--des-col); }
 .pt-header .pt-dates { font-size: .72rem; font-weight: 400; color: var(--muted); margin-top: 3px; text-transform: none; letter-spacing: 0; }
@@ -187,27 +316,85 @@ th:last-child, td:last-child { display: none; }
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 10px;
   margin-bottom: 16px;
+=======
+#bodygraphContainer.is-error {
+  background: rgba(120, 18, 34, .2);
+  border-color: rgba(224,92,122,.55);
 }
-.center-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 12px 14px;
-  transition: border-color .2s;
+#bodygraphContainer svg,
+#bodygraphContainer .bodygraph-status {
+  position: relative;
+  z-index: 1;
+>>>>>>> 656cd33 (update)
 }
-.center-card.defined {
-  border-color: var(--defined);
-  background: rgba(245,200,66,.06);
+#bodygraphContainer svg { width: 100%; height: auto; display: block; }
+.bodygraph-tooltip {
+  position: absolute;
+  z-index: 20;
+  max-width: 360px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(183, 126, 255, .55);
+  background: linear-gradient(180deg, rgba(42, 24, 78, .96), rgba(21, 14, 43, .96));
+  box-shadow: 0 0 0 1px rgba(208, 173, 255, .08), 0 14px 40px rgba(139, 92, 246, .28), 0 0 32px rgba(196, 141, 255, .18);
+  color: #f4ecff;
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(8px) scale(.98);
+  transition: opacity .16s ease, transform .16s ease;
 }
-.cc-name { font-size: .85rem; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
-.center-card.defined .cc-name { color: var(--defined); }
-.cc-status {
-  font-size: .72rem;
-  padding: 2px 8px;
-  border-radius: 20px;
-  display: inline-block;
+.bodygraph-tooltip.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.bodygraph-tooltip-title {
   margin-bottom: 8px;
+  font-size: .92rem;
+  font-weight: 700;
+  color: #e8d3ff;
+  text-shadow: 0 0 14px rgba(196, 141, 255, .35);
 }
+.bodygraph-tooltip-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.bodygraph-tooltip-list li {
+  margin-bottom: 6px;
+  padding-left: 14px;
+  position: relative;
+  line-height: 1.35;
+  color: #efe7ff;
+  font-size: .85rem;
+}
+.bodygraph-tooltip-list li:last-child {
+  margin-bottom: 0;
+}
+.bodygraph-tooltip-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: .45em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #c98cff;
+  box-shadow: 0 0 10px rgba(201, 140, 255, .7);
+}
+.bodygraph-status {
+  display: grid;
+  place-items: center;
+  min-height: 180px;
+  text-align: center;
+  color: var(--muted);
+  line-height: 1.5;
+  font-size: .95rem;
+}
+.bodygraph-status.error {
+  color: #ffd0d8;
+}
+<<<<<<< HEAD
 .cc-status.def { background: rgba(245,200,66,.15); color: var(--defined); }
 .cc-status.undef { background: rgba(136,138,170,.1); color: var(--muted); }
 .cc-gates { font-size: .78rem; color: var(--muted); }
@@ -219,26 +406,644 @@ th:last-child, td:last-child { display: none; }
   border-radius: 14px;
   padding: 16px 20px;
   margin-bottom: 16px;
+=======
+
+/* SUMMARY */
+.summary-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.rh-item { }
+.rh-label { font-size: .7rem; color: var(--muted); text-transform: uppercase; margin-bottom: 2px; }
+.rh-label-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+>>>>>>> 656cd33 (update)
 }
-.channels-card h3 { font-size: .85rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 12px; font-weight: 600; }
-.channel-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.rh-value { font-size: 1rem; font-weight: 700; }
+.rh-value.accent { color: var(--accent); }
+.info-mini-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 20px;
+  padding: 0 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(183, 126, 255, .42);
+  background: linear-gradient(180deg, rgba(86, 43, 155, .92), rgba(49, 24, 95, .92));
+  color: #f3e8ff;
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  cursor: help;
+  box-shadow: 0 0 14px rgba(139, 92, 246, .18);
+  user-select: none;
+}
+.profile-value-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.profile-famous-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(183, 126, 255, .45);
+  background: linear-gradient(180deg, rgba(86, 43, 155, .95), rgba(49, 24, 95, .95));
+  color: #f3e8ff;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  cursor: help;
+  box-shadow: 0 0 18px rgba(139, 92, 246, .22);
+  user-select: none;
+}
+.profile-famous-tooltip {
+  position: fixed;
+  z-index: 50;
+  max-width: 420px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(183, 126, 255, .55);
+  background: linear-gradient(180deg, rgba(42, 24, 78, .98), rgba(21, 14, 43, .98));
+  box-shadow: 0 0 0 1px rgba(208, 173, 255, .08), 0 14px 40px rgba(139, 92, 246, .28), 0 0 32px rgba(196, 141, 255, .18);
+  color: #f4ecff;
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(8px) scale(.98);
+  transition: opacity .16s ease, transform .16s ease;
+}
+.profile-famous-tooltip.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.profile-famous-tooltip-title {
+  margin-bottom: 8px;
+  font-size: .92rem;
+  font-weight: 700;
+  color: #e8d3ff;
+  text-shadow: 0 0 14px rgba(196, 141, 255, .35);
+}
+.profile-famous-tooltip-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.profile-famous-tooltip-list li {
+  margin-bottom: 6px;
+  padding-left: 14px;
+  position: relative;
+  line-height: 1.35;
+  color: #efe7ff;
+  font-size: .84rem;
+}
+.profile-famous-tooltip-list li:last-child {
+  margin-bottom: 0;
+}
+.profile-famous-tooltip-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: .45em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #c98cff;
+  box-shadow: 0 0 10px rgba(201, 140, 255, .7);
+}
+
+/* CENTERS */
+.center-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 7px 0; border-bottom: 1px solid rgba(45,49,84,.4);
+  font-size: .85rem;
+}
+.center-item:last-child { border-bottom: none; }
+.center-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  margin-right: 8px; flex-shrink: 0;
+}
+.center-dot.defined { background: var(--defined); box-shadow: 0 0 8px var(--defined); }
+.center-dot.open { background: transparent; border: 1px solid var(--muted); }
+.center-name { flex: 1; }
+.center-status { font-size: .7rem; color: var(--muted); }
+.center-status.def { color: var(--defined); }
+
+/* CHANNELS LIST */
 .channel-tag {
   background: rgba(124,106,247,.12);
   color: var(--accent);
   border: 1px solid rgba(124,106,247,.3);
-  border-radius: 8px;
-  padding: 4px 12px;
-  font-size: .85rem;
+  border-radius: 8px; padding: 4px 10px;
+  font-size: .8rem; font-weight: 600; margin: 3px 3px 3px 0;
+  display: inline-block;
+}
+.no-channels { color: var(--muted); font-size: .85rem; }
+
+/* PLANET TABLES */
+.planet-table { background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 14px; }
+.pt-header { padding: 10px 14px; font-size: .82rem; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+.pt-header.pers { background: linear-gradient(90deg,rgba(155,143,245,.15),transparent); color: var(--pers-col); }
+.pt-header.des  { background: linear-gradient(90deg,rgba(245,162,106,.15),transparent); color: var(--des-col); }
+.pt-dates { font-size: .68rem; font-weight: 400; color: var(--muted); margin-top: 2px; text-transform: none; }
+table { width: 100%; border-collapse: collapse; }
+th { padding: 6px 8px; font-size: .68rem; color: var(--muted); text-align: left; text-transform: uppercase; border-bottom: 1px solid var(--border); background: rgba(0,0,0,.15); }
+td { padding: 6px 8px; font-size: .85rem; border-bottom: 1px solid rgba(45,49,84,.4); }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(124,106,247,.05); }
+.sym { font-size: 1rem; width: 24px; }
+.gate-line { font-weight: 700; }
+.gate-line.pers { color: var(--pers-col); }
+.gate-line.des  { color: var(--des-col); }
+.ctb { font-size: .72rem; color: var(--muted); }
+
+/* ACCURACY */
+.accuracy-note { text-align: center; color: var(--muted); font-size: .72rem; margin-top: 10px; }
+
+/* EXPORT MENU */
+.export-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 8, 18, .76);
+  backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  z-index: 120;
+}
+.export-menu-overlay.visible {
+  display: flex;
+}
+.export-menu-dialog {
+  width: min(460px, 100%);
+  background: linear-gradient(180deg, rgba(27, 31, 58, .98), rgba(15, 17, 33, .98));
+  border: 1px solid rgba(121, 136, 197, .32);
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: 0 26px 60px rgba(0, 0, 0, .36);
+}
+.export-menu-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.export-menu-text {
+  color: var(--muted);
+  font-size: .88rem;
+  line-height: 1.55;
+  margin-bottom: 14px;
+}
+.export-menu-actions {
+  display: grid;
+  gap: 10px;
+}
+.export-menu-note {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: .76rem;
+  line-height: 1.45;
+}
+
+/* PDF EXPORT STAGING */
+.pdf-render-root {
+  position: fixed;
+  left: -20000px;
+  top: 0;
+  width: 210mm;
+  pointer-events: none;
+  opacity: 0;
+  z-index: -1;
+  display: flex;
+  flex-direction: column;
+}
+.pdf-export-sheet {
+  width: 1040px;
+  background: #ffffff;
+  color: #152036;
+  padding: 42px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+.pdf-export-site-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
+  padding: 14px 18px;
+  border-radius: 18px;
+  background: linear-gradient(90deg, #eff6ff, #f8fbff);
+  border: 1px solid #d2e1f5;
+}
+.pdf-export-site-label {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #537099;
+  font-weight: 700;
+}
+.pdf-export-site-link {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: #1768d8;
+}
+.pdf-export-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+.pdf-export-brand {
+  font-size: .9rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #496487;
+}
+.pdf-export-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-top: 8px;
+  color: #12203b;
+}
+.pdf-export-subtitle {
+  margin-top: 8px;
+  color: #587096;
+  font-size: .9rem;
+  line-height: 1.5;
+}
+.pdf-export-badge {
+  border-radius: 999px;
+  background: #eef4ff;
+  border: 1px solid #cfdef7;
+  padding: 8px 14px;
+  font-size: .78rem;
+  color: #345074;
+  white-space: nowrap;
+}
+.pdf-export-top {
+  font-size: 1rem;
+  display: grid;
+  grid-template-columns: 430px 1fr;
+  gap: 24px;
+  font-weight: 700;
+  align-items: start;
+  margin-bottom: 24px;
+}
+.pdf-export-bodygraph {
+  border: 1px solid #d9e4f2;
+  border-radius: 18px;
+  padding: 18px;
+  background: linear-gradient(180deg, #f6f9ff, #eef3fb);
+  max-width: 430px;
+}
+.pdf-export-bodygraph img {
+  font-size: 1.08rem;
+  line-height: 1.6;
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+  max-height: 420px;
+  display: block;
+}
+.pdf-export-panel {
+  border: 1px solid #d9e4f2;
+  border-radius: 18px;
+  padding: 8px 12px;
+  font-size: .95rem;
+}
+.pdf-export-panel-title {
+  font-weight: 600;
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: #152036;
+  padding: 8px 10px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.pdf-export-summary-grid {
+  font-size: .95rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 10px;
+}
+.pdf-export-item-label {
+  font-size: .65rem;
+  text-transform: uppercase;
+  color: #152036;
+  line-height: 1.2;
   font-weight: 600;
 }
+<<<<<<< HEAD
 .no-channels { color: var(--muted); font-size: .9rem; }
 .accuracy-note {
   text-align: center;
   color: var(--muted);
+=======
+.pdf-export-item-value {
+  font-weight: 600;
+  color: #152036;
+  font-size: .88rem;
+  line-height: 1.3;
+}
+.pdf-export-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.pdf-export-list {
+  display: grid;
+  gap: 10px;
+  font-size: 1rem;
+}
+
+.pdf-export-list-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e8eef7;
+}
+
+.pdf-export-list-row strong {
+  font-size: 1.05rem;
+  color: #16365d;
+}
+
+.pdf-export-chip-wrap {
+  display: flex;
+  font-size: .92rem;
+  gap: 8px;
+}
+.pdf-export-chip {
+  display: inline-flex;
+  font-size: 1.02rem;
+  min-height: 28px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: #edf4ff;
+  border: 1px solid #d1dff2;
+  color: #214264;
+  font-size: .88rem;
+  font-weight: 600;
+}
+.pdf-export-table-grid {
+  padding: 10px 12px;
+  font-size: .92rem;
+  gap: 20px;
+}
+.pdf-export-table-box {
+  border: 1px solid #d9e4f2;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #ffffff;
+>>>>>>> 656cd33 (update)
   font-size: .78rem;
-  margin-top: 8px;
+}
+
+.pdf-export-table-head {
+  padding: 12px 16px;
+  background: linear-gradient(90deg, #eef4ff, #f8fbff);
+  border-bottom: 1px solid #d9e4f2;
+}
+.pdf-export-table-head strong {
+  display: block;
+  font-size: .92rem;
+  line-height: 1.6;
+}
+.pdf-export-table-head span {
+  display: block;
+  margin-top: 4px;
+  color: #6882a0;
+  font-size: .74rem;
+}
+.pdf-export-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.pdf-export-table th,
+.pdf-export-table td {
+  padding: 8px 12px;
+  font-size: .78rem;
+  border-bottom: 1px solid #edf2f8;
+  text-align: left;
+}
+.pdf-export-table th {
+  background: #f8fbff;
+  color: #5c7595;
+  text-transform: uppercase;
+  font-size: .68rem;
+  letter-spacing: .04em;
+}
+.pdf-export-table tr:last-child td {
+  border-bottom: none;
+}
+.pdf-export-footer {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #dfe9f5;
+  color: #6d84a2;
+  font-size: .76rem;
+  line-height: 1.45;
+}
+
+/* ═══ PDF EXPORT - 2 PAGE LAYOUT ═══ */
+.pdf-export-root {
+  display: flex;
+  flex-direction: column;
+}
+
+.pdf-export-page {
+  position: relative;
+  width: 210mm;
+  height: 297mm;
+  background: #ffffff;
+  overflow: hidden;
+  page-break-after: always;
+  page-break-inside: avoid;
+  box-sizing: border-box;
+  color: #000;
+}
+
+.pdf-page-bg {
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+  opacity: 1;
+}
+
+.pdf-page-content {
+  position: relative;
+  z-index: 1;
+  padding: 22px 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  color: #000;
+}
+
+/* PAGE 1: Bodygraph + Basic Data */
+.pdf-page-1 {
+  background: #ffffff;
+}
+
+.pdf-page-1 .pdf-page-bg {
+  background: #ffffff;
+  opacity: 1;
+}
+
+.pdf-page-1 .pdf-page-content {
+  justify-content: flex-start;
+  align-items: stretch;
+  text-align: left;
+  background: #ffffff;
+}
+
+.pdf-header-mini {
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.pdf-header-brand {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #000;
+  letter-spacing: .08em;
+}
+
+.pdf-header-subtitle {
+  font-size: 0.88rem;
+  color: #333;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.pdf-page-1-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  flex: 1;
+  min-height: 0;
+}
+
+.pdf-page-1-left,
+.pdf-page-1-right {
+  min-height: 0;
+}
+
+.pdf-page-1-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.pdf-bodygraph-showcase {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 8px;
+  background: #f7f7f7;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.pdf-bodygraph-showcase img {
+  max-width: 460px;
+  max-height: 560px;
+  width: auto;
+  height: auto;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,.1));
+}
+
+.pdf-footer-url {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: #000;
+  letter-spacing: .05em;
+  text-decoration: none;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* PAGE 2: Centers + Channels + Planet Tables */
+.pdf-page-2 {
+  background: #ffffff;
+}
+
+.pdf-page-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  border-bottom: 2px solid #000;
+  padding-bottom: 6px;
+}
+
+.pdf-data-grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 12px;
+  margin-bottom: 0;
+  padding: 12px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  flex: 1;
+}
+
+.pdf-data-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.pdf-label {
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  color: #152036;
+  font-weight: 700;
+  letter-spacing: .04em;
+  margin-bottom: 3px;
+}
+
+.pdf-value {
+  font-size: 0.86rem;
+  color: #152036;
+  font-weight: 650;
+}
+
+.pdf-page-2-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.pdf-two-sections {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.pdf-section {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 8px;
   padding: 10px;
 }
+<<<<<<< HEAD
 .error-box {
   background: rgba(224,92,122,.1);
   border: 1px solid rgba(224,92,122,.4);
@@ -251,20 +1056,438 @@ th:last-child, td:last-child { display: none; }
 @media(max-width:480px){
   .form-card { padding: 16px; }
   .result-header { grid-template-columns: 1fr 1fr; }
+=======
+
+.pdf-section-title {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: 6px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #000;
+}
+
+.pdf-centers-list, .pdf-channels-list {
+  display: grid;
+  gap: 4px;
+  font-size: 0.67rem;
+}
+
+.pdf-centers-list > div, .pdf-channels-list > * {
+  color: #000;
+  line-height: 1.25;
+  font-weight: 500;
+}
+
+.pdf-tables-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  flex: 1;
+  min-height: 0;
+}
+
+.pdf-table-section {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.pdf-table-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: 6px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #000;
+}
+
+.pdf-planets-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.62rem;
+}
+
+.pdf-planets-table thead {
+  background: #e0e0e0;
+}
+
+.pdf-planets-table th {
+  font-weight: 700;
+  color: #000;
+  padding: 4px 3px;
+  text-align: left;
+  border-bottom: 1px solid #999;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+}
+
+.pdf-planets-table td {
+  color: #000;
+  padding: 3px 3px;
+  border-bottom: 1px solid #ddd;
+  font-weight: 500;
+}
+
+.pdf-planets-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* WELCOME MESSAGE STYLES */
+.welcome-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  text-align: center;
+  padding: 30px 20px;
+  gap: 24px;
+}
+.welcome-quote {
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #e8eaf6;
+  line-height: 1.4;
+  max-width: 100%;
+  text-shadow: 0 0 20px rgba(124, 106, 247, 0.3);
+  font-family: 'Segoe UI', 'Georgia', serif;
+  margin: 0 10px;
+}
+.welcome-quote-main {
+  background: linear-gradient(135deg, #7c6af7 0%, #b5a4ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+.welcome-quote-author {
+  font-size: 1.1rem;
+  color: #c4a6ff;
+  font-weight: 600;
+  margin-top: 12px;
+  letter-spacing: 0.02em;
+}
+.welcome-arrow {
+  font-size: 2.2rem;
+  animation: bounce 2.4s ease-in-out infinite;
+  color: #7c6af7;
+  text-shadow: 0 0 18px rgba(124, 106, 247, 0.6);
+  margin: 8px 0;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(12px); }
+}
+.welcome-instruction {
+  font-size: 1rem;
+  color: var(--text);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-top: 4px;
+}
+.welcome-subtext {
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-top: 6px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+@media(max-width: 768px) {
+  #bodygraphContainer {
+    min-height: 320px;
+  }
+  .welcome-container {
+    min-height: 240px;
+    gap: 20px;
+  }
+  .welcome-quote {
+    font-size: 1.4rem;
+  }
+  .welcome-quote-author {
+    font-size: 0.95rem;
+  }
+  .welcome-arrow {
+    font-size: 1.8rem;
+  }
+  .welcome-instruction {
+    font-size: 0.92rem;
+  }
+  .form-grid { grid-template-columns: 1fr !important; }
+}
+
+@media(max-width: 480px) {
+  #bodygraphContainer {
+    min-height: 320px;
+  }
+  .welcome-container {
+    min-height: 220px;
+    gap: 16px;
+    padding: 24px 14px;
+  }
+  .welcome-quote {
+    font-size: 1.1rem;
+  }
+  .welcome-quote-author {
+    font-size: 0.85rem;
+  }
+  .welcome-arrow {
+    font-size: 1.5rem;
+  }
+  .welcome-instruction {
+    font-size: 0.84rem;
+  }
+  .form-grid { grid-template-columns: 1fr !important; }
+}
+
+/* HIDDEN until result */
+.right-col-content { display: none; }
+
+/* ── YOUTUBE SECTION ── */
+#videosSection {
+  margin-top: 28px;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+}
+.yt-section-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('oldmy.png');
+  background-size: cover;
+  background-position: center;
+  filter: brightness(.22) saturate(.5);
+}
+.yt-section-inner {
+  position: relative;
+  z-index: 1;
+  padding: 32px 28px 36px;
+}
+.yt-section-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+.yt-section-title h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 2px 18px rgba(255,60,60,.5);
+}
+.yt-play-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  background: #ff0000;
+  border-radius: 12px;
+  flex-shrink: 0;
+  font-size: 1.4rem;
+  color: #fff;
+  box-shadow: 0 0 22px rgba(255,0,0,.55);
+}
+.yt-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 10px !important;
+}
+@media(max-width:800px){ .yt-grid, #ytGrid { grid-template-columns: repeat(2, 1fr) !important; } }
+@media(max-width:540px){ .yt-grid, #ytGrid { grid-template-columns: 1fr !important; } }
+.yt-card {
+  background: rgba(12,15,36,.82);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform .15s ease, border-color .18s, box-shadow .18s;
+  outline: none;
+  min-width: 0;
+}
+.yt-card:hover, .yt-card:focus-visible {
+  transform: translateY(-3px);
+  border-color: rgba(255,60,60,.65);
+  box-shadow: 0 7px 20px rgba(255,30,30,.24);
+}
+.yt-card-thumb {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  display: block;
+  background: #141629;
+  flex-shrink: 0;
+}
+.yt-card-body {
+  padding: 8px 10px;
+}
+.yt-card-icon {
+  font-size: .58rem;
+  color: #ff4444;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.yt-card-title {
+  font-size: .7rem;
+  font-weight: 600;
+  color: #dde2f5;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* YT MODAL */
+.yt-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  z-index: 200;
+  backdrop-filter: blur(8px);
+}
+.yt-modal-overlay.visible {
+  display: flex;
+}
+.yt-modal-dialog {
+  width: min(880px, 100%);
+  background: #0d0f1e;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0,0,0,.6);
+}
+.yt-modal-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 18px;
+  background: rgba(18,22,48,.98);
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.yt-modal-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #e8eaf6;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.yt-modal-close {
+  background: rgba(255,255,255,.1);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1.05rem;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.yt-modal-close:hover {
+  background: rgba(255,60,60,.35);
+}
+.yt-modal-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.yt-modal-btn-open {
+  background: rgba(255,100,100,.15);
+  border: 1px solid rgba(255,60,60,.3);
+  border-radius: 8px;
+  color: #ff6666;
+  font-size: 1.1rem;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 1;
+  font-weight: 600;
+  transition: all .15s ease;
+}
+.yt-modal-btn-open:hover {
+  background: rgba(255,100,100,.3);
+  border-color: rgba(255,60,60,.6);
+}
+.yt-modal-frame-wrap {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  background: #000;
+}
+.yt-modal-frame-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+.yt-modal-audio-section {
+  padding: 14px 18px;
+  background: rgba(255,60,60,.08);
+  border-top: 1px solid rgba(255,60,60,.2);
+}
+.yt-modal-note {
+  font-size: 0.82rem;
+  color: #b8bcc9;
+  line-height: 1.4;
+>>>>>>> 656cd33 (update)
 }
 </style>
 </head>
 <body>
 <header>
+<<<<<<< HEAD
   <div class="logo">☯</div>
   <div class="header-copy">
     <h1>Human Design Calculator от Викрама</h1>
     <span></span>
     <a class="header-cta" href="https://spisok-voprosov-vikram.netlify.app/">Хотите узнать о себе - выберите тему тут</a>
+=======
+  <div class="logo">✦</div>
+  <div>
+    <h1>Human Design Calculator</h1>
+    <span>FullHD · Moshier Ephemeris * Vikram</span>
+>>>>>>> 656cd33 (update)
   </div>
 </header>
 
 <div class="main">
+<<<<<<< HEAD
 
   <div class="form-card">
     <h2>Дата и время рождения</h2>
@@ -336,8 +1559,12 @@ th:last-child, td:last-child { display: none; }
     <div>Вычисление планетарных позиций…</div>
   </div>
 
+=======
+>>>>>>> 656cd33 (update)
   <div id="errorBox" class="error-box" style="display:none"></div>
+  <div id="loadingBar"><div class="spinner"></div><div>Расчёт...</div></div>
 
+<<<<<<< HEAD
   <div id="result">
     <div class="result-header" id="summaryRow"></div>
     <div class="tables-row">
@@ -352,20 +1579,72 @@ th:last-child, td:last-child { display: none; }
           </tr></thead>
           <tbody id="persBody"></tbody>
         </table>
+=======
+  <div class="three-col">
+
+    <!-- LEFT: FORM -->
+    <div class="col-left">
+      <div class="card server-launch-card" id="serverLaunchCard">
+        <h3>Быстрый запуск</h3>
+        <p>Вы открыли калькулятор как локальный файл. Для BODYGRAPH нужен локальный HTTP-сервер.</p>
+        <a class="btn btn-primary btn-link" href="start_local_server.cmd">Запустить локальный сервер</a>
+        <button class="btn btn-secondary" type="button" onclick="openLocalServer()">Открыть localhost:8000</button>
+        <div class="server-launch-note">Если браузер спросит разрешение на запуск файла, подтвердите. Если кнопка не сработает, запустите start_local_server.cmd из папки проекта.</div>
+>>>>>>> 656cd33 (update)
       </div>
-      <div class="planet-table">
-        <div class="pt-header des">
-          🟠 Дизайн (Бессознательное)
-          <div class="pt-dates" id="desDates"></div>
+
+      <div class="card">
+        <h3>Дата рождения</h3>
+        <div class="form-grid">
+          <div class="field"><label>День</label><input type="number" id="day" min="1" max="31" value="31"></div>
+          <div class="field"><label>Месяц</label><input type="number" id="month" min="1" max="12" value="1"></div>
+          <div class="field"><label>Год</label><input type="number" id="year" min="1900" max="2100" value="1984"></div>
+          <div class="field"><label>Час</label><input type="number" id="hour" min="0" max="23" value="7"></div>
+          <div class="field"><label>Минуты</label><input type="number" id="minute" min="0" max="59" value="25"></div>
+          <div class="field"><label>Секунды</label><input type="number" id="second" min="0" max="59" value="0"></div>
         </div>
-        <table>
-          <thead><tr>
-            <th></th><th>Планета</th><th>Врата.Линия</th><th>Цв/Тн</th><th>Долгота</th>
-          </tr></thead>
-          <tbody id="desBody"></tbody>
-        </table>
+        <div class="field"><label>Часовой пояс</label>
+          <select id="tz">
+            <option value="-12">UTC-12 (Бейкер, Хауленд, Атту, Мидуэй, Уэйк)</option>
+            <option value="-11">UTC-11 (Паго-Паго, Апиа, Мидуэй, Ниуэ, Тафуна)</option>
+            <option value="-10">UTC-10 (Гонолулу, Папеэте, Хило, Кайлуа, Таити)</option>
+            <option value="-9">UTC-9 (Анкоридж, Фэрбенкс, Джуно, Кадьяк, Якутад)</option>
+            <option value="-8">UTC-8 (Лос-Анджелес, Ванкувер, Сан-Франциско, Сиэтл, Тихуана)</option>
+            <option value="-7">UTC-7 (Денвер, Финикс, Калгари, Эдмонтон, Чиуауа)</option>
+            <option value="-6">UTC-6 (Чикаго, Мехико, Гватемала, Виннипег, Сан-Хосе)</option>
+            <option value="-5">UTC-5 (Нью-Йорк, Торонто, Богота, Лима, Монреаль)</option>
+            <option value="-4">UTC-4 (Каракас, Сантьяго, Ла-Пас, Галифакс, Санто-Доминго)</option>
+            <option value="-3">UTC-3 (Буэнос-Айрес, Сан-Паулу, Рио-де-Жанейро, Монтевидео, Бразилиа)</option>
+            <option value="-2">UTC-2 (Норонья, Южная Георгия, Фернанду-ди-Норонья, Тристан-да-Кунья, Грютвикен)</option>
+            <option value="-1">UTC-1 (Прая, Понта-Делгада, Хорта, Санта-Мария, Вила-ду-Порту)</option>
+            <option value="0">UTC 0 (Лондон, Дублин, Лиссабон, Рейкьявик, Аккра)</option>
+            <option value="1">UTC+1 (Берлин, Париж, Рим, Мадрид, Варшава)</option>
+            <option value="2">UTC+2 (Афины, Каир, Хельсинки, Бухарест, Вильнюс)</option>
+            <option value="3" selected>UTC+3 (Киев, Стамбул, Минск, Эр-Рияд, Найроби)</option>
+            <option value="4">UTC+4 (Дубай, Баку, Тбилиси, Ереван, Самара)</option>
+            <option value="5">UTC+5 (Ташкент, Карачи, Исламабад, Душанбе, Екатеринбург)</option>
+            <option value="5.5">UTC+5:30 (Дели, Мумбаи, Бангалор, Ченнаи, Калькутта)</option>
+            <option value="6">UTC+6 (Дакка, Алматы, Бишкек, Омск, Тхимпху)</option>
+            <option value="7">UTC+7 (Бангкок, Джакарта, Ханой, Новосибирск, Пномпень)</option>
+            <option value="8">UTC+8 (Пекин, Сингапур, Гонконг, Куала-Лумпур, Перт)</option>
+            <option value="9">UTC+9 (Токио, Сеул, Осака, Саппоро, Якутск)</option>
+            <option value="10">UTC+10 (Сидней, Мельбурн, Брисбен, Владивосток, Порт-Морсби)</option>
+            <option value="11">UTC+11 (Нумеа, Магадан, Хониара, Вануату, Сахалин)</option>
+            <option value="12">UTC+12 (Окленд, Веллингтон, Фиджи, Сува, Камчатка)</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" onclick="calculate()">Рассчитать карту</button>
+        <button class="btn btn-export hidden-until-result" id="exportResultButton" onclick="openExportMenu()">Скачать PDF результата</button>
+        <button class="btn btn-consult hidden-until-result" id="freeConsultButton" onclick="openFreeConsultation()">получить 15 мин. бесплатную консультацию</button>
+      </div>
+
+      <!-- Summary (shown after calc) -->
+      <div class="card right-col-content" id="summaryCard">
+        <h3>Основные данные</h3>
+        <div class="summary-grid" id="summaryRow"></div>
       </div>
     </div>
+<<<<<<< HEAD
     <div class="channels-card">
       <h3>Определённые каналы (<span id="channelCount">0</span>)</h3>
       <div class="channel-list" id="channelList"></div>
@@ -373,33 +1652,116 @@ th:last-child, td:last-child { display: none; }
     <div class="centers-row" id="centersRow"></div>
     <div class="accuracy-note">
       Калькулятор создан лично Викрамом - Таблица FullHD - Точность ±0.003°
+=======
+
+    <!-- CENTER: BODYGRAPH -->
+    <div class="col-center">
+      <div id="bodygraphContainer">
+        <div class="bodygraph-status welcome-container">
+          <div class="welcome-quote">
+            <div class="welcome-quote-main">Эпоха 2027<br/>уже близко</div>
+            <div style="font-size: 0.95rem; margin: 12px 0; color: #b5a4ff; font-weight: 500;">узнай свою механику сейчас</div>
+            <div class="welcome-quote-author">"Знающий себя всегда побеждает!" — Сунь Цзы</div>
+          </div>
+          <div class="welcome-arrow">↓</div>
+          <div class="welcome-instruction">впиши свои данные</div>
+          <div class="welcome-subtext">и проверь, что говорит Дизайн твоего тела</div>
+        </div>
+      </div>
+      <div class="accuracy-note">Moshier Ephemeris · FullHD · точность 0.003°</div>
+    </div>
+
+    <!-- RIGHT: DATA -->
+    <div class="col-right">
+      <div class="card right-col-content" id="centersCard">
+        <h3>Центры</h3>
+        <div id="centersRow"></div>
+      </div>
+      <div class="card right-col-content" id="channelsCard">
+        <h3>Активные каналы (<span id="channelCount">0</span>)</h3>
+        <div id="channelList"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PLANET TABLES (full width below) -->
+  <div id="tablesSection" style="display:none;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+      <div class="planet-table">
+        <div class="pt-header pers">Личность (Personality)<div class="pt-dates" id="persDates"></div></div>
+        <table><thead><tr><th></th><th>Планета</th><th>Врата.Линия</th><th>Ц/Т</th></tr></thead>
+        <tbody id="persBody"></tbody></table>
+      </div>
+      <div class="planet-table">
+        <div class="pt-header des">Дизайн (Design)<div class="pt-dates" id="desDates"></div></div>
+        <table><thead><tr><th></th><th>Планета</th><th>Врата.Линия</th><th>Ц/Т</th></tr></thead>
+        <tbody id="desBody"></tbody></table>
+      </div>
+>>>>>>> 656cd33 (update)
     </div>
   </div>
 
-  <div id="bodygraphWrap" style="display:none; margin-bottom:16px;">
-    <div class="planet-table" style="padding:16px;">
-      <div class="pt-header pers" style="color:var(--text)">Бодиграф</div>
-      <canvas id="bodygraphCanvas" width="356" height="604"
-        style="width:100%;max-width:500px;display:block;margin:0 auto;">
-      </canvas>
+  <!-- YOUTUBE VIDEOS (full-width, shown after calc) -->
+  <div id="videosSection" style="display:none;">
+    <div class="yt-section-bg"></div>
+    <div class="yt-section-inner">
+      <div class="yt-section-title">
+        <div class="yt-play-icon">▶</div>
+        <h2>Мои видео YouTube</h2>
+      </div>
+      <div class="yt-grid" id="ytGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;"></div>
     </div>
   </div>
-
 </div>
 
+<<<<<<< HEAD
+=======
+<div class="yt-modal-overlay" id="ytModal" onclick="handleYtModalOverlayClick(event)">
+  <div class="yt-modal-dialog">
+    <div class="yt-modal-topbar">
+      <div class="yt-modal-title" id="ytModalTitle"></div>
+      <div class="yt-modal-buttons">
+        <button class="yt-modal-btn-open" id="ytOpenButton" onclick="openYtInNewTab()" title="Открыть на YouTube">↗</button>
+        <button class="yt-modal-close" onclick="closeYtModal()" aria-label="Закрыть">✕</button>
+      </div>
+    </div>
+    <div class="yt-modal-frame-wrap">
+      <iframe id="ytModalFrame" src="" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+        playsinline
+        webkit-playsinline></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="export-menu-overlay" id="exportMenuOverlay" onclick="handleExportOverlayClick(event)">
+  <div class="export-menu-dialog" role="dialog" aria-modal="true" aria-labelledby="exportMenuTitle">
+    <div class="export-menu-title" id="exportMenuTitle">Экспорт результата</div>
+    <div class="export-menu-text">PDF будет содержать картинку вашего бодиграфа, основные данные, центры, каналы и таблицы планет.</div>
+    <div class="export-menu-actions">
+      <button class="btn btn-export" id="downloadPdfButton" type="button" onclick="handleExportChoice('download')">Скачать</button>
+      <button class="btn btn-consult" id="downloadSendPdfButton" type="button" onclick="handleExportChoice('send')">Скачать и прислать на разбор Викраму</button>
+      <button class="btn btn-secondary" type="button" onclick="closeExportMenu()">Отмена</button>
+    </div>
+    <div class="export-menu-note">Во втором варианте файл сначала скачивается, затем открывается Telegram с готовым сообщением. Сам PDF браузер в чат не прикрепляет автоматически, пользователь прикладывает его вручную.</div>
+  </div>
+</div>
+
+<div class="pdf-render-root" id="pdfRenderRoot" aria-hidden="true"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+>>>>>>> 656cd33 (update)
 <script>
 let FULL_HD_LOOKUP = [];
 fetch('fullhd_lookup.json')
-  .then(res => res.json())
-  .then(data => {
-    FULL_HD_LOOKUP = data;
-    console.log('lookup готов, записей:', FULL_HD_LOOKUP.length);
-  })
-  .catch(err => {
-    console.error('Ошибка загрузки lookup:', err);
-  });
-</script>
+  .then(r => r.json())
+  .then(d => { FULL_HD_LOOKUP = d; })
+  .catch(e => console.error('lookup error:', e));
 
+<<<<<<< HEAD
 <script>
 const CHANNEL_NAMES = {
   '1-8':'Вдохновения','2-14':'Пульс','3-60':'Мутации','4-63':'Логики','5-15':'Ритма',
@@ -429,18 +1791,77 @@ const PLANET_ORDER = ['Sun','Moon','Mercury','Venus','Mars','Jupiter','Saturn','
 function chName(a, b) {
   const key = `${Math.min(a,b)}-${Math.max(a,b)}`;
   return CHANNEL_NAMES[key] || '';
+=======
+const CHANNEL_NAMES = {
+  '1-8':'Вдохновения','2-14':'Пульса','3-60':'Мутации','4-63':'Логики',
+  '5-15':'Ритма','6-59':'Спаривания','7-31':'Альфы','9-52':'Концентрации',
+  '10-20':'Пробуждения','10-34':'Исследования','10-57':'Совершенного',
+  '11-56':'Любопытства','12-22':'Открытости','13-33':'Блудного Сына',
+  '16-48':'Таланта','17-62':'Принятия','18-58':'Суждения','19-49':'Синтеза',
+  '20-34':'Харизмы','20-57':'Архангела','21-45':'Денег','22-12':'Открытости',
+  '23-43':'Структурации','24-61':'Осведомлённости','25-51':'Посвящения',
+  '26-44':'Сдачи','27-50':'Хранителя','28-38':'Борьбы','29-46':'Открытия',
+  '30-41':'Фантазии','32-54':'Преобразования','33-13':'Свидетеля',
+  '34-57':'Силы','35-36':'Переходности','37-40':'Общины','38-28':'Борьбы',
+  '39-55':'Эмоций','40-37':'Общины','41-30':'Фантазии','42-53':'Созревания',
+  '43-23':'Структурации','44-26':'Сдачи','45-21':'Денег','46-29':'Открытия',
+  '47-64':'Абстракции','48-16':'Таланта','49-19':'Синтеза','50-27':'Хранителя',
+  '51-25':'Посвящения','52-9':'Концентрации','53-42':'Созревания',
+  '54-32':'Преобразования','55-39':'Эмоций','56-11':'Любопытства',
+  '57-10':'Совершенного','57-20':'Архангела','57-34':'Силы','58-18':'Суждения',
+  '59-6':'Спаривания','60-3':'Мутации','61-24':'Осведомлённости',
+  '62-17':'Принятия','63-4':'Логики','64-47':'Абстракции',
+};
+const LOCAL_SERVER_URL = 'http://localhost:8000/calculator_web.html';
+const FREE_CONSULT_TG_URL = 'https://t.me/Vikram_2027?text=' + encodeURIComponent('Добрый день. Я сделал расчет своей карты по Дизайну Человека. Хочу получить 15 мин. бесп. сессию. спасибо!');
+const VIKRAM_REVIEW_TG_BASE_URL = 'https://t.me/Vikram_2027?text=';
+const DESIGN_DATE_TOOLTIP = {
+  title: 'Что за дата?',
+  lines: [
+    'Эта дата рассчитывается как момент ровно за 88 градусов солнечной дуги до вашего рождения (примерно за 88-90 дней до появления на свет).',
+    'В этот момент, согласно теории HD, неокристалл дизайна входит в тело, и формируется биологический аппарат.',
+    'Что это такое: это ваше бессознательное, генетическое наследие предков.',
+    'Это то, как функционирует ваше тело, ваша физиология и биохимия.',
+    'Викрам'
+  ]
+};
+let latestApiResult = null;
+let latestMappedResult = null;
+const PROFILE_FAMOUS_PEOPLE = {
+  '1/3': ['Майкл Джексон (Michael Jackson)', 'Бейонсе (Beyonce)', 'Принцесса Диана (Princess Diana)', 'Энди Уорхол (Andy Warhol)', 'Хиллари Клинтон (Hillary Clinton)'],
+  '1/4': ['Альберт Эйнштейн (Albert Einstein)', 'Мухаммед Али (Muhammad Ali)', 'Юэн Макгрегор (Ewan McGregor)', 'Сид Вишес (Sid Vicious)', 'Селин Дион (Celine Dion)'],
+  '2/4': ['Джонни Депп (Johnny Depp)', 'Камерон Диас (Cameron Diaz)', 'Шон Коннери (Sean Connery)', 'Кортни Кокс (Courteney Cox)', 'Райан Гослинг (Ryan Gosling)'],
+  '2/5': ['Марк Цукерберг (Mark Zuckerberg)', 'Фридрих Ницше (Friedrich Nietzsche)', 'Марго Робби (Margot Robbie)', 'Гвинет Пэлтроу (Gwyneth Paltrow)', 'Бенедикт Камбербэтч (Benedict Cumberbatch)'],
+  '3/5': ['Уинстон Черчилль (Winston Churchill)', 'Джон Ф. Кеннеди (John F. Kennedy)', 'Элвис Пресли (Elvis Presley)', 'Том Хэнкс (Tom Hanks)', 'Эрнест Хемингуэй (Ernest Hemingway)'],
+  '3/6': ['Бен Стиллер (Ben Stiller)', 'Никола Тесла (Nikola Tesla)', 'Джон Кьюсак (John Cusack)', 'Дастин Хоффман (Dustin Hoffman)', 'Джулия Робертс (Julia Roberts)'],
+  '4/1': ['Наталья Водянова', 'Боно (Bono)', 'Шаде (Sade)', 'Томас Элиот (T.S. Eliot)', 'Луи Виттон (Louis Vuitton)'],
+  '4/6': ['Брэд Питт (Brad Pitt)', 'Билл Гейтс (Bill Gates)', 'Далай-лама XIV', 'Владимир Зеленский', 'Зигмунд Фрейд (Sigmund Freud)'],
+  '5/1': ['Владимир Путин', 'Нельсон Мандела (Nelson Mandela)', 'Ра Уру Ху (Ra Uru Hu)', 'Анна Франк (Anne Frank)', 'Райан Рейнольдс (Ryan Reynolds)'],
+  '5/2': ['Роберт Де Ниро (Robert De Niro)', 'Марлон Брандо (Marlon Brando)', 'Том Джонс (Tom Jones)', 'Л. Рон Хаббард (L. Ron Hubbard)', 'Киану Ривз (Keanu Reeves)'],
+  '6/2': ['Барак Обама (Barack Obama)', 'Мэрилин Монро (Marilyn Monroe)', 'Брюс Ли (Bruce Lee)', 'Джими Хендрикс (Jimi Hendrix)', 'Джейми Ли Кертис (Jamie Lee Curtis)'],
+  '6/3': ['Харрисон Форд (Harrison Ford)', 'Мэтт Дэймон (Matt Damon)', 'Том Круз (Tom Cruise)', 'Чарльз Дарвин (Charles Darwin)', 'Стив Джобс (Steve Jobs)']
+};
+
+function escapeHtml(value){
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+>>>>>>> 656cd33 (update)
 }
 
-function loadExample() {
-  document.getElementById('day').value    = 31;
-  document.getElementById('month').value  = 1;
-  document.getElementById('year').value   = 1984;
-  document.getElementById('hour').value   = 7;
-  document.getElementById('minute').value = 25;
-  document.getElementById('second').value = 0;
-  document.getElementById('tz').value     = 3;
+function ensureProfileFamousTooltip(){
+  let tooltip = document.querySelector('.profile-famous-tooltip');
+  if (tooltip) return tooltip;
+  tooltip = document.createElement('div');
+  tooltip.className = 'profile-famous-tooltip';
+  document.body.appendChild(tooltip);
+  return tooltip;
 }
 
+<<<<<<< HEAD
 async function calculate() {
   const day    = parseInt(document.getElementById('day').value);
   const month  = parseInt(document.getElementById('month').value);
@@ -476,16 +1897,27 @@ async function calculate() {
   } finally {
     showLoading(false);
   }
+=======
+function setProfileFamousTooltipContent(tooltip, profile){
+  const people = PROFILE_FAMOUS_PEOPLE[profile] || [];
+  const items = people.map(person => `<li>${escapeHtml(person)}</li>`).join('');
+  tooltip.innerHTML = `
+    <div class="profile-famous-tooltip-title">Знаменитости ${escapeHtml(profile)}</div>
+    <ul class="profile-famous-tooltip-list">${items}</ul>`;
+>>>>>>> 656cd33 (update)
 }
 
-function showError(msg) {
-  const eb = document.getElementById('errorBox');
-  eb.textContent = '⚠ ' + msg;
-  eb.style.display = 'block';
+function updateProfileFamousTooltipPosition(tooltip, clientX, clientY){
+  const offset = 18;
+  const rect = tooltip.getBoundingClientRect();
+  const maxLeft = Math.max(12, window.innerWidth - rect.width - 12);
+  const maxTop = Math.max(12, window.innerHeight - rect.height - 12);
+  const left = Math.min(Math.max(12, clientX + offset), maxLeft);
+  const top = Math.min(Math.max(12, clientY + offset), maxTop);
+  tooltip.style.left = `${left}px`;
+  tooltip.style.top = `${top}px`;
 }
-function hideError() {
-  document.getElementById('errorBox').style.display = 'none';
-}
+<<<<<<< HEAD
 function showLoading(isLoading) {
   document.getElementById('loadingBar').style.display = isLoading ? 'block' : 'none';
   if (isLoading) document.getElementById('result').style.display = 'none';
@@ -501,27 +1933,134 @@ function mapApiResult(data) {
     tone: p.tone,
     longitude: p.longitude
   });
+=======
+
+function attachProfileFamousTooltip(){
+  const trigger = document.getElementById('profileFamousIcon');
+  if (!trigger) return;
+  const tooltip = ensureProfileFamousTooltip();
+
+  const showTooltip = event => {
+    const profile = trigger.getAttribute('data-profile') || '';
+    if (!PROFILE_FAMOUS_PEOPLE[profile]) return;
+    setProfileFamousTooltipContent(tooltip, profile);
+    tooltip.classList.add('visible');
+    updateProfileFamousTooltipPosition(tooltip, event.clientX, event.clientY);
+  };
+
+  const hideTooltip = () => {
+    tooltip.classList.remove('visible');
+  };
+
+  trigger.addEventListener('mouseenter', showTooltip);
+  trigger.addEventListener('mousemove', event => updateProfileFamousTooltipPosition(tooltip, event.clientX, event.clientY));
+  trigger.addEventListener('mouseleave', hideTooltip);
+}
+
+function attachDesignDateTooltip(){
+  const trigger = document.getElementById('designDateInfoIcon');
+  if (!trigger) return;
+  const tooltip = ensureProfileFamousTooltip();
+
+  const showTooltip = event => {
+    tooltip.innerHTML = `
+      <div class="profile-famous-tooltip-title">${escapeHtml(DESIGN_DATE_TOOLTIP.title)}</div>
+      <ul class="profile-famous-tooltip-list">${DESIGN_DATE_TOOLTIP.lines.map(line => `<li>${escapeHtml(line)}</li>`).join('')}</ul>`;
+    tooltip.classList.add('visible');
+    updateProfileFamousTooltipPosition(tooltip, event.clientX, event.clientY);
+  };
+
+  const hideTooltip = () => {
+    tooltip.classList.remove('visible');
+  };
+
+  trigger.addEventListener('mouseenter', showTooltip);
+  trigger.addEventListener('mousemove', event => updateProfileFamousTooltipPosition(tooltip, event.clientX, event.clientY));
+  trigger.addEventListener('mouseleave', hideTooltip);
+}
+
+function chName(a,b){ return CHANNEL_NAMES[`${Math.min(a,b)}-${Math.max(a,b)}`]||''; }
+
+function initLocalServerLauncher(){
+  const card = document.getElementById('serverLaunchCard');
+  if (!card) return;
+  if (window.location.protocol === 'file:') {
+    card.classList.add('visible');
+  }
+}
+
+function openLocalServer(){
+  window.open(LOCAL_SERVER_URL, '_blank', 'noopener');
+}
+
+function openFreeConsultation(){
+  window.open(FREE_CONSULT_TG_URL, '_blank', 'noopener');
+}
+
+function openExportMenu(){
+  if (!latestMappedResult || !latestApiResult) {
+    showError('Сначала рассчитайте карту, затем можно скачать PDF.');
+    return;
+  }
+  document.getElementById('exportMenuOverlay').classList.add('visible');
+}
+
+function closeExportMenu(){
+  document.getElementById('exportMenuOverlay').classList.remove('visible');
+}
+
+function handleExportOverlayClick(event){
+  if (event.target.id === 'exportMenuOverlay') {
+    closeExportMenu();
+  }
+}
+
+function setExportButtonsBusy(isBusy){
+  ['downloadPdfButton', 'downloadSendPdfButton', 'exportResultButton'].forEach(id => {
+    const button = document.getElementById(id);
+    if (!button) return;
+    button.disabled = isBusy;
+  });
+}
+
+function pad2(value){
+  return String(value).padStart(2, '0');
+}
+
+function formatTimezoneOffset(tz){
+  const sign = tz >= 0 ? '+' : '-';
+  const abs = Math.abs(tz);
+  const hours = Math.floor(abs);
+  const minutes = Math.round((abs - hours) * 60);
+  if (minutes === 0) {
+    return `UTC${sign}${hours}`;
+  }
+  return `UTC${sign}${hours}:${String(minutes).padStart(2, '0')}`;
+}
+
+function getCurrentInputSnapshot(){
+  const day = parseInt(document.getElementById('day').value, 10) || 0;
+  const month = parseInt(document.getElementById('month').value, 10) || 0;
+  const year = parseInt(document.getElementById('year').value, 10) || 0;
+  const hour = parseInt(document.getElementById('hour').value, 10) || 0;
+  const minute = parseInt(document.getElementById('minute').value, 10) || 0;
+  const second = parseInt(document.getElementById('second').value, 10) || 0;
+  const tz = parseFloat(document.getElementById('tz').value) || 0;
+
+>>>>>>> 656cd33 (update)
   return {
-    type: data.type,
-    profile: data.profile,
-    authority: data.authority,
-    definition: data.definition,
-    birthDateStr: data.birth_date_utc,
-    designDateStr: data.design_date_utc,
-    persPlanets: data.personality_planets.map(mapPlanet),
-    desPlanets: data.design_planets.map(mapPlanet),
-    definedChannels: data.defined_channels,
-    centersInfo: Object.fromEntries(
-      Object.entries(data.centers).map(([k, v]) => [k, {
-        nameRu: v.name_ru,
-        defined: v.defined,
-        persGates: v.personality_gates,
-        desGates: v.design_gates
-      }])
-    )
+    day,
+    month,
+    year,
+    hour,
+    minute,
+    second,
+    tz,
+    birthLocal: `${pad2(day)}.${pad2(month)}.${year} ${pad2(hour)}:${pad2(minute)}:${pad2(second)} (${formatTimezoneOffset(tz)})`
   };
 }
 
+<<<<<<< HEAD
 function renderResult(r) {
   // ── ЧИТАЕМ ВВЕДЁННЫЕ ДАННЫЕ ──
   const { day, month, year, hour, minute } = window._lastInput || {};
@@ -544,46 +2083,475 @@ function renderResult(r) {
   // ── ПОКАЗЫВАЕМ МЕСТНОЕ ВРЕМЯ ──
   document.getElementById('persDates').textContent = localDateStr;
   document.getElementById('desDates').textContent  = r.designDateStr;
+=======
+function getExportFileBaseName(snapshot){
+  return `human-design-${snapshot.year}-${pad2(snapshot.month)}-${pad2(snapshot.day)}_${pad2(snapshot.hour)}-${pad2(snapshot.minute)}`;
+}
 
-  // Channels
-  const chDiv = document.getElementById('channelList');
-  document.getElementById('channelCount').textContent = r.definedChannels.length;
-  if (r.definedChannels.length === 0) {
-    chDiv.innerHTML = '<span class="no-channels">Нет определённых каналов (Рефлектор)</span>';
-  } else {
-    chDiv.innerHTML = r.definedChannels.map(([a,b]) => {
-      const nm = chName(a, b);
-      return `<span class="channel-tag">${a}-${b}${nm ? ' · ' + nm : ''}</span>`;
-    }).join('');
+function getCurrentBodygraphSvgMarkup(){
+  const svgEl = document.querySelector('#bodygraphContainer svg');
+  if (!svgEl) {
+    throw new Error('Бодиграф ещё не готов для экспорта.');
+  }
+  return svgEl.outerHTML;
+}
+
+async function svgMarkupToPngDataUrl(svgMarkup){
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    const parser = new DOMParser();
+    const svgDoc = parser.parseFromString(svgMarkup, 'image/svg+xml');
+    const svgRoot = svgDoc.querySelector('svg');
+    if (!svgRoot) {
+      reject(new Error('Не удалось найти SVG бодиграфа для экспорта.'));
+      return;
+    }
+
+    const viewBox = (svgRoot.getAttribute('viewBox') || '').trim().split(/\s+/).map(Number);
+    if (!svgRoot.getAttribute('width') && viewBox.length === 4) {
+      svgRoot.setAttribute('width', String(viewBox[2]));
+    }
+    if (!svgRoot.getAttribute('height') && viewBox.length === 4) {
+      svgRoot.setAttribute('height', String(viewBox[3]));
+    }
+    if (!svgRoot.getAttribute('xmlns')) {
+      svgRoot.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    }
+
+    const serializedSvg = new XMLSerializer().serializeToString(svgRoot);
+    const svgBlob = new Blob([serializedSvg], { type: 'image/svg+xml;charset=utf-8' });
+    const objectUrl = URL.createObjectURL(svgBlob);
+
+    image.onload = () => {
+      try {
+        const canvas = document.createElement('canvas');
+        const naturalWidth = image.naturalWidth || 1200;
+        const naturalHeight = image.naturalHeight || 1900;
+        const scale = 2;
+        canvas.width = naturalWidth * scale;
+        canvas.height = naturalHeight * scale;
+        const ctx = canvas.getContext('2d');
+        ctx.scale(scale, scale);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, naturalWidth, naturalHeight);
+        ctx.drawImage(image, 0, 0, naturalWidth, naturalHeight);
+        URL.revokeObjectURL(objectUrl);
+        resolve(canvas.toDataURL('image/png'));
+      } catch (error) {
+        URL.revokeObjectURL(objectUrl);
+        reject(error);
+      }
+    };
+
+    image.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      reject(new Error('Не удалось подготовить изображение бодиграфа для PDF.'));
+    };
+
+    image.src = objectUrl;
+  });
+}
+
+function buildChannelsMarkup(definedChannels){
+  if (!definedChannels || definedChannels.length === 0) {
+    return '<span class="pdf-export-chip">Нет определённых каналов</span>';
   }
 
-  // Centers
+  return definedChannels
+    .map(([a, b]) => {
+      const label = chName(a, b);
+      return `<span class="pdf-export-chip">${a}-${b}${label ? ` · ${escapeHtml(label)}` : ''}</span>`;
+    })
+    .join('');
+}
+
+function buildCentersMarkup(centersInfo){
   const centerOrder = ['Head','Ajna','Throat','G-Center','Heart','Sacral','Solar Plexus','Spleen','Root'];
-  const cenDiv = document.getElementById('centersRow');
-  cenDiv.innerHTML = centerOrder.map(cn => {
-    const ci = r.centersInfo[cn];
-    const def = ci.defined;
-    const pgHtml = ci.persGates.length ? `<span class="pg">П: ${ci.persGates.join(', ')}</span>` : '';
-    const dgHtml = ci.desGates.length  ? `<span class="dg">Д: ${ci.desGates.join(', ')}</span>` : '';
-    return `<div class="center-card${def?' defined':''}">
-      <div class="cc-name">${ci.nameRu}</div>
-      <span class="cc-status ${def?'def':'undef'}">${def?'Определён':'Открыт'}</span>
-      <div class="cc-gates">${pgHtml}${pgHtml&&dgHtml?' · ':''}${dgHtml}</div>
+  return centerOrder.map(centerKey => {
+    const center = centersInfo[centerKey];
+    return `
+      <div class="pdf-export-list-row">
+        <span>${escapeHtml(center.nameRu)}</span>
+        <strong>${center.defined ? 'Определён' : 'Открыт'}</strong>
+      </div>`;
+  }).join('');
+}
+
+function buildPlanetRows(planets){
+  return planets.map(planet => `
+    <tr>
+      <td>${escapeHtml(planet.symbol)}</td>
+      <td>${escapeHtml(planet.name)}</td>
+      <td>${planet.gate}.${planet.line}</td>
+      <td>${escapeHtml(String(planet.color))}/${escapeHtml(String(planet.tone))}</td>
+    </tr>`).join('');
+}
+
+function buildPdfMarkup(result, snapshot, bodygraphImageDataUrl){
+  return `
+    <div class="pdf-export-root">
+      <!-- PAGE 1: Bodygraph + Basic Data -->
+      <div class="pdf-export-page pdf-page-1">
+        <div class="pdf-page-bg"></div>
+        <div class="pdf-page-content">
+          <div class="pdf-header-mini">
+            <div class="pdf-header-brand">Vikram</div>
+            <div class="pdf-header-subtitle">Human Design</div>
+          </div>
+
+          <div class="pdf-page-1-grid">
+            <div class="pdf-page-1-left">
+              <div class="pdf-bodygraph-showcase">
+                <img src="${bodygraphImageDataUrl}" alt="Бодиграф">
+              </div>
+            </div>
+
+            <div class="pdf-page-1-right">
+              <div class="pdf-data-grid-2col">
+                <div class="pdf-data-item">
+                  <div class="pdf-label">Тип</div>
+                  <div class="pdf-value">${escapeHtml(result.type)}</div>
+                </div>
+                <div class="pdf-data-item">
+                  <div class="pdf-label">Профиль</div>
+                  <div class="pdf-value">${escapeHtml(result.profile)}</div>
+                </div>
+                <div class="pdf-data-item">
+                  <div class="pdf-label">Авторитет</div>
+                  <div class="pdf-value">${escapeHtml(result.authority)}</div>
+                </div>
+                <div class="pdf-data-item">
+                  <div class="pdf-label">Определённость</div>
+                  <div class="pdf-value">${escapeHtml(result.definition)}</div>
+                </div>
+                <div class="pdf-data-item">
+                  <div class="pdf-label">Рождение</div>
+                  <div class="pdf-value">${escapeHtml(result.birthDateStr)}</div>
+                </div>
+                <div class="pdf-data-item">
+                  <div class="pdf-label">Дизайн</div>
+                  <div class="pdf-value">${escapeHtml(result.designDateStr)}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pdf-footer-url">https://vikramhd2027.netlify.app/</div>
+        </div>
+      </div>
+
+      <!-- PAGE 2: Centers + Channels + Planet Tables -->
+      <div class="pdf-export-page pdf-page-2">
+        <div class="pdf-page-bg"></div>
+        <div class="pdf-page-content">
+          <div class="pdf-page-title">Центры, каналы и планеты</div>
+
+          <div class="pdf-two-sections">
+            <div class="pdf-section">
+              <div class="pdf-section-title">Центры</div>
+              <div class="pdf-centers-list">${buildCentersMarkup(result.centersInfo)}</div>
+            </div>
+            <div class="pdf-section">
+              <div class="pdf-section-title">Каналы</div>
+              <div class="pdf-channels-list">${buildChannelsMarkup(result.definedChannels)}</div>
+            </div>
+          </div>
+
+          <div class="pdf-tables-2col">
+            <div class="pdf-table-section">
+              <div class="pdf-table-title">Личность (${escapeHtml(result.birthDateStr)})</div>
+              <table class="pdf-planets-table">
+                <thead><tr><th>Сим</th><th>Планета</th><th>Врата.Линия</th><th>Ц/Т</th></tr></thead>
+                <tbody>${buildPlanetRows(result.persPlanets)}</tbody>
+              </table>
+            </div>
+            
+            <div class="pdf-table-section">
+              <div class="pdf-table-title">Дизайн (${escapeHtml(result.designDateStr)})</div>
+              <table class="pdf-planets-table">
+                <thead><tr><th>Сим</th><th>Планета</th><th>Врата.Линия</th><th>Ц/Т</th></tr></thead>
+                <tbody>${buildPlanetRows(result.desPlanets)}</tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+async function renderPdfCanvas(result, snapshot){
+  if (!window.html2canvas) {
+    throw new Error('Библиотека html2canvas не загрузилась.');
+  }
+
+  const svgMarkup = getCurrentBodygraphSvgMarkup();
+  const bodygraphImageDataUrl = await svgMarkupToPngDataUrl(svgMarkup);
+  const pdfRenderRoot = document.getElementById('pdfRenderRoot');
+  pdfRenderRoot.innerHTML = buildPdfMarkup(result, snapshot, bodygraphImageDataUrl);
+  
+  // Render all pages separately and store canvases
+  const pages = pdfRenderRoot.querySelectorAll('.pdf-export-page');
+  const canvases = [];
+  
+  for (const page of pages) {
+    try {
+      const canvas = await window.html2canvas(page, {
+        scale: 3,
+        backgroundColor: '#ffffff',
+        useCORS: true,
+        logging: false,
+        imageTimeout: 0
+      });
+      canvases.push(canvas);
+    } catch (e) {
+      console.error('Error rendering page:', e);
+    }
+  }
+  
+  pdfRenderRoot.innerHTML = '';
+  return canvases;
+}
+
+async function saveCanvasAsPdf(canvases, fileName){
+  if (!window.jspdf || !window.jspdf.jsPDF) {
+    throw new Error('Библиотека jsPDF не загрузилась.');
+  }
+
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF('p', 'mm', 'a4');
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const pageHeight = pdf.internal.pageSize.getHeight();
+  
+  // Process each canvas (each is one full page)
+  for (let i = 0; i < canvases.length; i++) {
+    const canvas = canvases[i];
+    const imgData = canvas.toDataURL('image/png');
+    
+    pdf.addImage(imgData, 'PNG', 0, 0, pageWidth, pageHeight, '', 'FAST');
+    
+    if (i < canvases.length - 1) {
+      pdf.addPage();
+    }
+  }
+  
+  pdf.save(fileName);
+}
+
+async function canvasesToPdfBlob(canvases){
+  if (!window.jspdf || !window.jspdf.jsPDF) {
+    throw new Error('Библиотека jsPDF не загрузилась.');
+  }
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF('p', 'mm', 'a4');
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const pageHeight = pdf.internal.pageSize.getHeight();
+  for (let i = 0; i < canvases.length; i++) {
+    pdf.addImage(canvases[i].toDataURL('image/png'), 'PNG', 0, 0, pageWidth, pageHeight, '', 'FAST');
+    if (i < canvases.length - 1) pdf.addPage();
+  }
+  return pdf.output('blob');
+}
+
+function buildTelegramText(result, snapshot){
+  return [
+    'Добрый день. Я сделал расчет своей карты в веб-калькуляторе и хочу отправить PDF на разбор.',
+    `Тип: ${result.type}`,
+    `Профиль: ${result.profile}`,
+    `Авторитет: ${result.authority}`,
+    `Дата ввода: ${snapshot.birthLocal}`,
+    'PDF уже скачан, сейчас прикреплю файл.'
+  ].join('\n');
+}
+
+function openVikramReviewChat(result, snapshot, popupWindow){
+  const url = VIKRAM_REVIEW_TG_BASE_URL + encodeURIComponent(buildTelegramText(result, snapshot));
+  if (popupWindow && !popupWindow.closed) {
+    popupWindow.location = url;
+    return;
+  }
+  window.open(url, '_blank', 'noopener');
+}
+
+async function exportCurrentResult(mode, popupWindow){
+  if (!latestMappedResult || !latestApiResult) {
+    throw new Error('Нет данных для экспорта. Сначала рассчитайте карту.');
+  }
+
+  const snapshot = getCurrentInputSnapshot();
+  const fileName = `${getExportFileBaseName(snapshot)}.pdf`;
+  const canvases = await renderPdfCanvas(latestMappedResult, snapshot);
+
+  if (mode === 'download') {
+    await saveCanvasAsPdf(canvases, fileName);
+    return;
+  }
+
+  // mode === 'send': получаем PDF как blob для передачи
+  const pdfBlob = await canvasesToPdfBlob(canvases);
+  const pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
+
+  // Web Share API с файлом (работает на мобильных браузерах — нативный шейринг)
+  if (navigator.share && navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
+    if (popupWindow && !popupWindow.closed) popupWindow.close();
+    await navigator.share({
+      files: [pdfFile],
+      title: 'Human Design — моя карта',
+      text: buildTelegramText(latestMappedResult, snapshot),
+    });
+    return;
+  }
+
+  // Fallback для десктопа: скачать через blob-URL + открыть Telegram с текстом
+  const blobUrl = URL.createObjectURL(pdfBlob);
+  const a = document.createElement('a');
+  a.href = blobUrl;
+  a.download = fileName;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(blobUrl), 15000);
+  openVikramReviewChat(latestMappedResult, snapshot, popupWindow);
+}
+
+async function handleExportChoice(mode){
+  hideError();
+  setExportButtonsBusy(true);
+  // Попап открываем заранее (синхронно в user-gesture) только для Telegram-fallback на десктопе.
+  // Если браузер поддерживает Web Share, попап будет закрыт автоматически внутри exportCurrentResult.
+  const popupWindow = mode === 'send' ? window.open('', '_blank') : null;
+
+  try {
+    await exportCurrentResult(mode, popupWindow);
+    closeExportMenu();
+  } catch (error) {
+    if (popupWindow && !popupWindow.closed) {
+      popupWindow.close();
+    }
+    showError(error instanceof Error ? error.message : 'Не удалось сформировать PDF.');
+    console.error(error);
+  } finally {
+    setExportButtonsBusy(false);
+  }
+}
+
+function loadExample(){
+  document.getElementById('day').value=31;
+  document.getElementById('month').value=1;
+  document.getElementById('year').value=1984;
+  document.getElementById('hour').value=7;
+  document.getElementById('minute').value=25;
+  document.getElementById('second').value=0;
+  document.getElementById('tz').value=3;
+}
+
+async function calculate(){
+  const day=parseInt(document.getElementById('day').value);
+  const month=parseInt(document.getElementById('month').value);
+  const year=parseInt(document.getElementById('year').value);
+  const hour=parseInt(document.getElementById('hour').value);
+  const minute=parseInt(document.getElementById('minute').value);
+  const second=parseInt(document.getElementById('second').value)||0;
+  const tz=parseFloat(document.getElementById('tz').value);
+  if(isNaN(day)||isNaN(month)||isNaN(year)||isNaN(hour)||isNaN(minute)){
+    showError('Пожалуйста, заполните все поля даты и времени.'); return;
+  }
+  if(year<1800||year>2100){ showError('Год должен быть в диапазоне 1800–2100.'); return; }
+  hideError();
+  try{
+    showLoading(true);
+    const data = await calculateHD(year,month,day,hour,minute,second,tz);
+    latestApiResult = data;
+    latestMappedResult = mapApiResult(data);
+    renderResult(latestMappedResult);
+    document.getElementById('exportResultButton').classList.remove('hidden-until-result');
+    document.getElementById('freeConsultButton').classList.remove('hidden-until-result');
+    const bodygraphContainer = document.getElementById('bodygraphContainer');
+    bodygraphContainer.style.display='block';
+    document.querySelectorAll('.right-col-content').forEach(el=>el.style.display='block');
+    document.getElementById('tablesSection').style.display='block';
+    document.getElementById('videosSection').style.display='block';
+    ensureYtGrid();
+    try{
+      await renderBodygraph(data.personality_gates, data.design_gates, 'bodygraphContainer', data.defined_centers, data.defined_channels);
+    }catch(renderError){
+      renderBodygraphError('bodygraphContainer', renderError);
+      console.error('Bodygraph render error:', renderError);
+    }
+    bodygraphContainer.scrollIntoView({behavior:'smooth',block:'start'});
+  }catch(e){ showError(e.message); console.error(e); }
+  finally{ showLoading(false); }
+}
+
+function showError(msg){ const e=document.getElementById('errorBox'); e.textContent='⚠ '+msg; e.style.display='block'; }
+function hideError(){ document.getElementById('errorBox').style.display='none'; }
+function showLoading(v){ document.getElementById('loadingBar').style.display=v?'block':'none'; }
+
+function mapApiResult(data){
+  const mp=p=>({symbol:p.symbol,name:p.planet,gate:p.gate,line:p.line,color:p.color,tone:p.tone,longitude:p.longitude});
+  return{
+    type:data.type, profile:data.profile, authority:data.authority, definition:data.definition,
+    birthDateStr:data.birth_date_utc, designDateStr:data.design_date_utc,
+    persPlanets:data.personality_planets.map(mp),
+    desPlanets:data.design_planets.map(mp),
+    definedChannels:data.defined_channels,
+    centersInfo:Object.fromEntries(Object.entries(data.centers).map(([k,v])=>[k,{
+      nameRu:v.name_ru, defined:v.defined, persGates:v.personality_gates, desGates:v.design_gates
+    }]))
+  };
+}
+
+function renderResult(r){
+  // Summary
+  const profileIcon = PROFILE_FAMOUS_PEOPLE[r.profile]
+    ? `<span class="profile-famous-icon" id="profileFamousIcon" data-profile="${escapeHtml(r.profile)}">ЗНАМЕНИТОСТИ</span>`
+    : '';
+  const designDateLabel = `
+    <span class="rh-label-wrap">
+      <span>Дата дизайна UTC</span>
+      <span class="info-mini-icon" id="designDateInfoIcon">Что за дата?</span>
+    </span>`;
+
+  document.getElementById('summaryRow').innerHTML=[
+    ['Тип', `<span class="rh-value accent">${r.type}</span>`],
+    ['Профиль', `<span class="profile-value-wrap"><span class="rh-value">${r.profile}</span>${profileIcon}</span>`],
+    ['Авторитет', `<span class="rh-value">${r.authority}</span>`],
+    ['Определённость', `<span class="rh-value">${r.definition}</span>`],
+    ['Дата рождения UTC', `<span class="rh-value" style="font-size:.82rem">${r.birthDateStr}</span>`],
+    [designDateLabel, `<span class="rh-value" style="font-size:.82rem">${r.designDateStr}</span>`],
+  ].map(([l,v])=>`<div class="rh-item"><div class="rh-label">${l}</div>${v}</div>`).join('');
+  attachProfileFamousTooltip();
+  attachDesignDateTooltip();
+
+  // Planet tables
+  document.getElementById('persBody').innerHTML=r.persPlanets.map(p=>pRow(p,'pers')).join('');
+  document.getElementById('desBody').innerHTML=r.desPlanets.map(p=>pRow(p,'des')).join('');
+  document.getElementById('persDates').textContent=r.birthDateStr;
+  document.getElementById('desDates').textContent=r.designDateStr;
+>>>>>>> 656cd33 (update)
+
+  // Channels
+  document.getElementById('channelCount').textContent=r.definedChannels.length;
+  document.getElementById('channelList').innerHTML=r.definedChannels.length===0
+    ?'<span class="no-channels">Нет определённых каналов (Рефлектор)</span>'
+    :r.definedChannels.map(([a,b])=>`<span class="channel-tag">${a}–${b}${chName(a,b)?' · '+chName(a,b):''}</span>`).join('');
+
+  // Centers
+  const co=['Head','Ajna','Throat','G-Center','Heart','Sacral','Solar Plexus','Spleen','Root'];
+  document.getElementById('centersRow').innerHTML=co.map(cn=>{
+    const ci=r.centersInfo[cn]; const def=ci.defined;
+    return`<div class="center-item">
+      <div class="center-dot ${def?'defined':'open'}"></div>
+      <span class="center-name">${ci.nameRu}</span>
+      <span class="center-status ${def?'def':''}">${def?'Определён':'Открыт'}</span>
     </div>`;
   }).join('');
 }
 
-function planetRow(p, cls) {
-  const lon = p.longitude.toFixed(4);
-  return `<tr>
-    <td class="sym">${p.symbol}</td>
-    <td class="planet-name">${p.name}</td>
-    <td class="gate-line ${cls}">${p.gate}.${p.line}</td>
-    <td class="ctb">Ц${p.color}/Т${p.tone}</td>
-    <td class="ctb">${lon}°</td>
-  </tr>`;
+function pRow(p,cls){
+  return`<tr><td class="sym">${p.symbol}</td><td class="planet-name">${p.name}</td><td class="gate-line ${cls}">${p.gate}.${p.line}</td><td class="ctb">${p.color}/${p.tone}</td></tr>`;
 }
 
+<<<<<<< HEAD
 async function calculateHD(year, month, day, hour, minute, second, tz) {
   return fetch("https://hd-api-f31c.onrender.com/api/calc", {
     method: "POST",
@@ -703,6 +2671,117 @@ function renderBodygraph(data) {
   };
   // document.getElementById('bodygraphWrap').style.display = 'block';
 }
+=======
+async function calculateHD(year,month,day,hour,minute,second,tz){
+  const apiUrl = https://hd-api-f31c.onrender.com/api/calc
+  const data=await fetch(apiUrl,{
+    method:"POST", headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({year,month,day,hour,minute,second,tz_offset:tz})
+  }).then(r=>r.json());
+  console.log(data);
+  if(!data.success) throw new Error(data.error||'Calculation failed');
+  return data;
+}
+
+const VIKRAM_VIDEOS = [
+  { id: '72_ZqCaTC_Y', title: 'Что такое отлик',                              start: 169 },
+  { id: 'EcsH_gjHccU', title: 'Профиль 4/6 — Люди пришельцы',                 start: 4   },
+  { id: 'pChyUDJ678I', title: 'Женщины — Профиль 5/1',                        start: 723 },
+  { id: 'gacW0Ply3XA', title: 'Женщины — Профиль 2/4',                        start: 1   },
+  { id: 'W9C-gnT2GjY', title: 'Что такое «спуск с крыши» 6 линии',            start: 0   },
+  { id: 'LmIzETpjlOE', title: 'Женщина — Профиль 6/2',                        start: 1   },
+  { id: 'a8iXUMDSVgY', title: 'АудиоКнига «Откровение 6 линии»',              start: 0   },
+  { id: 'F7AyI9zOya4', title: 'Про профили 3 линии (3/5 и др.)',               start: 0   },
+  { id: 'ORLgnLBlEAs', title: 'Видео для новичков в ДЧ — ошибки',             start: 102 },
+  { id: 'FZ5mQZ9Ev40', title: 'Стихи про 7 лет в ДЧ — Начало',               start: 0   },
+  { id: 'q31db3ucDvA', title: 'Мы обезьяны убийцы в переходе (про Ум)',       start: 0   },
+  { id: 'KLScpZgRa-4', title: 'Разбор карты Фрейда З.',                       start: 246 },
+  { id: 'Ral-P75eTDU', title: 'В чём польза ДЧ',                             start: 0   },
+  { id: 'nZVHF-BjSCo', title: 'Юмор — Манифестор vs МГ и Генератор',         start: 0   },
+  { id: 'jGgSBYnPnyU', title: 'О любви — 6 стадий к себе',                   start: 464 },
+  { id: 'e5LKjdEopdc', title: 'Про поколение Х (хайпа) — мысли',             start: 0   },
+  { id: 'Puegx0fq4t4', title: 'Как программа решает кого убить ДЧ',          start: 0   },
+  { id: 'YfcdaLm7euQ', title: 'Что не так с отношениями сегодня',            start: 0   },
+  { id: '4jzfbxNhMss', title: 'История жизни 6 линии',                       start: 0   },
+  { id: 'NzU5kdiwLA0', title: 'Что создаёт диктаторов',                      start: 40  },
+  { id: '-eV282PAIZg', title: 'Эго не связано с Мозгом',                     start: 10  },
+  { id: 'VhiXqIPeAII', title: 'Видео 22',                                     start: 0   },
+  { id: '_c1BnMa4Zlk', title: 'Видео 23',                                     start: 0   },
+  { id: 'czTC_NYk660', title: 'Видео 24',                                     start: 0   },
+  { id: 'mCpgxvqFmys', title: 'Видео 25',                                     start: 0   },
+  { id: 'M9VGxl1nj64', title: 'Видео 26',                                     start: 0   },
+  { id: 'BIoKjL0iA3k', title: 'Видео 27',                                     start: 0   },
+  { id: 'RQUD9jVmTKs', title: 'Видео 28',                                     start: 0   },
+  { id: 'cDFHRKVKJDM', title: 'Видео 29',                                     start: 0   },
+  { id: 'Mv0mfP-DtNw', title: 'Видео 30',                                     start: 0   },
+  { id: '17qd3IWN9QI', title: 'Видео 31',                                     start: 0   },
+  { id: 'AaFyroxyDrA', title: 'Видео 32',                                     start: 0   },
+  { id: '3Ph-s8S3PFs', title: 'Видео 33',                                     start: 0   },
+  { id: 'sE7g7CfVfgM', title: 'Видео 34',                                     start: 0   },
+  { id: '7fjp7ypr2J8', title: 'Видео 35',                                     start: 0   },
+  { id: 'bVPJYP9tnQM', title: 'Видео 36',                                     start: 0   },
+  { id: 'vQkI3H6oFDI', title: 'Видео 37',                                     start: 0   },
+  { id: 'Bc6-BRVTAq0', title: 'Видео 38',                                     start: 0   },
+  { id: 'GavrPCymrXQ', title: 'Видео 39',                                     start: 0   },
+  { id: 'mXWHRD13ssw', title: 'Видео 40',                                     start: 0   },
+  { id: '_-A0NvehyMQ', title: 'Видео 41',                                     start: 0   },
+  { id: '0ghSxd5O8hU', title: 'Видео 42',                                     start: 0   },
+  { id: '_hd3oNkRkC0', title: 'Видео 43',                                     start: 0   },
+];
+
+let _ytGridBuilt = false;
+function ensureYtGrid(){
+  if (_ytGridBuilt) return;
+  _ytGridBuilt = true;
+  const grid = document.getElementById('ytGrid');
+  if (!grid) return;
+  grid.innerHTML = VIKRAM_VIDEOS.map(v => {
+    const thumb = `https://img.youtube.com/vi/${v.id}/mqdefault.jpg`;
+    const displayTitle = v.title
+      .replace(/^\s*\d+[\.)\-:]?\s*/, '')
+      .replace(/\s*\d+\s*$/, '')
+      .trim() || v.title;
+    return `<div class="yt-card" tabindex="0" role="button"
+      onclick="openYtVideo('${v.id}',${v.start},this)"
+      onkeydown="if(event.key==='Enter'||event.key===' ')openYtVideo('${v.id}',${v.start},this)"
+      data-title="${escapeHtml(displayTitle)}">
+      <img class="yt-card-thumb" src="${thumb}" alt="${escapeHtml(displayTitle)}" loading="lazy" onerror="this.style.background='#1a1c30'">
+      <div class="yt-card-body">
+        <div class="yt-card-icon">▶</div>
+        <div class="yt-card-title">${escapeHtml(displayTitle)}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openYtVideo(videoId, startSeconds, card){
+  let url = `https://www.youtube.com/watch?v=${videoId}`;
+  if (startSeconds > 0) url += `&t=${startSeconds}s`;
+  window.open(url, '_blank');
+}
+
+function closeYtModal(){
+  const modal = document.getElementById('ytModal');
+  const frame = document.getElementById('ytModalFrame');
+  if (!modal) return;
+  modal.classList.remove('visible');
+  if (frame) frame.src = '';
+  window._currentYtVideoId = null;
+  window._currentYtStartSeconds = null;
+  document.body.style.overflow = '';
+}
+
+function handleYtModalOverlayClick(event){
+  if (event.target.id === 'ytModal') closeYtModal();
+}
+
+document.addEventListener('keydown', function(e){
+  if (e.key === 'Escape') { closeYtModal(); }
+});
+
+initLocalServerLauncher();
+>>>>>>> 656cd33 (update)
 </script>
+<script src="bodygraph_renderer.js?v=20260406-gate-tooltips-01"></script>
 </body>
 </html>

@@ -4,6 +4,10 @@
 
 Что находится в этой папке:
   calculator_web.html  — Главный файл калькулятора (открыть в браузере)
+  BODY-02-colored.svg  — Исходный SVG bodygraph для раскраски ворот/каналов/центров
+  bodygraph_renderer.js — Рендер и раскраска SVG bodygraph на странице
+  start_local_server.cmd — Быстрый запуск локального HTTP-сервера на Windows
+  start_local_server.ps1 — Встроенный PowerShell-сервер для локального запуска
   fullhd_data.js       — Таблица FullHD (13 824 записи врат/линий из Excel)
   hd_engine.js         — JavaScript-движок расчётов (алгоритм Moshier)
   README.txt           — Этот файл
@@ -26,15 +30,29 @@ calculator_web.html двойным кликом (файл:// блокирует 
   npx serve .
   Потом открыть указанный адрес.
 
+Способ В — Быстрый запуск для Windows:
+  1. Нажмите кнопку "Запустить локальный сервер" в calculator_web.html
+    или запустите файл start_local_server.cmd
+  2. Откроется адрес:
+    http://localhost:8000/calculator_web.html
+  3. Не закрывайте окно PowerShell, пока пользуетесь калькулятором
+
 ----------------------------------------------------------
 КАК РАЗМЕСТИТЬ НА САЙТЕ (Netlify, GitHub Pages, и т.д.):
 ----------------------------------------------------------
 1. Создайте папку на вашем хостинге
-2. Загрузите ВСЕ ТРИ файла:
+2. Загрузите все обязательные файлы:
+  - BODY-02-colored.svg
+  - bodygraph_renderer.js
    - calculator_web.html
    - fullhd_data.js
    - hd_engine.js
 3. Откройте calculator_web.html через URL сайта
+
+Важно:
+- Нельзя открывать calculator_web.html двойным кликом из проводника, если нужен BODYGRAPH. Для загрузки SVG требуется запуск по http:// или https://.
+- Если BODYGRAPH не появился, сначала проверьте, что рядом с calculator_web.html лежат BODY-02-colored.svg и bodygraph_renderer.js.
+- Для Windows в проект уже добавлен start_local_server.cmd, который запускает встроенный локальный сервер без Python и Node.js.
 
 Пример для Netlify (vikramhd2027.netlify.app):
 1. Зайдите на netlify.com → ваш сайт

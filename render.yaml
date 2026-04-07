@@ -1,0 +1,7 @@
+services:
+	- type: web
+		name: web-calculator
+		env: python
+		plan: free
+		buildCommand: pip install -r requirements.txt
+		startCommand: gunicorn -c gunicorn_config.py hd_api:app
