@@ -12,55 +12,12 @@
   --pers-col: #9b8ff5; --des-col: #f5a26a; --defined: #f5c842;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-<<<<<<< HEAD
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Segoe UI', system-ui, sans-serif;
-  min-height: 100vh;
-}
-=======
 body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
 
 /* HEADER */
->>>>>>> 656cd33 (update)
 header {
   background: linear-gradient(135deg,#13162a,#0d0f20);
   border-bottom: 1px solid var(--border);
-<<<<<<< HEAD
-  padding: 20px 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 14px;
-  text-align: center;
-}
-.logo { font-size: 2rem; }
-.header-copy { display: flex; flex-direction: column; align-items: center; }
-header h1 { font-size: 1.4rem; font-weight: 700; letter-spacing: .03em; }
-header span { font-size: .85rem; color: var(--muted); display: block; margin-top: 2px; }
-.header-cta {
-  display: inline-block;
-  margin-top: 14px;
-  padding: 12px 20px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #8b5cf6 0%, #e05c7a 100%);
-  color: #fff;
-  text-decoration: none;
-  font-size: .95rem;
-  font-weight: 700;
-  letter-spacing: .01em;
-  box-shadow: 0 10px 24px rgba(224,92,122,.25);
-  transition: transform .15s ease, opacity .2s ease, box-shadow .2s ease;
-}
-.header-cta:hover {
-  opacity: .94;
-  transform: translateY(-1px);
-  box-shadow: 0 14px 28px rgba(224,92,122,.35);
-}
-.main { max-width: 1100px; margin: 0 auto; padding: 28px 16px; }
-.form-card {
-=======
   padding: 16px 24px;
   display: flex; align-items: center; justify-content: center; gap: 14px;
   text-align: center;
@@ -102,7 +59,6 @@ header span { font-size: .8rem; color: var(--muted); display: block; margin-top:
 
 /* CARDS */
 .card {
->>>>>>> 656cd33 (update)
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 16px;
@@ -122,30 +78,14 @@ header span { font-size: .8rem; color: var(--muted); display: block; margin-top:
   width: 100%; background: var(--bg); border: 1px solid var(--border);
   border-radius: 8px; color: var(--text); padding: 9px 12px; font-size: .92rem;
 }
-<<<<<<< HEAD
-.field input:focus, .field select:focus {
-  outline: none;
-  border-color: var(--accent);
-}
-.field select option { background: #1a1d2e; }
-.btn-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
-=======
 .field input:focus, .field select:focus { outline: none; border-color: var(--accent); }
 .field select option { background: #13162a; }
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
->>>>>>> 656cd33 (update)
 .btn {
   width: 100%; padding: 11px; border-radius: 10px; border: none;
   cursor: pointer; font-size: .95rem; font-weight: 600;
   transition: opacity .2s, box-shadow .2s; margin-top: 8px;
 }
-<<<<<<< HEAD
-.btn:active { transform: scale(.97); }
-.btn-primary { background: var(--accent); color: #fff; }
-.btn-secondary { background: var(--card2); color: var(--muted); border: 1px solid var(--border); }
-.btn:hover { opacity: .88; }
-#loadingBar {
-=======
 .btn-primary {
   background: linear-gradient(135deg, var(--accent), #5b4ed4);
   color: #fff;
@@ -178,7 +118,6 @@ header span { font-size: .8rem; color: var(--muted); display: block; margin-top:
   outline-offset: 2px;
 }
 .btn-consult.hidden-until-result {
->>>>>>> 656cd33 (update)
   display: none;
 }
 .hidden-until-result {
@@ -205,31 +144,6 @@ header span { font-size: .8rem; color: var(--muted); display: block; margin-top:
   border-radius: 50%; animation: spin .8s linear infinite; margin-bottom: 12px;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
-<<<<<<< HEAD
-#result { display: none; }
-.result-header {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 20px 24px;
-  margin-bottom: 16px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 16px;
-}
-.rh-item .rh-label { font-size: .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; }
-.rh-item .rh-value { font-size: 1.2rem; font-weight: 700; color: var(--text); }
-.rh-item .rh-value.accent { color: var(--accent); }
-.tables-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 16px;
-}
-@media(max-width:720px){ .tables-row { grid-template-columns: 1fr; } }
-.planet-table {
-  background: var(--card);
-=======
 
 /* ERROR */
 .error-box {
@@ -266,7 +180,6 @@ header span { font-size: .8rem; color: var(--muted); display: block; margin-top:
   background: radial-gradient(ellipse at 50% 30%, #1a1060 0%, #0a0c18 70%);
   border-radius: 16px;
   padding: 16px;
->>>>>>> 656cd33 (update)
   border: 1px solid var(--border);
   min-height: 640px;
   position: relative;
@@ -286,37 +199,6 @@ header span { font-size: .8rem; color: var(--muted); display: block; margin-top:
   opacity: .30;
   pointer-events: none;
 }
-<<<<<<< HEAD
-.pt-header.pers { background: linear-gradient(90deg, rgba(124,106,247,.2), transparent); color: var(--pers-col); }
-.pt-header.des  { background: linear-gradient(90deg, rgba(245,162,106,.2), transparent); color: var(--des-col); }
-.pt-header .pt-dates { font-size: .72rem; font-weight: 400; color: var(--muted); margin-top: 3px; text-transform: none; letter-spacing: 0; }
-table { width: 100%; border-collapse: collapse; }
-th {
-  padding: 7px 10px;
-  font-size: .72rem;
-  color: var(--muted);
-  text-align: left;
-  text-transform: uppercase;
-  letter-spacing: .04em;
-  border-bottom: 1px solid var(--border);
-  background: rgba(0,0,0,.15);
-}
-td { padding: 8px 10px; font-size: .9rem; border-bottom: 1px solid rgba(45,49,84,.5); }
-tr:last-child td { border-bottom: none; }
-tr:hover td { background: rgba(124,106,247,.06); }
-th:last-child, td:last-child { display: none; }
-.sym { font-size: 1.1rem; width: 28px; }
-.planet-name { color: var(--text); font-weight: 500; }
-.gate-line { font-weight: 700; font-size: 1rem; }
-.gate-line.pers { color: var(--pers-col); }
-.gate-line.des  { color: var(--des-col); }
-.ctb { font-size: .78rem; color: var(--muted); }
-.centers-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 10px;
-  margin-bottom: 16px;
-=======
 #bodygraphContainer.is-error {
   background: rgba(120, 18, 34, .2);
   border-color: rgba(224,92,122,.55);
@@ -325,7 +207,6 @@ th:last-child, td:last-child { display: none; }
 #bodygraphContainer .bodygraph-status {
   position: relative;
   z-index: 1;
->>>>>>> 656cd33 (update)
 }
 #bodygraphContainer svg { width: 100%; height: auto; display: block; }
 .bodygraph-tooltip {
@@ -394,19 +275,6 @@ th:last-child, td:last-child { display: none; }
 .bodygraph-status.error {
   color: #ffd0d8;
 }
-<<<<<<< HEAD
-.cc-status.def { background: rgba(245,200,66,.15); color: var(--defined); }
-.cc-status.undef { background: rgba(136,138,170,.1); color: var(--muted); }
-.cc-gates { font-size: .78rem; color: var(--muted); }
-.cc-gates .pg { color: var(--pers-col); }
-.cc-gates .dg { color: var(--des-col); }
-.channels-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 16px 20px;
-  margin-bottom: 16px;
-=======
 
 /* SUMMARY */
 .summary-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
@@ -417,7 +285,6 @@ th:last-child, td:last-child { display: none; }
   align-items: center;
   gap: 6px;
   flex-wrap: wrap;
->>>>>>> 656cd33 (update)
 }
 .rh-value { font-size: 1rem; font-weight: 700; }
 .rh-value.accent { color: var(--accent); }
@@ -739,12 +606,6 @@ tr:hover td { background: rgba(124,106,247,.05); }
   line-height: 1.2;
   font-weight: 600;
 }
-<<<<<<< HEAD
-.no-channels { color: var(--muted); font-size: .9rem; }
-.accuracy-note {
-  text-align: center;
-  color: var(--muted);
-=======
 .pdf-export-item-value {
   font-weight: 600;
   color: #152036;
@@ -804,7 +665,6 @@ tr:hover td { background: rgba(124,106,247,.05); }
   border-radius: 18px;
   overflow: hidden;
   background: #ffffff;
->>>>>>> 656cd33 (update)
   font-size: .78rem;
 }
 
@@ -1043,20 +903,6 @@ tr:hover td { background: rgba(124,106,247,.05); }
   border-radius: 8px;
   padding: 10px;
 }
-<<<<<<< HEAD
-.error-box {
-  background: rgba(224,92,122,.1);
-  border: 1px solid rgba(224,92,122,.4);
-  border-radius: 12px;
-  padding: 16px 20px;
-  color: var(--red);
-  margin-bottom: 16px;
-  font-size: .95rem;
-}
-@media(max-width:480px){
-  .form-card { padding: 16px; }
-  .result-header { grid-template-columns: 1fr 1fr; }
-=======
 
 .pdf-section-title {
   font-size: 0.74rem;
@@ -1465,121 +1311,22 @@ tr:hover td { background: rgba(124,106,247,.05); }
   font-size: 0.82rem;
   color: #b8bcc9;
   line-height: 1.4;
->>>>>>> 656cd33 (update)
 }
 </style>
 </head>
 <body>
 <header>
-<<<<<<< HEAD
-  <div class="logo">☯</div>
-  <div class="header-copy">
-    <h1>Human Design Calculator от Викрама</h1>
-    <span></span>
-    <a class="header-cta" href="https://spisok-voprosov-vikram.netlify.app/">Хотите узнать о себе - выберите тему тут</a>
-=======
   <div class="logo">✦</div>
   <div>
     <h1>Human Design Calculator</h1>
     <span>FullHD · Moshier Ephemeris * Vikram</span>
->>>>>>> 656cd33 (update)
   </div>
 </header>
 
 <div class="main">
-<<<<<<< HEAD
-
-  <div class="form-card">
-    <h2>Дата и время рождения</h2>
-    <div class="form-row">
-      <div class="field">
-        <label>День</label>
-        <input type="number" id="day" min="1" max="31" value="31" placeholder="дд">
-      </div>
-      <div class="field">
-        <label>Месяц</label>
-        <input type="number" id="month" min="1" max="12" value="1" placeholder="мм">
-      </div>
-      <div class="field">
-        <label>Год</label>
-        <input type="number" id="year" min="1900" max="2100" value="1984" placeholder="гггг">
-      </div>
-      <div class="field">
-        <label>Часы</label>
-        <input type="number" id="hour" min="0" max="23" value="7" placeholder="чч">
-      </div>
-      <div class="field">
-        <label>Минуты</label>
-        <input type="number" id="minute" min="0" max="59" value="25" placeholder="мм">
-      </div>
-      <div class="field">
-        <label>Секунды</label>
-        <input type="number" id="second" min="0" max="59" value="0" placeholder="сс">
-      </div>
-      <div class="field">
-        <label>Часовой пояс</label>
-        <select id="tz">
-          <option value="-12">UTC−12</option>
-          <option value="-11">UTC−11</option>
-          <option value="-10">UTC−10</option>
-          <option value="-9">UTC−9</option>
-          <option value="-8">UTC−8</option>
-          <option value="-7">UTC−7</option>
-          <option value="-6">UTC−6</option>
-          <option value="-5">UTC−5</option>
-          <option value="-4">UTC−4</option>
-          <option value="-3">UTC−3</option>
-          <option value="-2">UTC−2</option>
-          <option value="-1">UTC−1</option>
-          <option value="0">UTC 0</option>
-          <option value="1">UTC+1</option>
-          <option value="2">UTC+2</option>
-          <option value="3" selected>UTC+3 (МСК)</option>
-          <option value="4">UTC+4</option>
-          <option value="5">UTC+5</option>
-          <option value="5.5">UTC+5:30</option>
-          <option value="6">UTC+6</option>
-          <option value="7">UTC+7</option>
-          <option value="8">UTC+8</option>
-          <option value="9">UTC+9</option>
-          <option value="10">UTC+10</option>
-          <option value="11">UTC+11</option>
-          <option value="12">UTC+12</option>
-        </select>
-      </div>
-    </div>
-    <div class="btn-row">
-      <button class="btn btn-primary" onclick="calculate()">⚡ Рассчитать</button>
-      <button class="btn btn-secondary" onclick="loadExample()">★ Пример</button>
-    </div>
-  </div>
-
-  <div id="loadingBar">
-    <div class="spinner"></div>
-    <div>Вычисление планетарных позиций…</div>
-  </div>
-
-=======
->>>>>>> 656cd33 (update)
   <div id="errorBox" class="error-box" style="display:none"></div>
   <div id="loadingBar"><div class="spinner"></div><div>Расчёт...</div></div>
 
-<<<<<<< HEAD
-  <div id="result">
-    <div class="result-header" id="summaryRow"></div>
-    <div class="tables-row">
-      <div class="planet-table">
-        <div class="pt-header pers">
-          🟣 Личность (Сознательное)
-          <div class="pt-dates" id="persDates"></div>
-        </div>
-        <table>
-          <thead><tr>
-            <th></th><th>Планета</th><th>Врата.Линия</th><th>Цв/Тн</th><th>Долгота</th>
-          </tr></thead>
-          <tbody id="persBody"></tbody>
-        </table>
-=======
   <div class="three-col">
 
     <!-- LEFT: FORM -->
@@ -1590,7 +1337,6 @@ tr:hover td { background: rgba(124,106,247,.05); }
         <a class="btn btn-primary btn-link" href="start_local_server.cmd">Запустить локальный сервер</a>
         <button class="btn btn-secondary" type="button" onclick="openLocalServer()">Открыть localhost:8000</button>
         <div class="server-launch-note">Если браузер спросит разрешение на запуск файла, подтвердите. Если кнопка не сработает, запустите start_local_server.cmd из папки проекта.</div>
->>>>>>> 656cd33 (update)
       </div>
 
       <div class="card">
@@ -1644,15 +1390,6 @@ tr:hover td { background: rgba(124,106,247,.05); }
         <div class="summary-grid" id="summaryRow"></div>
       </div>
     </div>
-<<<<<<< HEAD
-    <div class="channels-card">
-      <h3>Определённые каналы (<span id="channelCount">0</span>)</h3>
-      <div class="channel-list" id="channelList"></div>
-    </div>
-    <div class="centers-row" id="centersRow"></div>
-    <div class="accuracy-note">
-      Калькулятор создан лично Викрамом - Таблица FullHD - Точность ±0.003°
-=======
 
     <!-- CENTER: BODYGRAPH -->
     <div class="col-center">
@@ -1698,7 +1435,6 @@ tr:hover td { background: rgba(124,106,247,.05); }
         <table><thead><tr><th></th><th>Планета</th><th>Врата.Линия</th><th>Ц/Т</th></tr></thead>
         <tbody id="desBody"></tbody></table>
       </div>
->>>>>>> 656cd33 (update)
     </div>
   </div>
 
@@ -1715,8 +1451,6 @@ tr:hover td { background: rgba(124,106,247,.05); }
   </div>
 </div>
 
-<<<<<<< HEAD
-=======
 <div class="yt-modal-overlay" id="ytModal" onclick="handleYtModalOverlayClick(event)">
   <div class="yt-modal-dialog">
     <div class="yt-modal-topbar">
@@ -1753,7 +1487,6 @@ tr:hover td { background: rgba(124,106,247,.05); }
 
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
->>>>>>> 656cd33 (update)
 <script>
 let FULL_HD_LOOKUP = [];
 fetch('fullhd_lookup.json')
@@ -1761,37 +1494,6 @@ fetch('fullhd_lookup.json')
   .then(d => { FULL_HD_LOOKUP = d; })
   .catch(e => console.error('lookup error:', e));
 
-<<<<<<< HEAD
-<script>
-const CHANNEL_NAMES = {
-  '1-8':'Вдохновения','2-14':'Пульс','3-60':'Мутации','4-63':'Логики','5-15':'Ритма',
-  '6-59':'Спаривания','7-31':'Альфы','9-52':'Концентрации','10-20':'Пробуждения',
-  '10-34':'Исследования','10-57':'Совершенного','11-56':'Любопытства','12-22':'Открытости',
-  '13-33':'Блудного Сына','14-2':'Пульса','15-5':'Ритма','16-48':'Таланта','17-62':'Принятия',
-  '18-58':'Суждения','19-49':'Синтеза','20-34':'Харизмы','20-57':'Архангела','21-45':'Денег',
-  '22-12':'Открытости','23-43':'Структурации','24-61':'Осведомлённости','25-51':'Посвящения',
-  '26-44':'Сдачи','27-50':'Хранителя','28-38':'Борьбы','29-46':'Открытия','30-41':'Фантазии',
-  '31-7':'Альфы','32-54':'Преобразования','33-13':'Свидетеля','34-20':'Харизмы','34-57':'Силы',
-  '35-36':'Переходности','36-35':'Кризиса','37-40':'Общины','38-28':'Борьбы','39-55':'Эмоций',
-  '40-37':'Общины','41-30':'Фантазии','42-53':'Созревания','43-23':'Структурации','44-26':'Сдачи',
-  '45-21':'Денег','46-29':'Открытия','47-64':'Абстракции','48-16':'Таланта','49-19':'Синтеза',
-  '50-27':'Хранителя','51-25':'Посвящения','52-9':'Концентрации','53-42':'Созревания',
-  '54-32':'Преобразования','55-39':'Эмоций','56-11':'Любопытства','57-10':'Совершенного',
-  '57-20':'Архангела','57-34':'Силы','58-18':'Суждения','59-6':'Спаривания','60-3':'Мутации',
-  '61-24':'Осведомлённости','62-17':'Принятия','63-4':'Логики','64-47':'Абстракции',
-};
-
-const PLANET_SYMBOLS = {
-  Sun:'☉',Moon:'☽',Mercury:'☿',Venus:'♀',Mars:'♂',Jupiter:'♃',
-  Saturn:'♄',Uranus:'♅',Neptune:'♆',Pluto:'♇',Node:'☊'
-};
-
-const PLANET_ORDER = ['Sun','Moon','Mercury','Venus','Mars','Jupiter','Saturn','Uranus','Neptune','Pluto','Node'];
-
-function chName(a, b) {
-  const key = `${Math.min(a,b)}-${Math.max(a,b)}`;
-  return CHANNEL_NAMES[key] || '';
-=======
 const CHANNEL_NAMES = {
   '1-8':'Вдохновения','2-14':'Пульса','3-60':'Мутации','4-63':'Логики',
   '5-15':'Ритма','6-59':'Спаривания','7-31':'Альфы','9-52':'Концентрации',
@@ -1849,7 +1551,6 @@ function escapeHtml(value){
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&#39;');
->>>>>>> 656cd33 (update)
 }
 
 function ensureProfileFamousTooltip(){
@@ -1861,50 +1562,12 @@ function ensureProfileFamousTooltip(){
   return tooltip;
 }
 
-<<<<<<< HEAD
-async function calculate() {
-  const day    = parseInt(document.getElementById('day').value);
-  const month  = parseInt(document.getElementById('month').value);
-  const year   = parseInt(document.getElementById('year').value);
-  const hour   = parseInt(document.getElementById('hour').value);
-  const minute = parseInt(document.getElementById('minute').value);
-  const second = parseInt(document.getElementById('second').value) || 0;
-  const tz     = parseFloat(document.getElementById('tz').value);
-
-  if (isNaN(day)||isNaN(month)||isNaN(year)||isNaN(hour)||isNaN(minute)) {
-    showError('Пожалуйста, заполните все поля даты и времени.');
-    return;
-  }
-  if (year < 1800 || year > 2100) {
-    showError('Год должен быть в диапазоне 1800–2100.');
-    return;
-  }
-
-  // ── СОХРАНЯЕМ ВВЕДЁННЫЕ ДАННЫЕ ──
-  window._lastInput = { day, month, year, hour, minute };
-
-  hideError();
-  try {
-    showLoading(true);
-    const data = await calculateHD(year, month, day, hour, minute, second, tz);
-    renderResult(mapApiResult(data));
-    renderBodygraph(data);
-    document.getElementById('result').style.display = 'block';
-    document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } catch(e) {
-    showError(e.message);
-    console.error(e);
-  } finally {
-    showLoading(false);
-  }
-=======
 function setProfileFamousTooltipContent(tooltip, profile){
   const people = PROFILE_FAMOUS_PEOPLE[profile] || [];
   const items = people.map(person => `<li>${escapeHtml(person)}</li>`).join('');
   tooltip.innerHTML = `
     <div class="profile-famous-tooltip-title">Знаменитости ${escapeHtml(profile)}</div>
     <ul class="profile-famous-tooltip-list">${items}</ul>`;
->>>>>>> 656cd33 (update)
 }
 
 function updateProfileFamousTooltipPosition(tooltip, clientX, clientY){
@@ -1917,23 +1580,6 @@ function updateProfileFamousTooltipPosition(tooltip, clientX, clientY){
   tooltip.style.left = `${left}px`;
   tooltip.style.top = `${top}px`;
 }
-<<<<<<< HEAD
-function showLoading(isLoading) {
-  document.getElementById('loadingBar').style.display = isLoading ? 'block' : 'none';
-  if (isLoading) document.getElementById('result').style.display = 'none';
-}
-
-function mapApiResult(data) {
-  const mapPlanet = p => ({
-    symbol: p.symbol,
-    name: p.planet,
-    gate: p.gate,
-    line: p.line,
-    color: p.color,
-    tone: p.tone,
-    longitude: p.longitude
-  });
-=======
 
 function attachProfileFamousTooltip(){
   const trigger = document.getElementById('profileFamousIcon');
@@ -2047,7 +1693,6 @@ function getCurrentInputSnapshot(){
   const second = parseInt(document.getElementById('second').value, 10) || 0;
   const tz = parseFloat(document.getElementById('tz').value) || 0;
 
->>>>>>> 656cd33 (update)
   return {
     day,
     month,
@@ -2060,30 +1705,6 @@ function getCurrentInputSnapshot(){
   };
 }
 
-<<<<<<< HEAD
-function renderResult(r) {
-  // ── ЧИТАЕМ ВВЕДЁННЫЕ ДАННЫЕ ──
-  const { day, month, year, hour, minute } = window._lastInput || {};
-  const localDateStr = `${String(day).padStart(2,'0')}.${String(month).padStart(2,'0')}.${year} ${String(hour).padStart(2,'0')}:${String(minute).padStart(2,'0')}`;
-
-  // Summary
-  document.getElementById('summaryRow').innerHTML = `
-    <div class="rh-item"><div class="rh-label">Тип</div><div class="rh-value accent">${r.type}</div></div>
-    <div class="rh-item"><div class="rh-label">Профиль</div><div class="rh-value">${r.profile}</div></div>
-    <div class="rh-item"><div class="rh-label">Авторитет</div><div class="rh-value">${r.authority}</div></div>
-    <div class="rh-item"><div class="rh-label">Определённость</div><div class="rh-value">${r.definition}</div></div>
-    <div class="rh-item"><div class="rh-label">Дата рождения</div><div class="rh-value" style="font-size:.95rem">${localDateStr}</div></div>
-    <div class="rh-item"><div class="rh-label">Дата дизайна UTC</div><div class="rh-value" style="font-size:.95rem">${r.designDateStr}</div></div>
-  `;
-
-  // Planet rows
-  document.getElementById('persBody').innerHTML = r.persPlanets.map(p => planetRow(p, 'pers')).join('');
-  document.getElementById('desBody').innerHTML  = r.desPlanets.map(p => planetRow(p, 'des')).join('');
-
-  // ── ПОКАЗЫВАЕМ МЕСТНОЕ ВРЕМЯ ──
-  document.getElementById('persDates').textContent = localDateStr;
-  document.getElementById('desDates').textContent  = r.designDateStr;
-=======
 function getExportFileBaseName(snapshot){
   return `human-design-${snapshot.year}-${pad2(snapshot.month)}-${pad2(snapshot.day)}_${pad2(snapshot.hour)}-${pad2(snapshot.minute)}`;
 }
@@ -2527,7 +2148,6 @@ function renderResult(r){
   document.getElementById('desBody').innerHTML=r.desPlanets.map(p=>pRow(p,'des')).join('');
   document.getElementById('persDates').textContent=r.birthDateStr;
   document.getElementById('desDates').textContent=r.designDateStr;
->>>>>>> 656cd33 (update)
 
   // Channels
   document.getElementById('channelCount').textContent=r.definedChannels.length;
@@ -2551,129 +2171,9 @@ function pRow(p,cls){
   return`<tr><td class="sym">${p.symbol}</td><td class="planet-name">${p.name}</td><td class="gate-line ${cls}">${p.gate}.${p.line}</td><td class="ctb">${p.color}/${p.tone}</td></tr>`;
 }
 
-<<<<<<< HEAD
-async function calculateHD(year, month, day, hour, minute, second, tz) {
-  return fetch("https://hd-api-f31c.onrender.com/api/calc", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      year, month, day, hour, minute, second, tz_offset: tz
-    })
-  })
-  .then(res => res.json())
-  .then(data => {
-    console.log(data);
-    if (!data.success) throw new Error(data.error || 'Calculation failed');
-    return data;
-  });
-}
-
-function renderBodygraph(data) {
-  const canvas = document.getElementById('bodygraphCanvas');
-  const ctx = canvas.getContext('2d');
-  const persGates = new Set(data.personality_gates);
-  const desGates  = new Set(data.design_gates);
-  const definedCh = new Set(data.defined_channels.map(([a,b]) => `${Math.min(a,b)}-${Math.max(a,b)}`));
-  const definedCenters = new Set(data.defined_centers);
-
-  const CENTERS = {
-    'Head':        {x:183, y:59,  r:32, shape:'triangle'},
-    'Ajna':        {x:184, y:122, r:32, shape:'triangle'},
-    'Throat':      {x:182, y:230, w:60, h:44, shape:'rect'},
-    'G-Center':    {x:183, y:321, r:40, shape:'diamond'},
-    'Heart':       {x:223, y:362, r:32, shape:'triangle'},
-    'Sacral':      {x:183, y:475, w:60, h:44, shape:'rect'},
-    'Solar Plexus':{x:278, y:449, r:32, shape:'triangle'},
-    'Spleen':      {x:86,  y:452, r:32, shape:'triangle'},
-    'Root':        {x:184, y:564, w:60, h:44, shape:'rect'},
-  };
-
-  const CENTER_LABELS = {
-    'Root':'Корень','Sacral':'Сакрал','Spleen':'Селезёнка',
-    'Solar Plexus':'Эмоц.','Heart':'Эго','G-Center':'G',
-    'Throat':'Горло','Ajna':'Аджна','Head':'Голова'
-  };
-
-  const CHANNELS = [
-    [64,47,'Head','Ajna'],[61,24,'Head','Ajna'],[63,4,'Head','Ajna'],
-    [17,62,'Ajna','Throat'],[43,23,'Ajna','Throat'],[11,56,'Ajna','Throat'],
-    [16,48,'Throat','Spleen'],[20,57,'Throat','Spleen'],
-    [20,34,'Throat','Sacral'],[20,10,'Throat','G-Center'],
-    [31,7,'Throat','G-Center'],[8,1,'Throat','G-Center'],[33,13,'Throat','G-Center'],
-    [45,21,'Throat','Heart'],[35,36,'Throat','Solar Plexus'],[12,22,'Throat','Solar Plexus'],
-    [25,51,'G-Center','Heart'],[2,14,'G-Center','Sacral'],
-    [5,15,'G-Center','Sacral'],[29,46,'G-Center','Sacral'],[10,34,'G-Center','Sacral'],
-    [10,57,'G-Center','Spleen'],
-    [3,60,'Sacral','Root'],[9,52,'Sacral','Root'],[42,53,'Sacral','Root'],
-    [27,50,'Sacral','Spleen'],[59,6,'Sacral','Solar Plexus'],
-    [26,44,'Heart','Spleen'],
-    [19,49,'Root','Solar Plexus'],[38,28,'Root','Spleen'],
-    [39,55,'Root','Solar Plexus'],[41,30,'Root','Solar Plexus'],
-    [53,42,'Root','Sacral'],[60,3,'Root','Sacral'],[54,32,'Root','Spleen'],
-    [58,18,'Root','Spleen'],
-    [37,40,'Solar Plexus','Heart'],[6,59,'Solar Plexus','Sacral'],
-    [49,19,'Solar Plexus','Root'],[55,39,'Solar Plexus','Root'],[30,41,'Solar Plexus','Root'],
-    [32,54,'Spleen','Root'],[28,38,'Spleen','Root'],[18,58,'Spleen','Root'],
-    [48,16,'Spleen','Throat'],[57,34,'Spleen','Sacral'],[57,20,'Spleen','Throat'],
-    [44,26,'Spleen','Heart'],[50,27,'Spleen','Sacral'],
-  ];
-
-  const img = new Image();
-  img.src = 'bodygraph_base.png';
-  img.onload = () => {
-    ctx.clearRect(0, 0, 356, 604);
-    ctx.drawImage(img, 0, 0, 356, 604);
-    CHANNELS.forEach(([ga, gb, ca, cb]) => {
-      const key = `${Math.min(ga,gb)}-${Math.max(ga,gb)}`;
-      if (!definedCh.has(key)) return;
-      const c1 = CENTERS[ca], c2 = CENTERS[cb];
-      const hasDes  = desGates.has(ga) && desGates.has(gb);
-      const hasPers = persGates.has(ga) && persGates.has(gb);
-      ctx.beginPath();
-      ctx.moveTo(c1.x, c1.y);
-      ctx.lineTo(c2.x, c2.y);
-      ctx.strokeStyle = hasDes ? '#e05c7a' : hasPers ? '#9b8ff5' : '#c084fc';
-      ctx.lineWidth = 7;
-      ctx.lineCap = 'round';
-      ctx.stroke();
-    });
-    Object.entries(CENTERS).forEach(([name, c]) => {
-      const isDef = definedCenters.has(name);
-      ctx.fillStyle   = isDef ? '#f5c842' : 'rgba(15,17,23,0.92)';
-      ctx.strokeStyle = isDef ? '#f5c842' : '#475569';
-      ctx.lineWidth = 2;
-      if (c.shape === 'rect') {
-        ctx.beginPath();
-        ctx.roundRect(c.x - c.w/2, c.y - c.h/2, c.w, c.h, 6);
-        ctx.fill(); ctx.stroke();
-      } else if (c.shape === 'diamond') {
-        ctx.beginPath();
-        ctx.moveTo(c.x, c.y - c.r);
-        ctx.lineTo(c.x + c.r, c.y);
-        ctx.lineTo(c.x, c.y + c.r);
-        ctx.lineTo(c.x - c.r, c.y);
-        ctx.closePath();
-        ctx.fill(); ctx.stroke();
-      } else if (c.shape === 'triangle') {
-        ctx.beginPath();
-        ctx.moveTo(c.x, c.y - c.r);
-        ctx.lineTo(c.x + c.r, c.y + c.r);
-        ctx.lineTo(c.x - c.r, c.y + c.r);
-        ctx.closePath();
-        ctx.fill(); ctx.stroke();
-      }
-      ctx.fillStyle = isDef ? '#1a1d2e' : '#888aaa';
-      ctx.font = 'bold 10px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(CENTER_LABELS[name], c.x, c.y);
-    });
-  };
-  // document.getElementById('bodygraphWrap').style.display = 'block';
-}
-=======
 async function calculateHD(year,month,day,hour,minute,second,tz){
-  const apiUrl = https://hd-api-f31c.onrender.com/api/calc
+  // Используем внешний API на Render
+  const apiUrl = 'https://hd-api-f31c.onrender.com/api/calc';
   const data=await fetch(apiUrl,{
     method:"POST", headers:{"Content-Type":"application/json"},
     body:JSON.stringify({year,month,day,hour,minute,second,tz_offset:tz})
@@ -2780,7 +2280,6 @@ document.addEventListener('keydown', function(e){
 });
 
 initLocalServerLauncher();
->>>>>>> 656cd33 (update)
 </script>
 <script src="bodygraph_renderer.js?v=20260406-gate-tooltips-01"></script>
 </body>

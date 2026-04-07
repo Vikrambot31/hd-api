@@ -5,14 +5,12 @@ Uses pyswisseph (Moshier ephemeris) for accurate planet positions.
 Gate/line lookup uses the FullHD table from !Рассчеты_upd_v.5.xlsx
 """
 
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 import swisseph as swe
 import json
 import os
 import bisect
-
-BASE_DIR = os.path.dirname(__file__)
 
 # ─── Load FullHD Gate-Line Lookup Table ───────────────────────────────────────
 GL_LOOKUP = []  # [[lon_start, gate, line, color, tone], ...]
@@ -34,7 +32,7 @@ def lookup_gate_data(lon):
 
 def load_lookup():
     global GL_LOOKUP, GL_LONS
-    path = os.path.join(BASE_DIR, 'fullhd_lookup.json')
+    path = os.path.join(os.path.dirname(__file__), 'fullhd_lookup.json')
     with open(path, 'r') as f:
         GL_LOOKUP = json.load(f)
     GL_LONS = [e[0] for e in GL_LOOKUP]  # cache for fast bisect
@@ -47,17 +45,11 @@ def load_lookup():
         if _g != _exp:
             print(f"WARNING: lon {_lon} -> gate {_g} (expected {_exp})")
 
-app = Flask(__name__, static_folder=BASE_DIR, static_url_path='')
+app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return send_from_directory(BASE_DIR, 'calculator_web.html')
-
-@app.route('/<path:filename>')
-def serve_static(filename):
-    if filename.startswith('api/'):
-        return jsonify({'success': False, 'error': 'Not found'}), 404
-    return send_from_directory(BASE_DIR, filename)
+    return "HD API работает"
 
 CORS(app)
 
