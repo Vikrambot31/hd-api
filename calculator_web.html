@@ -2172,7 +2172,7 @@ function pRow(p,cls){
 }
 
 async function calculateHD(year,month,day,hour,minute,second,tz){
-  // Используем внешний API на Render
+  // Используем локальный API (port 10000) для быстрого расчета
   const apiUrl = 'https://hd-api-f31c.onrender.com/api/calc';
   const data=await fetch(apiUrl,{
     method:"POST", headers:{"Content-Type":"application/json"},

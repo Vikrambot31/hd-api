@@ -3,7 +3,3 @@ WARNING: This is a development server. Do not use it in a production deployment.
  * Running on http://127.0.0.1:10000
  * Running on http://192.168.50.243:10000
 Press CTRL+C to quit
-127.0.0.1 - - [07/Apr/2026 17:07:49] "OPTIONS /api/calc HTTP/1.1" 200 -
-127.0.0.1 - - [07/Apr/2026 17:07:49] "POST /api/calc HTTP/1.1" 200 -
-127.0.0.1 - - [07/Apr/2026 17:08:06] "OPTIONS /api/calc HTTP/1.1" 200 -
-127.0.0.1 - - [07/Apr/2026 17:08:06] "POST /api/calc HTTP/1.1" 200 -
