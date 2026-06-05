@@ -2,8 +2,10 @@ name: Daily Lunar Post
 
 on:
   schedule:
-    # GitHub cron uses UTC. 03:00 UTC = 05:00 Kyiv in winter / 06:00 Kyiv in summer.
-    - cron: '0 3 * * *'
+    # GitHub cron uses UTC. These two runs cover 07:00 Kyiv in summer and winter.
+    # The Python script sends only when Europe/Kyiv time is exactly 07:00.
+    - cron: '0 4 * * *'
+    - cron: '0 5 * * *'
 
   workflow_dispatch:
 

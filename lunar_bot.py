@@ -5,13 +5,14 @@ import urllib.parse
 import json
 import os
 import time
+from zoneinfo import ZoneInfo
 
 # ── Config ──────────────────────────────────────────────
 BOT_TOKEN  = os.getenv("BOT_TOKEN")
 CHAT_ID    = os.getenv("CHAT_ID")
 if not BOT_TOKEN or not CHAT_ID:
     raise RuntimeError("Missing BOT_TOKEN or CHAT_ID. Add them in GitHub repository Settings -> Secrets and variables -> Actions.")
-UTC_OFFSET = 3  # Kyiv (UTC+2 winter / UTC+3 summer — using 3)
+KYIV_TZ = ZoneInfo("Europe/Kyiv")
 
 # ── Lunar math ──────────────────────────────────────────
 KNOWN_NEW_MOON = datetime.datetime(2000, 1, 6, 18, 14, 0,
@@ -89,14 +90,25 @@ RATING_LABEL = {
 }
 
 # ── Build message ────────────────────────────────────────
-def build_message():
-    now_utc = datetime.datetime.now(datetime.timezone.utc)
-    local   = now_utc + datetime.timedelta(hours=UTC_OFFSET)
+def kyiv_now():
+    return datetime.datetime.now(KYIV_TZ)
 
+def should_send_now():
+    if os.getenv("GITHUB_EVENT_NAME") != "schedule":
+        return True
+    now = kyiv_now()
+    if now.hour == 7:
+        return True
+    print(f"Skipping scheduled run: Kyiv time is {now:%H:%M}, target is 07:00.")
+    return False
+
+def build_message():
+    local = kyiv_now()
+    utc_offset = int(local.utcoffset().total_seconds() // 3600)
     # Use local noon for calculations
     noon_utc = datetime.datetime(
         local.year, local.month, local.day,
-        12 - UTC_OFFSET, 0, 0,
+        12 - utc_offset, 0, 0,
         tzinfo=datetime.timezone.utc
     )
 
@@ -158,6 +170,8 @@ def send_message(text, retries=3):
             time.sleep(2 ** attempt)
 
 if __name__ == "__main__":
+    if not should_send_now():
+        raise SystemExit(0)
     msg = build_message()
     print("── Message preview ──")
     print(msg)
