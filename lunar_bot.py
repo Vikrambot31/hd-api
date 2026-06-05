@@ -4,10 +4,13 @@ import urllib.request
 import urllib.parse
 import json
 import os
+import time
 
 # ── Config ──────────────────────────────────────────────
-BOT_TOKEN  = os.environ["BOT_TOKEN"]
-CHAT_ID    = os.environ["CHAT_ID"]
+BOT_TOKEN  = os.getenv("BOT_TOKEN")
+CHAT_ID    = os.getenv("CHAT_ID")
+if not BOT_TOKEN or not CHAT_ID:
+    raise RuntimeError("Missing BOT_TOKEN or CHAT_ID. Add them in GitHub repository Settings -> Secrets and variables -> Actions.")
 UTC_OFFSET = 3  # Kyiv (UTC+2 winter / UTC+3 summer — using 3)
 
 # ── Lunar math ──────────────────────────────────────────
@@ -126,7 +129,7 @@ def build_message():
     return msg
 
 # ── Send to Telegram ─────────────────────────────────────
-def send_message(text):
+def send_message(text, retries=3):
     url  = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
     data = json.dumps({
         "chat_id":    CHAT_ID,
@@ -140,11 +143,19 @@ def send_message(text):
         data=data,
         headers={"Content-Type": "application/json"}
     )
-    with urllib.request.urlopen(req, timeout=15) as resp:
-        result = json.loads(resp.read())
-        if not result.get("ok"):
-            raise RuntimeError(f"Telegram error: {result}")
-        print(f"✅ Sent to {CHAT_ID}, message_id={result['result']['message_id']}")
+
+    for attempt in range(retries):
+        try:
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                result = json.loads(resp.read())
+                if not result.get("ok"):
+                    raise RuntimeError(f"Telegram error: {result}")
+                print(f"✅ Sent to {CHAT_ID}, message_id={result['result']['message_id']}")
+                return
+        except Exception:
+            if attempt == retries - 1:
+                raise
+            time.sleep(2 ** attempt)
 
 if __name__ == "__main__":
     msg = build_message()
@@ -152,3 +163,4 @@ if __name__ == "__main__":
     print(msg)
     print("── Sending ──")
     send_message(msg)
+
