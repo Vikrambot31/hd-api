@@ -5,13 +5,14 @@ import urllib.parse
 import json
 import os
 import time
+from zoneinfo import ZoneInfo
 
 # ── Config ──────────────────────────────────────────────
 BOT_TOKEN  = os.getenv("BOT_TOKEN")
 CHAT_ID    = os.getenv("CHAT_ID")
 if not BOT_TOKEN or not CHAT_ID:
     raise RuntimeError("Missing BOT_TOKEN or CHAT_ID. Add them in GitHub repository Settings -> Secrets and variables -> Actions.")
-UTC_OFFSET = 3  # Kyiv (UTC+2 winter / UTC+3 summer — using 3)
+KYIV_TZ = ZoneInfo("Europe/Kyiv")
 
 # ── Lunar math ──────────────────────────────────────────
 KNOWN_NEW_MOON = datetime.datetime(2000, 1, 6, 18, 14, 0,
@@ -36,17 +37,29 @@ def phase_info(age):
     if p < 0.78: return "🌗 Последняя четверть"
     return "🌘 Убывающий серп"
 
-def zodiac_info(dt):
+ZODIAC_NAMES = ["Овен","Телец","Близнецы","Рак","Лев","Дева",
+                "Весы","Скорпион","Стрелец","Козерог","Водолей","Рыбы"]
+ZODIAC_ICONS = ["♈","♉","♊","♋","♌","♍","♎","♏","♐","♑","♒","♓"]
+ZODIAC_NAMES_UK = ["Овна","Тельця","Близнюків","Рака","Лева","Діви",
+                   "Терезів","Скорпіона","Стрільця","Козерога","Водолія","Риб"]
+ZODIAC_FILES = [
+    "Luna-to-Aries.png","Luna-to-Taurus.png","Luna-to-Gemini.png",
+    "Luna-to-Cancer.png","Luna-to-Leo.png","Luna-to-Virgo.png",
+    "Luna-to-Libra.png","Luna-to-Scorpio.png","Luna-to-Sagittarius.png",
+    "Luna-to-Capricorn.png","Luna-to-Aquarius.png","Luna-to-Pisces.png",
+]
+
+def _moon_zodiac_index(dt):
     jd = (dt - datetime.datetime(2000, 1, 1, 12, 0, 0,
           tzinfo=datetime.timezone.utc)).total_seconds() / 86400 + 2451545.0
     L   = math.fmod(218.316 + 13.176396 * (jd - 2451545.0), 360)
     M   = math.fmod(134.963 + 13.064993 * (jd - 2451545.0), 360)
     lon = math.fmod(L + 6.289 * math.sin(math.radians(M)), 360)
-    idx = int(math.fmod(lon + 360, 360) / 30)
-    names = ["Овен","Телец","Близнецы","Рак","Лев","Дева",
-             "Весы","Скорпион","Стрелец","Козерог","Водолей","Рыбы"]
-    icons = ["♈","♉","♊","♋","♌","♍","♎","♏","♐","♑","♒","♓"]
-    return f"{icons[idx]} {names[idx]}"
+    return int(math.fmod(lon + 360, 360) / 30)
+
+def zodiac_info(dt):
+    idx = _moon_zodiac_index(dt)
+    return f"{ZODIAC_ICONS[idx]} {ZODIAC_NAMES[idx]}"
 
 # ── Data ────────────────────────────────────────────────
 DAYS = {
@@ -89,14 +102,25 @@ RATING_LABEL = {
 }
 
 # ── Build message ────────────────────────────────────────
-def build_message():
-    now_utc = datetime.datetime.now(datetime.timezone.utc)
-    local   = now_utc + datetime.timedelta(hours=UTC_OFFSET)
+def kyiv_now():
+    return datetime.datetime.now(KYIV_TZ)
 
+def should_send_now():
+    if os.getenv("GITHUB_EVENT_NAME") != "schedule":
+        return True
+    now = kyiv_now()
+    if now.hour == 7:
+        return True
+    print(f"Skipping scheduled run: Kyiv time is {now:%H:%M}, target is 07:00.")
+    return False
+
+def build_message():
+    local = kyiv_now()
+    utc_offset = int(local.utcoffset().total_seconds() // 3600)
     # Use local noon for calculations
     noon_utc = datetime.datetime(
         local.year, local.month, local.day,
-        12 - UTC_OFFSET, 0, 0,
+        12 - utc_offset, 0, 0,
         tzinfo=datetime.timezone.utc
     )
 
@@ -157,10 +181,98 @@ def send_message(text, retries=3):
                 raise
             time.sleep(2 ** attempt)
 
+# ── Zodiac sign change detection & photo post ────────────
+def check_sign_change():
+    """Return (zodiac_index, zodiac_name_uk) if Moon changed sign today, else None."""
+    local = kyiv_now()
+    utc_offset = int(local.utcoffset().total_seconds() // 3600)
+    noon_today = datetime.datetime(
+        local.year, local.month, local.day,
+        12 - utc_offset, 0, 0,
+        tzinfo=datetime.timezone.utc
+    )
+    noon_yesterday = noon_today - datetime.timedelta(days=1)
+    idx_today = _moon_zodiac_index(noon_today)
+    idx_yesterday = _moon_zodiac_index(noon_yesterday)
+    if idx_today != idx_yesterday:
+        return idx_today
+    return None
+
+def send_photo(photo_path, caption, retries=3):
+    """Send a photo with caption to Telegram using multipart/form-data."""
+    boundary = "----PythonBotBoundary"
+    filename = os.path.basename(photo_path)
+
+    with open(photo_path, "rb") as f:
+        photo_data = f.read()
+
+    body = (
+        f"--{boundary}\r\n"
+        f'Content-Disposition: form-data; name="chat_id"\r\n\r\n'
+        f"{CHAT_ID}\r\n"
+        f"--{boundary}\r\n"
+        f'Content-Disposition: form-data; name="caption"\r\n\r\n'
+        f"{caption}\r\n"
+        f"--{boundary}\r\n"
+        f'Content-Disposition: form-data; name="parse_mode"\r\n\r\n'
+        f"Markdown\r\n"
+        f"--{boundary}\r\n"
+        f'Content-Disposition: form-data; name="photo"; filename="{filename}"\r\n'
+        f"Content-Type: image/png\r\n\r\n"
+    ).encode("utf-8") + photo_data + f"\r\n--{boundary}--\r\n".encode("utf-8")
+
+    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto"
+    req = urllib.request.Request(
+        url,
+        data=body,
+        headers={"Content-Type": f"multipart/form-data; boundary={boundary}"}
+    )
+
+    for attempt in range(retries):
+        try:
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                result = json.loads(resp.read())
+                if not result.get("ok"):
+                    raise RuntimeError(f"Telegram error: {result}")
+                print(f"📸 Photo sent to {CHAT_ID}, message_id={result['result']['message_id']}")
+                return
+        except Exception:
+            if attempt == retries - 1:
+                raise
+            time.sleep(2 ** attempt)
+
+def maybe_send_sign_change_photo():
+    """If Moon changed zodiac sign today, send the corresponding image."""
+    idx = check_sign_change()
+    if idx is None:
+        print("🔄 Знак Луны не менялся — фото не отправляем")
+        return
+
+    sign_uk = ZODIAC_NAMES_UK[idx]
+    photo_file = ZODIAC_FILES[idx]
+    photo_dir = os.path.join(os.path.dirname(__file__), "foto-for Lunar Bot")
+    photo_path = os.path.join(photo_dir, photo_file)
+
+    if not os.path.exists(photo_path):
+        print(f"⚠️ Фото не найдено: {photo_path}")
+        return
+
+    caption = (
+        f"{ZODIAC_ICONS[idx]} *Місяць перейшов у знак {sign_uk}*\n\n"
+        f"Якщо не справляєтесь з емоціями — [пишіть Викраму](https://t.me/Vikram_2027) 💬"
+    )
+    print(f"📸 Смена знака! Луна → {ZODIAC_NAMES[idx]}. Отправляю фото...")
+    send_photo(photo_path, caption)
+
+
 if __name__ == "__main__":
+    if not should_send_now():
+        raise SystemExit(0)
     msg = build_message()
     print("── Message preview ──")
     print(msg)
     print("── Sending ──")
     send_message(msg)
+    print("── Sign change check ──")
+    maybe_send_sign_change_photo()
 
