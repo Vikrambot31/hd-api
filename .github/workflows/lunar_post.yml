@@ -20,6 +20,9 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Install dependencies
+        run: pip install pyswisseph
+
       - name: Send daily lunar post to Telegram
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
