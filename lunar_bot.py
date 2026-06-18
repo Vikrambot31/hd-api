@@ -182,8 +182,50 @@ def send_message(text, retries=3):
             time.sleep(2 ** attempt)
 
 # ── Zodiac sign change detection & photo post ────────────
+def _dt_to_jd(dt):
+    return (dt - datetime.datetime(2000, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc)).total_seconds() / 86400 + 2451545.0
+
+def _jd_to_dt(jd):
+    return datetime.datetime(2000, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc) + datetime.timedelta(days=jd - 2451545.0)
+
+def _moon_lon_sweph(jd):
+    try:
+        import swisseph as swe
+        swe.set_ephe_path(None)
+        result, _ = swe.calc_ut(jd, swe.MOON, swe.FLG_SWIEPH | swe.FLG_NONUT)
+        return result[0]
+    except Exception:
+        return None
+
+def _find_sign_entry_time(idx_today, search_end_utc):
+    """Binary search: find exact UTC moment Moon entered idx_today sign (search 48h back)."""
+    boundary_lon = idx_today * 30.0
+    jd_end = _dt_to_jd(search_end_utc)
+    jd_start = jd_end - 2.0  # 48 hours back
+
+    def past_boundary(jd):
+        lon = _moon_lon_sweph(jd)
+        if lon is None:
+            return False
+        return ((lon - boundary_lon) % 360) < 180
+
+    if not past_boundary(jd_end) or past_boundary(jd_start):
+        return None
+
+    lo, hi = jd_start, jd_end
+    for _ in range(40):
+        mid = (lo + hi) / 2
+        if past_boundary(mid):
+            hi = mid
+        else:
+            lo = mid
+        if (hi - lo) * 86400 < 30:  # 30-second precision
+            break
+
+    return _jd_to_dt((lo + hi) / 2)
+
 def check_sign_change():
-    """Return (zodiac_index, zodiac_name_uk) if Moon changed sign today, else None."""
+    """Return (zodiac_index, entry_time_utc) if Moon changed sign today, else (None, None)."""
     local = kyiv_now()
     utc_offset = int(local.utcoffset().total_seconds() // 3600)
     noon_today = datetime.datetime(
@@ -195,8 +237,10 @@ def check_sign_change():
     idx_today = _moon_zodiac_index(noon_today)
     idx_yesterday = _moon_zodiac_index(noon_yesterday)
     if idx_today != idx_yesterday:
-        return idx_today
-    return None
+        search_end = noon_today + datetime.timedelta(hours=12)
+        entry_utc = _find_sign_entry_time(idx_today, search_end)
+        return idx_today, entry_utc
+    return None, None
 
 def send_photo(photo_path, caption, retries=3):
     """Send a photo with caption to Telegram using multipart/form-data."""
@@ -242,8 +286,8 @@ def send_photo(photo_path, caption, retries=3):
             time.sleep(2 ** attempt)
 
 def maybe_send_sign_change_photo():
-    """If Moon changed zodiac sign today, send the corresponding image."""
-    idx = check_sign_change()
+    """If Moon changed zodiac sign today, send the corresponding image with entry time."""
+    idx, entry_utc = check_sign_change()
     if idx is None:
         print("🔄 Знак Луны не менялся — фото не отправляем")
         return
@@ -257,8 +301,18 @@ def maybe_send_sign_change_photo():
         print(f"⚠️ Фото не найдено: {photo_path}")
         return
 
+    # Convert entry time to Kyiv time (UTC+3 summer)
+    if entry_utc is not None:
+        entry_kyiv = entry_utc + datetime.timedelta(hours=3)
+        time_str = entry_kyiv.strftime("%H:%M")
+        time_line = f"\n⏰ Час входу в знак {sign_uk}: *{time_str}* (Київ)\n"
+        print(f"🕐 Точный вход: {time_str} Киев (UTC: {entry_utc.strftime('%H:%M')})")
+    else:
+        time_line = "\n"
+
     caption = (
-        f"{ZODIAC_ICONS[idx]} *Місяць перейшов у знак {sign_uk}*\n\n"
+        f"{ZODIAC_ICONS[idx]} *Місяць перейшов у знак {sign_uk}*"
+        f"{time_line}\n"
         f"Якщо не справляєтесь з емоціями — [пишіть Викраму](https://t.me/Vikram_2027) 💬"
     )
     print(f"📸 Смена знака! Луна → {ZODIAC_NAMES[idx]}. Отправляю фото...")
