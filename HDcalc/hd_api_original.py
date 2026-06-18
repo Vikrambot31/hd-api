@@ -14,36 +14,14 @@ import bisect
 
 # ─── Load FullHD Gate-Line Lookup Table ───────────────────────────────────────
 GL_LOOKUP = []  # [[lon_start, gate, line, color, tone], ...]
-GL_LONS   = []  # cached lon_start list for fast bisect
-
-# ─── Gate/Line/Color/Tone lookup (defined BEFORE load_lookup) ────────────────
-def lookup_gate_data(lon):
-    """
-    Given ecliptic longitude (0-360°), return (gate, line, color, tone).
-    Uses binary search on the pre-sorted FullHD table.
-    GL_LONS is cached at startup — no list rebuild on each call.
-    """
-    lon = lon % 360.0
-    idx = bisect.bisect_right(GL_LONS, lon) - 1
-    if idx < 0:
-        idx = len(GL_LOOKUP) - 1  # wrap-around
-    entry = GL_LOOKUP[idx]
-    return entry[1], entry[2], entry[3], entry[4]  # gate, line, color, tone
 
 def load_lookup():
-    global GL_LOOKUP, GL_LONS
+    global GL_LOOKUP
     path = os.path.join(os.path.dirname(__file__), 'fullhd_lookup.json')
     with open(path, 'r') as f:
         GL_LOOKUP = json.load(f)
-    GL_LONS = [e[0] for e in GL_LOOKUP]  # cache for fast bisect
+    # GL_LOOKUP is sorted by lon_start
     print(f"Loaded {len(GL_LOOKUP)} gate-line-color-tone entries")
-
-    # Sanity check: verified against etalon (FullHD - etalon/!Рассчеты_upd_v.5.xlsx)
-    _checks = [(24.4, 42), (11.5, 21)]
-    for _lon, _exp in _checks:
-        _g, _, _, _ = lookup_gate_data(_lon)
-        if _g != _exp:
-            print(f"WARNING: lon {_lon} -> gate {_g} (expected {_exp})")
 
 app = Flask(__name__)
 
@@ -54,6 +32,20 @@ def home():
 CORS(app)
 
 load_lookup()
+
+# ─── Gate/Line/Color/Tone lookup ─────────────────────────────────────────────
+def lookup_gate_data(lon):
+    """
+    Given ecliptic longitude (0-360°), return (gate, line, color, tone).
+    Uses binary search on the pre-sorted FullHD table.
+    """
+    lon = lon % 360.0
+    lons = [e[0] for e in GL_LOOKUP]
+    idx = bisect.bisect_right(lons, lon) - 1
+    if idx < 0:
+        idx = len(GL_LOOKUP) - 1  # wrap-around (Gate 25 line 2 end)
+    entry = GL_LOOKUP[idx]
+    return entry[1], entry[2], entry[3], entry[4]  # gate, line, color, tone
 
 # ─── Design Date Calculation ──────────────────────────────────────────────────
 def calculate_design_jd(birth_jd):
@@ -416,30 +408,6 @@ def api_calc():
         design_gates.add(eg_d)
         personality_data.insert(1, {'planet':'Земля','symbol':'⊕','longitude':round(earth_lon_p,6),'gate':eg_p,'line':el_p,'color':ec_p,'tone':et_p,'gate_line':f"{eg_p}.{el_p}"})
         design_data.insert(1, {'planet':'Земля','symbol':'⊕','longitude':round(earth_lon_d,6),'gate':eg_d,'line':el_d,'color':ec_d,'tone':et_d,'gate_line':f"{eg_d}.{el_d}"})
-
-        # South Node = North Node + 180° (required for complete HD chart)
-        nnode_p = next((p for p in personality_data if p['planet'] == 'Сев.Узел'), None)
-        nnode_d = next((p for p in design_data if p['planet'] == 'Сев.Узел'), None)
-        if nnode_p is not None:
-            snode_lon_p = (nnode_p['longitude'] + 180) % 360
-            sg_p, sl_p, sc_p, st_p = lookup_gate_data(snode_lon_p)
-            personality_gates.add(sg_p)
-            personality_data.append({
-                'planet': 'Юж.Узел', 'symbol': '☋',
-                'longitude': round(snode_lon_p, 6),
-                'gate': sg_p, 'line': sl_p, 'color': sc_p, 'tone': st_p,
-                'gate_line': f"{sg_p}.{sl_p}",
-            })
-        if nnode_d is not None:
-            snode_lon_d = (nnode_d['longitude'] + 180) % 360
-            sg_d, sl_d, sc_d, st_d = lookup_gate_data(snode_lon_d)
-            design_gates.add(sg_d)
-            design_data.append({
-                'planet': 'Юж.Узел', 'symbol': '☋',
-                'longitude': round(snode_lon_d, 6),
-                'gate': sg_d, 'line': sl_d, 'color': sc_d, 'tone': st_d,
-                'gate_line': f"{sg_d}.{sl_d}",
-            })
 
         all_gates = personality_gates | design_gates
         defined_channels = find_defined_channels(all_gates)

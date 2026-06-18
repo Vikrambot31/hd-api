@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_Слой_1" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 2166 3465">
+  <!-- Generator: Adobe Illustrator 30.2.1, SVG Export Plug-In . SVG Version: 2.1.1 Build 1)  -->
+  <defs>
+    <linearGradient id="_Безымянный_градиент" data-name="Безымянный градиент" x1="538" y1="930.81" x2="545.39" y2="2284.16" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_2" data-name="Безымянный градиент 2" x1="1081.47" y1="1864.06" x2="1082.63" y2="2137" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_3" data-name="Безымянный градиент 3" x1="923.59" y1="1778.3" x2="918.95" y2="2140.33" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_4" data-name="Безымянный градиент 4" x1="1180.71" y1="666.66" x2="1167.1" y2="462.53" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_5" data-name="Безымянный градиент 5" x1="1211.11" y1="1788.98" x2="1207.62" y2="2131.27" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_6" data-name="Безымянный градиент 6" x1="943.41" y1="1534.77" x2="964.31" y2="958.26" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_7" data-name="Безымянный градиент 7" x1="1272.12" y1="409.19" x2="1788.73" y2="858.87" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_8" data-name="Безымянный градиент 8" x1="1996.7" y1="1003.66" x2="1320.21" y2="2308.73" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_9" data-name="Безымянный градиент 9" x1="1090.69" y1="2489.26" x2="1104.62" y2="2696.78" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_10" data-name="Безымянный градиент 10" x1="1316.44" y1="1646.33" x2="1505.96" y2="1366.65" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_11" data-name="Безымянный градиент 11" x1="1376.07" y1="1275.81" x2="351.72" y2="963.42" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_12" data-name="Безымянный градиент 12" x1="888.02" y1="806.88" x2="533.89" y2="901.66" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_13" data-name="Безымянный градиент 13" x1="391.91" y1="846.54" x2="905.81" y2="387.89" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_14" data-name="Безымянный градиент 14" x1="1324.14" y1="2458.09" x2="2106.46" y2="1048.25" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_15" data-name="Безымянный градиент 15" x1="926.71" y1="284.97" x2="222.23" y2="775.71" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_16" data-name="Безымянный градиент 16" x1="1568.75" y1="1177.05" x2="1858.17" y2="958.86" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_17" data-name="Безымянный градиент 17" x1="1253.51" y1="191.07" x2="2112.7" y2="720.39" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_18" data-name="Безымянный градиент 18" x1="957.19" y1="669.63" x2="974.61" y2="452.89" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_19" data-name="Безымянный градиент 19" x1="1291.81" y1="2190.22" x2="1612.42" y2="1392.33" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_20" data-name="Безымянный градиент 20" x1="1206.23" y1="1541.76" x2="1215.14" y2="946.34" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_21" data-name="Безымянный градиент 21" x1="69.32" y1="1076.37" x2="883.31" y2="2433.5" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_22" data-name="Безымянный градиент 22" x1="1952.9" y1="783.19" x2="1281.57" y2="298.93" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_23" data-name="Безымянный градиент 23" x1="1199.12" y1="2480.37" x2="1216.1" y2="2825.89" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_24" data-name="Безымянный градиент 24" x1="184.38" y1="1043.02" x2="830.51" y2="1682.92" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_25" data-name="Безымянный градиент 25" x1="927.85" y1="189.37" x2="78.46" y2="711.27" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_26" data-name="Безымянный градиент 26" x1="1271.98" y1="811.41" x2="1665.53" y2="903.09" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_27" data-name="Безымянный градиент 27" x1="1085.42" y1="462.1" x2="1079.61" y2="668.94" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_28" data-name="Безымянный градиент 28" x1="1081.71" y1="3218" x2="1082.48" y2="3022" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_29" data-name="Безымянный градиент 29" x1="979.9" y1="2489.46" x2="981.84" y2="2828.17" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_30" data-name="Безымянный градиент 30" x1="1283.57" y1="3217.83" x2="1296.34" y2="3019.51" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+    <linearGradient id="_Безымянный_градиент_31" data-name="Безымянный градиент 31" x1="893.69" y1="3218" x2="891.36" y2="3017.36" gradientTransform="translate(0 3466) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#111"/>
+      <stop offset=".5" stop-color="#c20"/>
+      <stop offset="1" stop-color="#c20"/>
+    </linearGradient>
+  </defs>
+  <path id="ch_34_20" d="M849.47,1214.74c-324.99,480-69.88,911.27,8.53,1336.26" fill="none" stroke="url(#grad_ch_34_20)" stroke-width="18"/>
+  <path id="ch_57_20" d="M230.21,2468.25c151.89-485.45,426.65-946.4,624.17-1250.87" fill="none" stroke="url(#grad_ch_57_20)" stroke-width="18"/>
+  <path id="ch_1_8" d="M1082,1601.94 V1329" fill="none" stroke="#111111" stroke-width="24"/>
+  <path id="ch_2_14" d="M1082,2019v490.2" fill="none" stroke="#888" stroke-width="18"/>
+  <path id="ch_7_31" d="M921.33,1695.68v-369" fill="none" stroke="url(#_Безымянный_градиент_3)" stroke-width="18"/>
+  <path id="ch_9_52" d="M1182,2799.87 V3004" fill="none" stroke="url(#_Безымянный_градиент_4)" stroke-width="24"/>
+  <path id="ch_10_20" d="M890,1815c-302.08-12.19-270.2-254.4,5-663" fill="none" stroke="#cc2200" stroke-width="18"/>
+  <path id="ch_13_33" d="M1202,1677.1 V1334.81" fill="none" stroke="url(#_Безымянный_градиент_5)" stroke-width="24"/>
+  <path id="ch_15_5" d="M955,1931.19 V2507.7" fill="none" stroke="url(#_Безымянный_градиент_6)" stroke-width="24"/>
+  <path id="ch_19_49" d="M1266.23,3067.45c172.94-154.81,346.83-308.64,519.77-463.45" fill="none" stroke="url(#_Безымянный_градиент_7)" stroke-width="18"/>
+  <path id="ch_22_12" d="M1987.29,2447.19c-219.23-425.3-439.55-851.6-658.78-1276.9" fill="none" stroke="url(#_Безымянный_градиент_8)" stroke-width="18"/>
+  <path id="ch_23_43" d="M1095,976.55 V769.03" fill="none" stroke="url(#_Безымянный_градиент_9)" stroke-width="24"/>
+  <path id="ch_25_51" d="M1316.9,1818.26c62.43,93.91,125.67,187.82,188.1,281.74" fill="none" stroke="url(#_Безымянный_градиент_10)" stroke-width="18"/>
+  <path id="ch_26_44" d="M1399.35,2195.66c-354.95,99.87-709.9,199.73-1064.85,299.6" fill="none" stroke="url(#_Безымянный_градиент_11)" stroke-width="18"/>
+  <path id="ch_27_50" d="M886.84,2663.52 L532.71,2568.74" fill="none" stroke="url(#_Безымянный_градиент_12)" stroke-width="18"/>
+  <path id="ch_32_54" d="M380,2604c173.8,158.28,348.55,317.56,522.35,475.84" fill="none" stroke="url(#_Безымянный_градиент_13)" stroke-width="18"/>
+  <path id="ch_35_36" d="M1328.51,1008.88c257.51,468.39,513.98,935.72,771.49,1404.12" fill="none" stroke="url(#_Безымянный_градиент_14)" stroke-width="18"/>
+  <path id="ch_38_28" d="M905.45,3189.77c-219.48-168.92-438.97-336.86-658.45-505.77" fill="none" stroke="url(#_Безымянный_градиент_15)" stroke-width="18"/>
+  <path id="ch_40_37" d="M1591,2300c89.56,71.31,180.44,143.69,270,215" fill="none" stroke="url(#_Безымянный_градиент_16)" stroke-width="18"/>
+  <path id="ch_41_30" d="M1260.81,3277.26c278.33-176.58,557.8-352.2,836.13-528.77" fill="none" stroke="url(#_Безымянный_градиент_17)" stroke-width="18"/>
+  <path id="ch_42_53" d="M963.13,2735.77v269" fill="none" stroke="url(#_Безымянный_градиент_18)" stroke-width="18"/>
+  <path id="ch_45_21" d="M1283.23,1279.45c112.89,263.22,224.88,527.33,337.77,790.55" fill="none" stroke="url(#_Безымянный_градиент_19)" stroke-width="18"/>
+  <path id="ch_46_29" d="M1210.68,1935.84v572.2" fill="none" stroke="url(#_Безымянный_градиент_20)" stroke-width="18"/>
+  <path id="ch_48_16" d="M83.88,2379.32c264.34-450.96,529.74-900.9,794.08-1351.86" fill="none" stroke="#cc2200" stroke-width="18"/>
+  <path id="ch_55_39" d="M1947.52,2685l-665.03,483.1" fill="none" stroke="url(#_Безымянный_градиент_22)" stroke-width="18"/>
+  <path id="ch_56_11" d="M1209,985.68 V640.16" fill="none" stroke="url(#_Безымянный_градиент_23)" stroke-width="24"/>
+  <path id="ch_57_10" d="M218.38,2438.36c239.74-403.15,531.48-729.56,670.03-617.78" fill="none" stroke="url(#grad_ch_57_10)" stroke-width="18"/>
+  <path id="ch_10_34" d="M860.97,1813.84C760,2050,775,2350,885.29,2537.09" fill="none" stroke="#888" stroke-width="18"/>
+  <path id="ch_57_34" d="M218.38,2438.36c184.91-143.22,460.08-17.21,679.32,77.8" fill="none" stroke="#111111" stroke-width="18"/>
+  <path id="ch_58_18" d="M912.42,3270.29c-280.47-174.11-560.95-349.18-841.42-523.29" fill="none" stroke="url(#_Безымянный_градиент_25)" stroke-width="18"/>
+  <path id="ch_59_6" d="M1246,2667c151-39,301-79,452-118" fill="none" stroke="url(#_Безымянный_градиент_26)" stroke-width="18"/>
+  <path id="ch_60_3" d="M1082,3004v-244" fill="none" stroke="url(#_Безымянный_градиент_27)" stroke-width="18"/>
+  <path id="ch_61_24" d="M1082,248 V444" fill="none" stroke="url(#_Безымянный_градиент_28)" stroke-width="24"/>
+  <path id="ch_62_17" d="M982.87,975.21l-3.89-353.63" fill="none" stroke="url(#_Безымянный_градиент_29)" stroke-width="18"/>
+  <path id="ch_63_4" d="M1289.25,214.32v244" fill="none" stroke="url(#_Безымянный_градиент_30)" stroke-width="18"/>
+  <path id="ch_64_47" d="M892,248 V448.64" fill="none" stroke="url(#_Безымянный_градиент_31)" stroke-width="24"/>
+  <path id="_Центр_Темени" d="M1095.11,19.31c-29.48-1.05-64.66,25.55-88.89,46.65-15.2,13.04-30.33,27.05-45.11,40.87-42.26,40.06-98.57,91.69-135.9,130.24-12.05,12.28-34.63,37.97-31.89,48.93.86,6.95,7.6,11.33,20.04,14.03,9.19,2,21.46,3.11,36.4,3.75,124.87,2.32,281.02.3,411.12.94,27.27-.04,57.56.08,83.35-1.11,17.56-1.33,45.31-1.7,51.91-14.36,4.78-8.07-7.09-25.86-18.17-38.14-19.29-22.08-40.79-42.14-69.43-69.52-29.43-27.79-60.9-57.69-90.98-85.66-13.14-12.16-26.48-24.28-39.99-35.53-22.61-19.2-54.96-42.03-82.31-41.09h-.15,0Z" fill="#f0e040" fill-opacity=".8" stroke="#f0e040" stroke-width="8"/>
+  <path id="_Центр_Аджна" d="M1109.59,830.66c-20.73.43-47.48-36.6-62.57-54.12-48.74-59.95-97.14-120.31-151.72-187.75-36.21-44.95-66.51-82.2-95.1-117.87-14.57-18.16-37-46.78-38.81-57.07-2.31-8.32.97-13.25,10.42-16.13,15.75-4.13,36.86-3.99,56.71-4.29,141.11-.36,395.15,0,537.53-.1,18.06-.02,37.2.08,53.46.79,17.49,1.28,41.9,1.49,38.79,17.89-1.07,11.67-27.93,44.79-41.91,62.25-72.59,89.91-166.6,206.52-239.09,296.09-8.81,10.83-17.35,21.22-26.38,31.39-11.78,13.7-29.76,30.29-41.25,28.92h-.08Z" fill="#6ab86a" fill-opacity=".8" stroke="#6ab86a" stroke-width="8"/>
+  <g isolation="isolate">
+    <g isolation="isolate">
+      <text transform="translate(996.02 566.97)" fill="#222" font-family="Arial-BoldMT, Arial" font-size="60" font-weight="700" isolation="isolate"><tspan x="0" y="0">Аджна</tspan></text>
+    </g>
+  </g>
+  <path id="_Центр_Горла" d="M840.62,944.59c27.46-23.28,80.87-19.89,118.59-21.39,85.59-.34,177.15-.32,262.74,0,30.12.49,63.21.54,90.65,7.33,26.64,6.91,39.71,20.72,46.11,45.34,5.97,21.23,6.46,59.9,6.64,88.54-.68,77.24,2.03,163.29-1.73,239.85-3.5,55.19-20.68,78.95-84.73,83.07-30.93,2.43-64.35,2.17-96.22,2.29-80.52-.32-167.38.76-247.63-.63-32.63-1.59-68.97-1.15-93.07-19.84-29.92-27.12-23.38-79.47-25.46-120.49-.05-61.47-.29-136.26.11-197.22,1.38-33.52-1.93-82.69,23.89-106.79l.08-.07h.03,0Z" fill="#c8a050" fill-opacity=".8" stroke="#c8a050" stroke-width="8"/>
+  <path id="_Центр_Джи" d="M1081.56,1541.98c14.96-.77,34.86,10.76,50.82,23.23,13.24,10.12,25.99,21.16,38.79,32.27,49.97,43.81,111,97.37,160.63,141.2,24.45,23.05,56.45,47.09,59.15,73.4.57,16.22-9.9,28.87-21.75,41.84-9.67,10.22-20.96,20.69-32.23,30.78-55.18,48.87-117.96,103.92-172.22,151.38-22.41,18.48-54.7,50.04-83.24,49.89-17.04-.07-33-9.97-47.84-20.92-11.42-8.51-23.84-18.95-35.41-28.97-54.27-47.46-117.02-102.51-172.22-151.38-11.28-10.08-22.6-20.56-32.23-30.78-11.88-12.95-22.35-25.63-21.75-41.84.56-9.2,5.34-18.51,13.89-29.04,10.27-12.65,26.03-27.2,45.26-44.36,49.62-43.83,110.67-97.38,160.63-141.2,10.13-8.82,20.34-17.61,30.57-25.84,16.77-13.84,41.22-30.68,59.03-29.66h.12,0Z" fill="#f0e040" fill-opacity=".8" stroke="#f0e040" stroke-width="8"/>
+  <g isolation="isolate">
+    <g isolation="isolate">
+      <text transform="translate(1021.92 1819)" fill="#222" font-family="Arial-BoldMT, Arial" font-size="60" font-weight="700" isolation="isolate"><tspan x="0" y="0">Джи</tspan></text>
+    </g>
+  </g>
+  <path id="_Центр_Эго" d="M1666.66,2012.01c-20.03-17.66-69.86.18-101.88,9.27-43.11,13.47-85.82,28.14-130.79,42.95-34.09,11.38-72.88,24.08-99.66,34.67-28.3,12-64.6,25.23-61.55,52.58,3.01,16.98,16.05,31.44,29.12,45.81,10.98,11.71,24.27,24.46,36.85,36.17,38.06,35.26,78.92,72.04,117.27,107.02,14.84,13.46,30.35,27.43,45.23,40.1,13.44,11.45,28.09,23.18,41.88,31.26,10.18,5.89,18.99,9.04,26.68,8.98,26.89-.74,36.35-39.28,45.71-71.03,8.41-31.18,17.93-76.09,26.06-112.88,9.66-44.62,19.09-85.4,27.35-127.46,5.89-34.43,16.26-79.51-2.22-97.39l-.06-.06h.01Z" fill="#e03030" fill-opacity=".8" stroke="#e03030" stroke-width="8"/>
+  <g isolation="isolate">
+    <g isolation="isolate">
+      <text transform="translate(1513.72 2218.45)" fill="#222" font-family="Arial-BoldMT, Arial" font-size="60" font-weight="700" isolation="isolate"><tspan x="0" y="0">Э</tspan></text>
+    </g>
+    <g isolation="isolate">
+      <text transform="translate(1556.41 2218.45)" fill="#222" font-family="Arial-BoldMT, Arial" font-size="60" font-weight="700" isolation="isolate"><tspan x="0" y="0">г</tspan></text>
+    </g>
+    <g isolation="isolate">
+      <text transform="translate(1580.6 2218.45)" fill="#222" font-family="Arial-BoldMT, Arial" font-size="60" font-weight="700" isolation="isolate"><tspan x="0" y="0">о</tspan></text>
+    </g>
+  </g>
+  <path id="_Центр_Эмоций" d="M1571.47,2572.08c-.04,5.52,8.44,11.13,24.47,18.56,13.95,6.39,27.96,12,42.56,17.93,139.14,55.87,335.22,135.28,457.7,184.01,14.56,5.51,29.93,11.37,43.27,12.52,20.19.98,23.87-12.07,27.08-32.93,2.07-16.06,2.49-38.46,2.73-65.9.36-54.17.45-107.16.73-163.86.09-39.51.41-73.43.35-107.09-1.1-31.03,2.47-72.8-13.31-87.28-4.37-3.5-10.19-4.59-17.84-3.8-13.46,1.65-28.86,7.37-43.49,12.81-122.58,47.62-316.61,124.16-455.48,178.53-14.58,6.54-69.43,24.44-68.79,36.47v.04h.02Z" fill="#e07030" fill-opacity=".8" stroke="#e07030" stroke-width="8"/>
+  <g isolation="isolate">
+    <g isolation="isolate">
+      <text transform="translate(1897.19 2573)" fill="#222" font-family="Arial-BoldMT, Arial" font-size="60" font-weight="700" isolation="isolate"><tspan x="0" y="0">С</tspan></text>
+    </g>
+    <g isolation="isolate">
+      <text transform="translate(1940.52 2573)" fill="#222" font-family="Arial-BoldMT, Arial" font-size="60" font-weight="700" isolation="isolate" letter-spacing="-.02em"><tspan x="0" y="0">о</tspan></text>
+    </g>
+    <g isolation="isolate">
+      <text transform="translate(1975.68 2573)" fill="#222" font-family="Arial-BoldMT, Arial" font-size="60" font-weight="700" isolation="isolate"><tspan x="0" y="0">л.Спл.</tspan></text>
+    </g>
+  </g>
+  <path id="_Центр_Селезенка" d="M619.17,2569.87c2.04,6.52-20.37,18.53-34.4,24.43-146.58,62.52-363.03,151.54-492.68,206-22.12,7.32-64.87,32.48-83.19,16.8-5.28-5.15-8.28-14.38-10.02-28.06-4.66-54.39-1.79-120.24-2.45-184.61.11-61.48.08-119.12.21-178,1.98-41.89-4.35-75.4,11.47-103.82,16.54-18.58,61.77,7.99,83.02,14.98,141.73,59.86,344.18,143.58,494.74,208.2,13.41,5.81,35.44,17.6,33.3,24.03v.04h0Z" fill="#c8a050" fill-opacity=".8" stroke="#c8a050" stroke-width="8"/>
+  <g isolation="isolate">
+    <g isolation="isolate">
+      <text transform="translate(7.67 2577.03)" fill="#222" font-family="Arial-BoldMT, Arial" font-size="60" font-weight="700" isolation="isolate"><tspan x="0" y="0">Се</tspan></text>
+    </g>
+    <g isolation="isolate">
+      <text transform="translate(84.37 2577.03)" fill="#222" font-family="Arial-BoldMT, Arial" font-size="60" font-weight="700" isolation="isolate"><tspan x="0" y="0">л</tspan></text>
+    </g>
+    <g isolation="isolate">
+      <text transform="translate(121.69 2577.03)" fill="#222" font-family="Arial-BoldMT, Arial" font-size="60" font-weight="700" isolation="isolate"><tspan x="0" y="0">езёнка</tspan></text>
+    </g>
+  </g>
+  <path id="_Центр_Сакрал" d="M854.61,2498.71c28.99-32.31,72.13-34.15,118.55-37.08,42.21-1.65,86.1-.99,130.49-1.13,64.35,2.83,164.32-10.16,201.54,47.5,24.79,42.79,22.76,92.24,24.52,144.2-.13,40.75-.4,84.39-10.17,123.49-13.03,55.35-53.52,73.47-105.94,78.31-56.18,5.36-128.32,3.12-188.09,3.46-58.25-2.19-151.01,6.26-181.5-53.88-18.54-36.74-19.34-83.2-20.63-127.48,1.26-58.69-4.49-131.37,31.12-177.28l.1-.12h0Z" fill="#e03030" fill-opacity=".8" stroke="#e03030" stroke-width="8"/>
+  <g isolation="isolate">
+    <g isolation="isolate">
+      <text transform="translate(967.87 2645)" fill="#222" font-family="Arial-BoldMT, Arial" font-size="60" font-weight="700" isolation="isolate"><tspan x="0" y="0">С</tspan></text>
+    </g>
+    <g isolation="isolate">
+      <text transform="translate(1011.93 2645)" fill="#222" font-family="Arial-BoldMT, Arial" font-size="60" font-weight="700" isolation="isolate"><tspan x="0" y="0">акрал.</tspan></text>
+    </g>
+  </g>
+  <path id="_Центр_Корень" d="M889.61,2979.71c25.28-26.83,70.48-30.42,110.6-32.56,40.85-1.7,83.13-1.14,125.73-1.19,61.4,2.36,153.44-7.33,185.43,48.2,23.29,43.47,19.64,102.16,20.66,153.12-.49,34.51-.94,71.56-9.18,104.5-15.43,68.24-77.75,74.03-142.3,76.36-43.86,1.28-88.75.86-132.68.73-39.05-.63-80.69-.41-116.88-10.37-77.07-20.18-70.29-106.66-72.76-170.57,1.28-52.01-4.35-129.2,31.29-168.12l.09-.1h0Z" fill="#8a5c2a" fill-opacity=".8" stroke="#8a5c2a" stroke-width="8"/>
+  <g isolation="isolate">
+    <g isolation="isolate">
+      <text transform="translate(995 3143.25) scale(1.04 1)" fill="#222" font-family="Arial-BoldMT, Arial" font-size="49.8" font-weight="700" isolation="isolate"><tspan x="0" y="0">Корень</tspan></text>
+    </g>
+  </g>
+  <circle cx="1080.84" cy="1601.94" r="55" fill="#111111" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1067.49 1618.94)" fill="#ffffff" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">1</tspan></text>
+  </g>
+  <circle cx="1082" cy="2019" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1068.65 2036)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">2</tspan></text>
+  </g>
+  <circle cx="1076.19" cy="2797.16" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1062.84 2814.16)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">3</tspan></text>
+  </g>
+  <circle cx="1298.93" cy="446.32" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1285.58 463.32)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">4</tspan></text>
+  </g>
+  <circle cx="965.45" cy="2507.7" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(952.1 2524.7)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">5</tspan></text>
+  </g>
+  <circle cx="1666.26" cy="2566.03" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1652.91 2583.03)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">6</tspan></text>
+  </g>
+  <circle cx="935.26" cy="1687.55" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(921.91 1704.55)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">7</tspan></text>
+  </g>
+  <circle cx="1082" cy="1329" r="55" fill="#111111" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1068.65 1346)" fill="#ffffff" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">8</tspan></text>
+  </g>
+  <circle cx="1188.61" cy="2799.87" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1175.26 2816.87)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">9</tspan></text>
+  </g>
+  <circle cx="860.97" cy="1813.84" r="55" fill="#cc2200" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(834.27 1830.84)" fill="#111111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">10</tspan></text>
+  </g>
+  <circle cx="1217.2" cy="640.16" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1190.5 657.16)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">11</tspan></text>
+  </g>
+  <circle cx="1303.51" cy="1165.93" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1276.81 1182.93)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">12</tspan></text>
+  </g>
+  <circle cx="1203.71" cy="1677.1" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1177.01 1694.1)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">13</tspan></text>
+  </g>
+  <circle cx="1095.93" cy="2514.74" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1069.23 2531.74)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">14</tspan></text>
+  </g>
+  <circle cx="944.55" cy="1931.19" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(917.85 1948.19)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">15</tspan></text>
+  </g>
+  <circle cx="887.42" cy="1034.97" r="55" fill="#cc2200" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(860.72 1051.97)" fill="#111111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">16</tspan></text>
+  </g>
+  <circle cx="983.65" cy="637.84" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(956.95 654.84)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">17</tspan></text>
+  </g>
+  <circle cx="85.61" cy="2743.1" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(58.91 2760.1)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">18</tspan></text>
+  </g>
+  <circle cx="1269.39" cy="3053.68" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1242.69 3070.68)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">19</tspan></text>
+  </g>
+  <circle cx="891.68" cy="1186.74" r="55" fill="#cc2200" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(865.98 1200.74)" fill="#111111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">20</tspan></text>
+  </g>
+  <circle cx="1614" cy="2074" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1587.3 2091)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">21</tspan></text>
+  </g>
+  <circle cx="1980" cy="2471" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1953.3 2488)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">22</tspan></text>
+  </g>
+  <circle cx="1087.81" cy="976.55" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1061.11 993.55)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">23</tspan></text>
+  </g>
+  <circle cx="1082" cy="444" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1055.3 461)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">24</tspan></text>
+  </g>
+  <circle cx="1315.48" cy="1820.32" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1288.78 1837.32)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">25</tspan></text>
+  </g>
+  <circle cx="1375.32" cy="2187.74" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1348.62 2204.74)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">26</tspan></text>
+  </g>
+  <circle cx="886.84" cy="2663.52" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(860.14 2680.52)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">27</tspan></text>
+  </g>
+  <circle cx="228.52" cy="2681.26" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(201.82 2698.26)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">28</tspan></text>
+  </g>
+  <circle cx="1216.1" cy="2519.65" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1189.4 2536.65)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">29</tspan></text>
+  </g>
+  <circle cx="2105.35" cy="2733.68" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(2078.65 2750.68)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">30</tspan></text>
+  </g>
+  <circle cx="930.62" cy="1325.52" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(903.92 1342.52)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">31</tspan></text>
+  </g>
+  <circle cx="397.42" cy="2613.29" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(370.72 2630.29)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">32</tspan></text>
+  </g>
+  <circle cx="1200.22" cy="1334.81" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1173.52 1351.81)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">33</tspan></text>
+  </g>
+  <circle cx="885.29" cy="2537.09" r="55" fill="#111111" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(858.59 2554.09)" fill="#ffffff" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">34</tspan></text>
+  </g>
+  <circle cx="1314.68" cy="1013.16" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1287.98 1030.16)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">35</tspan></text>
+  </g>
+  <circle cx="2097" cy="2423" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(2070.3 2440)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">36</tspan></text>
+  </g>
+  <circle cx="1853" cy="2514" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1826.3 2531)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">37</tspan></text>
+  </g>
+  <circle cx="933" cy="3172" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(906.3 3189)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">38</tspan></text>
+  </g>
+  <circle cx="1276.35" cy="3159.84" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1249.65 3176.84)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">39</tspan></text>
+  </g>
+  <circle cx="1563.58" cy="2295.81" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1536.88 2312.81)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">40</tspan></text>
+  </g>
+  <circle cx="1246.16" cy="3263" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1219.46 3280)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">41</tspan></text>
+  </g>
+  <circle cx="955" cy="2796.55" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(928.3 2813.55)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">42</tspan></text>
+  </g>
+  <circle cx="1101.74" cy="769.03" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1075.04 786.03)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">43</tspan></text>
+  </g>
+  <circle cx="350.97" cy="2500.13" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(324.27 2517.13)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">44</tspan></text>
+  </g>
+  <circle cx="1293.35" cy="1276" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1266.65 1293)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">45</tspan></text>
+  </g>
+  <circle cx="1207.19" cy="1924.23" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1180.49 1941.23)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">46</tspan></text>
+  </g>
+  <circle cx="891.13" cy="448.64" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(864.43 465.64)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">47</tspan></text>
+  </g>
+  <circle cx="73.43" cy="2392.1" r="55" fill="#cc2200" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(46.73 2409.1)" fill="#111111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">48</tspan></text>
+  </g>
+  <circle cx="1786" cy="2604" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1759.3 2621)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">49</tspan></text>
+  </g>
+  <circle cx="532.71" cy="2568.74" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(506.01 2585.74)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">50</tspan></text>
+  </g>
+  <circle cx="1505" cy="2100" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1478.3 2117)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">51</tspan></text>
+  </g>
+  <circle cx="1175" cy="3004" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1148.3 3021)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">52</tspan></text>
+  </g>
+  <circle cx="972.44" cy="3013.43" r="55" transform="translate(-2193.86 2982.89) rotate(-71.56)" fill="#fff" stroke="#444" stroke-miterlimit="4" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(945.72 3030.29)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">53</tspan></text>
+  </g>
+  <circle cx="911.32" cy="3071.94" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(884.62 3088.94)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">54</tspan></text>
+  </g>
+  <circle cx="1947.68" cy="2675.58" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1920.98 2692.58)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">55</tspan></text>
+  </g>
+  <circle cx="1200.22" cy="985.68" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1173.52 1002.68)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">56</tspan></text>
+  </g>
+  <circle cx="214.84" cy="2453.74" r="55" fill="#111111" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(188.14 2470.74)" fill="#ffffff" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">57</tspan></text>
+  </g>
+  <circle cx="935" cy="3265" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(908.3 3282)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">58</tspan></text>
+  </g>
+  <circle cx="1272.71" cy="2657.71" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1246.01 2674.71)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">59</tspan></text>
+  </g>
+  <circle cx="1082" cy="3004" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1055.3 3021)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">60</tspan></text>
+  </g>
+  <circle cx="1081.23" cy="248" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1054.53 265)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">61</tspan></text>
+  </g>
+  <circle cx="981.7" cy="976.53" r="55" transform="translate(-142.92 1784.35) rotate(-80.54)" fill="#fff" stroke="#444" stroke-miterlimit="4" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(955.01 993.55)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">62</tspan></text>
+  </g>
+  <circle cx="1286.16" cy="248" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(1259.46 265)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">63</tspan></text>
+  </g>
+  <circle cx="893.46" cy="248" r="55" fill="#fff" stroke="#444" stroke-width="8"/>
+  <g isolation="isolate">
+    <text transform="translate(866.76 265)" fill="#111" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="700" isolation="isolate"><tspan x="0" y="0">64</tspan></text>
+  </g>
+  <g isolation="isolate">
+    <g isolation="isolate">
+      <text transform="translate(992.5 1164.44)" fill="#222" font-family="Arial-BoldMT, Arial" font-size="60" font-weight="700" isolation="isolate" letter-spacing="-.05em"><tspan x="0" y="0">Г</tspan></text>
+      <text transform="translate(1023.53 1164.44)" fill="#222" font-family="Arial-BoldMT, Arial" font-size="60" font-weight="700" isolation="isolate"><tspan x="0" y="0">о</tspan></text>
+      <text transform="translate(1060.18 1164.44)" fill="#222" font-family="Arial-BoldMT, Arial" font-size="60" font-weight="700" isolation="isolate" letter-spacing="-.02em"><tspan x="0" y="0">р</tspan></text>
+      <text transform="translate(1095.33 1164.44)" fill="#222" font-family="Arial-BoldMT, Arial" font-size="60" font-weight="700" isolation="isolate" letter-spacing="0em"><tspan x="0" y="0">л</tspan></text>
+      <text transform="translate(1132.66 1164.44)" fill="#222" font-family="Arial-BoldMT, Arial" font-size="60" font-weight="700" isolation="isolate"><tspan x="0" y="0">о</tspan></text>
+    </g>
+  </g>
+  <g isolation="isolate">
+    <g isolation="isolate">
+      <text transform="translate(948.88 178.44)" fill="#222" font-family="Arial-BoldMT, Arial" font-size="60" font-weight="700" isolation="isolate" letter-spacing="-.05em"><tspan x="0" y="0">Т</tspan></text>
+      <text transform="translate(982.54 178.44)" fill="#222" font-family="Arial-BoldMT, Arial" font-size="60" font-weight="700" isolation="isolate" letter-spacing="0em"><tspan x="0" y="0">е</tspan></text>
+      <text transform="translate(1015.12 178.44)" fill="#222" font-family="Arial-BoldMT, Arial" font-size="60" font-weight="700" isolation="isolate"><tspan x="0" y="0">менной</tspan></text>
+    </g>
+  </g>
+  <path d="M871,1205" fill="none" stroke="#888" stroke-width="18"/>
+<defs><linearGradient id="grad_ch_34_20" x1="885.29" y1="2537.09" x2="891.68" y2="1186.74" gradientUnits="userSpaceOnUse"><stop offset="0%"   stop-color="#111111"/><stop offset="50%"  stop-color="#111111"/><stop offset="50%"  stop-color="#cc2200"/><stop offset="100%" stop-color="#cc2200"/></linearGradient><linearGradient id="grad_ch_57_20" x1="214.84" y1="2453.74" x2="891.68" y2="1186.74" gradientUnits="userSpaceOnUse"><stop offset="0%"   stop-color="#111111"/><stop offset="50%"  stop-color="#111111"/><stop offset="50%"  stop-color="#cc2200"/><stop offset="100%" stop-color="#cc2200"/></linearGradient><linearGradient id="grad_ch_57_10" x1="214.84" y1="2453.74" x2="860.97" y2="1813.84" gradientUnits="userSpaceOnUse"><stop offset="0%"   stop-color="#111111"/><stop offset="50%"  stop-color="#111111"/><stop offset="50%"  stop-color="#cc2200"/><stop offset="100%" stop-color="#cc2200"/></linearGradient></defs>
+<defs><linearGradient id="grad_ch_34_20" x1="885.29" y1="2537.09" x2="891.68" y2="1186.74" gradientUnits="userSpaceOnUse"><stop offset="0%"   stop-color="#111111"/><stop offset="50%"  stop-color="#111111"/><stop offset="50%"  stop-color="#cc2200"/><stop offset="100%" stop-color="#cc2200"/></linearGradient><linearGradient id="grad_ch_57_20" x1="214.84" y1="2453.74" x2="891.68" y2="1186.74" gradientUnits="userSpaceOnUse"><stop offset="0%"   stop-color="#111111"/><stop offset="50%"  stop-color="#111111"/><stop offset="50%"  stop-color="#cc2200"/><stop offset="100%" stop-color="#cc2200"/></linearGradient><linearGradient id="grad_ch_57_10" x1="214.84" y1="2453.74" x2="860.97" y2="1813.84" gradientUnits="userSpaceOnUse"><stop offset="0%"   stop-color="#111111"/><stop offset="50%"  stop-color="#111111"/><stop offset="50%"  stop-color="#cc2200"/><stop offset="100%" stop-color="#cc2200"/></linearGradient></defs>
+</svg>
