@@ -106,13 +106,8 @@ def kyiv_now():
     return datetime.datetime.now(KYIV_TZ)
 
 def should_send_now():
-    if os.getenv("GITHUB_EVENT_NAME") != "schedule":
-        return True
-    now = kyiv_now()
-    if now.hour == 7:
-        return True
-    print(f"Skipping scheduled run: Kyiv time is {now:%H:%M}, target is 07:00.")
-    return False
+    # Always send — GitHub Actions delay is unpredictable, no hour filtering
+    return True
 
 def build_message():
     local = kyiv_now()
