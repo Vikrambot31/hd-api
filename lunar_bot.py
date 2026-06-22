@@ -7,6 +7,8 @@ import os
 import time
 from zoneinfo import ZoneInfo
 
+STATE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "last_sent.txt")
+
 # ── Config ──────────────────────────────────────────────
 BOT_TOKEN  = os.getenv("BOT_TOKEN")
 CHAT_ID    = os.getenv("CHAT_ID")
@@ -104,6 +106,20 @@ RATING_LABEL = {
 # ── Build message ────────────────────────────────────────
 def kyiv_now():
     return datetime.datetime.now(KYIV_TZ)
+
+def already_sent_today():
+    """Return True if posts were already sent today (Kyiv date)."""
+    today = kyiv_now().strftime("%Y-%m-%d")
+    if os.path.exists(STATE_FILE):
+        with open(STATE_FILE, "r") as f:
+            return f.read().strip() == today
+    return False
+
+def mark_sent_today():
+    """Write today's Kyiv date to the state file."""
+    today = kyiv_now().strftime("%Y-%m-%d")
+    with open(STATE_FILE, "w") as f:
+        f.write(today)
 
 def should_send_now():
     # Always send — GitHub Actions delay is unpredictable, no hour filtering
@@ -315,6 +331,9 @@ def maybe_send_sign_change_photo():
 
 
 if __name__ == "__main__":
+    if already_sent_today():
+        print(f"⏭️  Посты уже отправлены сегодня ({kyiv_now().strftime('%Y-%m-%d')}) — пропускаем")
+        raise SystemExit(0)
     if not should_send_now():
         raise SystemExit(0)
     msg = build_message()
@@ -324,4 +343,6 @@ if __name__ == "__main__":
     send_message(msg)
     print("── Sign change check ──")
     maybe_send_sign_change_photo()
+    mark_sent_today()
+    print(f"✅ Дата отправки сохранена: {kyiv_now().strftime('%Y-%m-%d')}")
 
