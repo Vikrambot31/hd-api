@@ -5,6 +5,7 @@ import urllib.parse
 import json
 import os
 import time
+import subprocess
 from zoneinfo import ZoneInfo
 
 STATE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "last_sent.txt")
@@ -106,6 +107,25 @@ RATING_LABEL = {
 # ── Build message ────────────────────────────────────────
 def kyiv_now():
     return datetime.datetime.now(KYIV_TZ)
+
+def sync_state_from_remote():
+    """Fetch latest state from remote repo to avoid duplicate posts on concurrent runs."""
+    try:
+        subprocess.run(
+            ["git", "fetch", "origin", "main"],
+            cwd=os.path.dirname(os.path.abspath(__file__)),
+            capture_output=True,
+            timeout=10
+        )
+        # Refresh local copy of state file
+        subprocess.run(
+            ["git", "checkout", "origin/main", "last_sent.txt"],
+            cwd=os.path.dirname(os.path.abspath(__file__)),
+            capture_output=True,
+            timeout=10
+        )
+    except Exception as e:
+        print(f"⚠️ git sync failed (non-critical): {e}")
 
 def already_sent_today():
     """Return True if posts were already sent today (Kyiv date)."""
@@ -331,6 +351,7 @@ def maybe_send_sign_change_photo():
 
 
 if __name__ == "__main__":
+    sync_state_from_remote()
     if already_sent_today():
         print(f"⏭️  Посты уже отправлены сегодня ({kyiv_now().strftime('%Y-%m-%d')}) — пропускаем")
         raise SystemExit(0)
