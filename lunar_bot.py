@@ -8,7 +8,9 @@ import time
 import subprocess
 from zoneinfo import ZoneInfo
 
-STATE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "last_sent.txt")
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+STATE_FILE = os.path.join(SCRIPT_DIR, "last_sent.txt")
+LOCK_FILE = os.path.join(SCRIPT_DIR, "last_sent.lock")
 
 # ── Config ──────────────────────────────────────────────
 BOT_TOKEN  = os.getenv("BOT_TOKEN")
@@ -111,35 +113,102 @@ def kyiv_now():
 def sync_state_from_remote():
     """Fetch latest state from remote repo to avoid duplicate posts on concurrent runs."""
     try:
-        subprocess.run(
-            ["git", "fetch", "origin", "main"],
-            cwd=os.path.dirname(os.path.abspath(__file__)),
-            capture_output=True,
-            timeout=10
+        # Detect default branch name (main or master)
+        result = subprocess.run(
+            ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+            cwd=SCRIPT_DIR, capture_output=True, text=True, timeout=10
         )
-        # Refresh local copy of state file
-        subprocess.run(
-            ["git", "checkout", "origin/main", "last_sent.txt"],
-            cwd=os.path.dirname(os.path.abspath(__file__)),
-            capture_output=True,
-            timeout=10
+        branch = result.stdout.strip() if result.returncode == 0 else "main"
+        print(f"🔄 Syncing state from origin/{branch}")
+
+        fetch = subprocess.run(
+            ["git", "fetch", "origin", branch],
+            cwd=SCRIPT_DIR, capture_output=True, text=True, timeout=15
         )
+        if fetch.returncode != 0:
+            print(f"⚠️ git fetch failed: {fetch.stderr.strip()}")
+            return
+
+        checkout = subprocess.run(
+            ["git", "checkout", f"origin/{branch}", "--", "last_sent.txt"],
+            cwd=SCRIPT_DIR, capture_output=True, text=True, timeout=10
+        )
+        if checkout.returncode != 0:
+            print(f"⚠️ git checkout last_sent.txt failed: {checkout.stderr.strip()}")
     except Exception as e:
         print(f"⚠️ git sync failed (non-critical): {e}")
 
 def already_sent_today():
     """Return True if posts were already sent today (Kyiv date)."""
     today = kyiv_now().strftime("%Y-%m-%d")
+    # Check local state file
     if os.path.exists(STATE_FILE):
         with open(STATE_FILE, "r") as f:
-            return f.read().strip() == today
+            if f.read().strip() == today:
+                return True
+    # Check lock file (written before sending, survives even if git push fails)
+    if os.path.exists(LOCK_FILE):
+        with open(LOCK_FILE, "r") as f:
+            if f.read().strip() == today:
+                return True
     return False
+
+def acquire_send_lock():
+    """Write lock file BEFORE sending to prevent race condition.
+    If two runs start, the first one writes the lock. The second sees it and skips."""
+    today = kyiv_now().strftime("%Y-%m-%d")
+    if os.path.exists(LOCK_FILE):
+        with open(LOCK_FILE, "r") as f:
+            if f.read().strip() == today:
+                return False  # Already locked by another run
+    with open(LOCK_FILE, "w") as f:
+        f.write(today)
+    return True
 
 def mark_sent_today():
     """Write today's Kyiv date to the state file."""
     today = kyiv_now().strftime("%Y-%m-%d")
     with open(STATE_FILE, "w") as f:
         f.write(today)
+    # Also update lock file
+    with open(LOCK_FILE, "w") as f:
+        f.write(today)
+
+def commit_and_push_state():
+    """Commit and push state files immediately after sending."""
+    try:
+        subprocess.run(
+            ["git", "add", "last_sent.txt", "last_sent.lock"],
+            cwd=SCRIPT_DIR, capture_output=True, timeout=10
+        )
+        diff = subprocess.run(
+            ["git", "diff", "--staged", "--quiet"],
+            cwd=SCRIPT_DIR, capture_output=True, timeout=10
+        )
+        if diff.returncode != 0:  # There are staged changes
+            subprocess.run(
+                ["git", "config", "user.name", "lunar-bot"],
+                cwd=SCRIPT_DIR, capture_output=True, timeout=5
+            )
+            subprocess.run(
+                ["git", "config", "user.email", "bot@users.noreply.github.com"],
+                cwd=SCRIPT_DIR, capture_output=True, timeout=5
+            )
+            today = kyiv_now().strftime("%Y-%m-%d")
+            subprocess.run(
+                ["git", "commit", "-m", f"chore: lunar post sent {today}"],
+                cwd=SCRIPT_DIR, capture_output=True, timeout=10
+            )
+            push = subprocess.run(
+                ["git", "push"],
+                cwd=SCRIPT_DIR, capture_output=True, text=True, timeout=15
+            )
+            if push.returncode == 0:
+                print("✅ State pushed to remote")
+            else:
+                print(f"⚠️ git push failed: {push.stderr.strip()}")
+    except Exception as e:
+        print(f"⚠️ commit_and_push_state failed: {e}")
 
 def should_send_now():
     # Always send — GitHub Actions delay is unpredictable, no hour filtering
@@ -357,6 +426,10 @@ if __name__ == "__main__":
         raise SystemExit(0)
     if not should_send_now():
         raise SystemExit(0)
+    # Acquire lock BEFORE sending — prevents race between concurrent runs
+    if not acquire_send_lock():
+        print(f"🔒 Lock уже установлен на {kyiv_now().strftime('%Y-%m-%d')} — другой запуск уже отправляет")
+        raise SystemExit(0)
     msg = build_message()
     print("── Message preview ──")
     print(msg)
@@ -365,5 +438,7 @@ if __name__ == "__main__":
     print("── Sign change check ──")
     maybe_send_sign_change_photo()
     mark_sent_today()
+    # Push state to remote IMMEDIATELY — so next run sees it even if workflow step fails
+    commit_and_push_state()
     print(f"✅ Дата отправки сохранена: {kyiv_now().strftime('%Y-%m-%d')}")
 

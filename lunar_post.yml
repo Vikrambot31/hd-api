@@ -7,6 +7,13 @@ on:
 
   workflow_dispatch:
 
+permissions:
+  contents: write
+
+concurrency:
+  group: lunar-daily-post
+  cancel-in-progress: false
+
 jobs:
   send-lunar-post:
     runs-on: ubuntu-latest
@@ -14,25 +21,59 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get today's date (Kyiv timezone)
+        id: date
+        run: echo "today=$(TZ='Europe/Kyiv' date +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+
+      - name: Check cache for today's post
+        id: cache-check
+        uses: actions/cache/restore@v4
+        with:
+          key: lunar-post-${{ steps.date.outputs.today }}
+          path: .sent-marker
+          lookup-only: true
+
+      - name: Skip if already sent (cache hit)
+        if: steps.cache-check.outputs.cache-hit == 'true'
+        run: |
+          echo "⏭️ Post already sent today (${{ steps.date.outputs.today }}) — cache hit, skipping"
 
       - name: Set up Python
+        if: steps.cache-check.outputs.cache-hit != 'true'
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
       - name: Install dependencies
+        if: steps.cache-check.outputs.cache-hit != 'true'
         run: pip install pyswisseph
 
       - name: Send daily lunar post to Telegram
+        if: steps.cache-check.outputs.cache-hit != 'true'
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
         run: python lunar_bot.py
 
-      - name: Save sent-date state to repo
+      - name: Save dedup marker to cache
+        if: steps.cache-check.outputs.cache-hit != 'true'
+        run: echo "sent" > .sent-marker
+
+      - name: Upload cache marker
+        if: steps.cache-check.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          key: lunar-post-${{ steps.date.outputs.today }}
+          path: .sent-marker
+
+      - name: Push state to repo (backup)
+        if: steps.cache-check.outputs.cache-hit != 'true'
         run: |
           git config user.name "lunar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add last_sent.txt
-          git diff --staged --quiet || git commit -m "chore: lunar post sent $(date -u +%Y-%m-%d)"
-          git push
+          git add last_sent.txt last_sent.lock || true
+          git diff --staged --quiet || git commit -m "chore: lunar post sent ${{ steps.date.outputs.today }}"
+          git push || echo "⚠️ git push failed (state already pushed by script)"
