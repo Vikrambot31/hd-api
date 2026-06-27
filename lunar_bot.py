@@ -11,6 +11,7 @@ from zoneinfo import ZoneInfo
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATE_FILE = os.path.join(SCRIPT_DIR, "last_sent.txt")
 LOCK_FILE = os.path.join(SCRIPT_DIR, "last_sent.lock")
+ZODIAC_STATE_FILE = os.path.join(SCRIPT_DIR, "last_zodiac.txt")
 
 # ── Config ──────────────────────────────────────────────
 BOT_TOKEN  = os.getenv("BOT_TOKEN")
@@ -130,11 +131,11 @@ def sync_state_from_remote():
             return
 
         checkout = subprocess.run(
-            ["git", "checkout", f"origin/{branch}", "--", "last_sent.txt"],
+            ["git", "checkout", f"origin/{branch}", "--", "last_sent.txt", "last_zodiac.txt"],
             cwd=SCRIPT_DIR, capture_output=True, text=True, timeout=10
         )
         if checkout.returncode != 0:
-            print(f"⚠️ git checkout last_sent.txt failed: {checkout.stderr.strip()}")
+            print(f"⚠️ git checkout state files failed: {checkout.stderr.strip()}")
     except Exception as e:
         print(f"⚠️ git sync failed (non-critical): {e}")
 
@@ -178,7 +179,7 @@ def commit_and_push_state():
     """Commit and push state files immediately after sending."""
     try:
         subprocess.run(
-            ["git", "add", "last_sent.txt", "last_sent.lock"],
+            ["git", "add", "last_sent.txt", "last_sent.lock", "last_zodiac.txt"],
             cwd=SCRIPT_DIR, capture_output=True, timeout=10
         )
         diff = subprocess.run(
@@ -385,8 +386,23 @@ def send_photo(photo_path, caption, retries=3):
                 raise
             time.sleep(2 ** attempt)
 
-def send_daily_zodiac_photo():
-    """Always send current Moon zodiac sign photo with the daily post."""
+def _get_last_sent_zodiac():
+    """Read the zodiac index that was last sent as a photo. Returns int or None."""
+    if os.path.exists(ZODIAC_STATE_FILE):
+        with open(ZODIAC_STATE_FILE, "r") as f:
+            val = f.read().strip()
+            if val.isdigit():
+                return int(val)
+    return None
+
+def _save_last_sent_zodiac(idx):
+    """Save the zodiac index after sending the photo."""
+    with open(ZODIAC_STATE_FILE, "w") as f:
+        f.write(str(idx))
+
+def maybe_send_sign_change_photo():
+    """Send zodiac photo ONLY when the Moon sign changed since last sent photo.
+    Uses last_zodiac.txt to track — survives failed runs and multi-day gaps."""
     local = kyiv_now()
     utc_offset = int(local.utcoffset().total_seconds() // 3600)
     noon_utc = datetime.datetime(
@@ -395,6 +411,11 @@ def send_daily_zodiac_photo():
         tzinfo=datetime.timezone.utc
     )
     idx = _moon_zodiac_index(noon_utc)
+    last_idx = _get_last_sent_zodiac()
+
+    if last_idx == idx:
+        print(f"🔄 Знак Луны ({ZODIAC_NAMES[idx]}) не менялся с последней отправки — фото не отправляем")
+        return
 
     sign_uk = ZODIAC_NAMES_UK[idx]
     photo_file = ZODIAC_FILES[idx]
@@ -405,25 +426,24 @@ def send_daily_zodiac_photo():
         print(f"⚠️ Фото не найдено: {photo_path}")
         return
 
-    # Check if sign changed today — add entry time if so
-    idx_yesterday = _moon_zodiac_index(noon_utc - datetime.timedelta(days=1))
+    # Try to find entry time
+    search_end = noon_utc + datetime.timedelta(hours=12)
+    entry_utc = _find_sign_entry_time(idx, search_end)
     time_line = ""
-    if idx != idx_yesterday:
-        search_end = noon_utc + datetime.timedelta(hours=12)
-        entry_utc = _find_sign_entry_time(idx, search_end)
-        if entry_utc is not None:
-            entry_kyiv = entry_utc + datetime.timedelta(hours=3)
-            time_str = entry_kyiv.strftime("%H:%M")
-            time_line = f"\n⏰ Час входу в знак {sign_uk}: *{time_str}* (Київ)\n"
-            print(f"🕐 Сегодня смена знака! Вход: {time_str} Киев")
+    if entry_utc is not None:
+        entry_kyiv = entry_utc + datetime.timedelta(hours=3)
+        time_str = entry_kyiv.strftime("%H:%M")
+        time_line = f"\n⏰ Час входу в знак {sign_uk}: *{time_str}* (Київ)\n"
+        print(f"🕐 Вход в знак: {time_str} Киев")
 
     caption = (
-        f"{ZODIAC_ICONS[idx]} *Місяць у знаку {sign_uk}*"
+        f"{ZODIAC_ICONS[idx]} *Місяць перейшов у знак {sign_uk}*"
         f"{time_line}\n"
         f"Якщо не справляєтесь з емоціями — [пишіть Викраму](https://t.me/Vikram_2027) 💬"
     )
-    print(f"📸 Луна в {ZODIAC_NAMES[idx]}. Отправляю фото...")
+    print(f"📸 Смена знака! Луна → {ZODIAC_NAMES[idx]} (было: {ZODIAC_NAMES[last_idx] if last_idx is not None else '?'}). Отправляю фото...")
     send_photo(photo_path, caption)
+    _save_last_sent_zodiac(idx)
 
 
 if __name__ == "__main__":
@@ -442,8 +462,8 @@ if __name__ == "__main__":
     print(msg)
     print("── Sending ──")
     send_message(msg)
-    print("── Zodiac photo ──")
-    send_daily_zodiac_photo()
+    print("── Sign change check ──")
+    maybe_send_sign_change_photo()
     mark_sent_today()
     # Push state to remote IMMEDIATELY — so next run sees it even if workflow step fails
     commit_and_push_state()
